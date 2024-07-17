@@ -14,9 +14,10 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
-    quotes: ["error", "single"],
+    quotes: ["error", "double"],
     semi: ["error", "always"],
     "no-unused-vars": "off",
     indent: ["error", 2],
+    "no-console": "warn",
   },
 };

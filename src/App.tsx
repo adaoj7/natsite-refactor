@@ -19,7 +19,13 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <Button name="hello" state={count} setState={setCount} color="blue" />
+        <Button
+          name="hello"
+          state={count}
+          setState={setCount}
+          size="small"
+          color="green"
+        />
         <p className="text-blue-500">
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
