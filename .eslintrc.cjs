@@ -14,11 +14,11 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
-    quotes: ["error", "double"],
     semi: ["error", "always"],
-    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
     indent: ["error", 2],
     "no-console": "warn",
+    "no-debugger": "warn",
     "@typescript-eslint/no-explicit-any": "off",
   },
 };

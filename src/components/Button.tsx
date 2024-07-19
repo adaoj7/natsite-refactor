@@ -32,8 +32,6 @@ const Button = ({
     red: "bg-red-500 hover:bg-red-700 active:bg-red-800",
   };
 
-  console.log("button size", buttonSizes[size]);
-
   return (
     <button
       onClick={handleClick}

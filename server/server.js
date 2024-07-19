@@ -21,6 +21,8 @@ app.use(
   })
 );
 
+// Endpoints created here. At the moment I don't have any so I don't need to set this up. I think I will build out the site pagination and then come back to this.
+
 ViteExpress.listen(app, PORT, () =>
   console.log(`what is the answer? http://localhost:${PORT}`)
 );
