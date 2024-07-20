@@ -2,6 +2,7 @@
 
 export default function ErrorPage() {
   const error: any = useRouteError();
+  // eslint-disable-next-line no-console
   console.error(error);
 
   return (

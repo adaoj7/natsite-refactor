@@ -16,7 +16,6 @@ module.exports = {
     ],
     semi: ["error", "always"],
     "@typescript-eslint/no-unused-vars": "off",
-    indent: ["error", 2],
     "no-console": "warn",
     "no-debugger": "warn",
     "@typescript-eslint/no-explicit-any": "off",
