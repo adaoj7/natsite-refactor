@@ -1,31 +1,31 @@
 ﻿import clsx from "clsx";
 
 type HeroProps = {
-  size: "small" | "medium" | "large";
-  phone: "phone" | "desktop";
+  //   size: "small" | "medium" | "large";
+  phone?: "phone" | "desktop";
   image: string;
   logo?: string;
   className?: string;
 };
 
 export default function HeroImage({
-  size,
+  //   size,
   phone,
   image,
   logo,
   className,
 }: HeroProps) {
-  const imageSize = {
-    small: "w-24 h-10",
-    medium: "w-32 h-14",
-    large: "w-40 h-16",
-  };
+  //   const imageSize = {
+  //     small: "w-24 h-10",
+  //     medium: "w-32 h-14",
+  //     large: "w-40 h-16",
+  //   };
 
   // I am not sure this is the right solution because I still need the image to be hidden depending on the screen size
 
   return (
     <div>
-      <div className={clsx(imageSize[size], "top-0 flex relative", className)}>
+      <div className={clsx("top-0 flex relative", className)}>
         {phone === "phone" ? (
           <img src={image} alt="phoneHero" className="h-full" />
         ) : (

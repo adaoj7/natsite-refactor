@@ -14,7 +14,6 @@ module.exports = {
       "warn",
       { allowConstantExport: true },
     ],
-    semi: ["error", "always"],
     "@typescript-eslint/no-unused-vars": "off",
     "no-console": "warn",
     "no-debugger": "warn",

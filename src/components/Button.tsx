@@ -3,23 +3,10 @@
 type ButtonProps = {
   name: string;
   size?: "small" | "medium" | "large";
-  color: "blue" | "green" | "red";
-  state: any;
-  setState: any;
+  color: "blue" | "green" | "red" | "yellow" | "neutral";
 };
 
-const Button = ({
-  name,
-  size = "medium",
-  color,
-  state,
-  setState,
-}: ButtonProps) => {
-  // probably will remove state from button because forms are often the ones that need state
-  const handleClick = () => {
-    setState(state + 1);
-  };
-
+const Button = ({ name, size = "medium", color }: ButtonProps) => {
   const buttonSizes = {
     small: "w-24 h-10",
     medium: "w-32 h-14",
@@ -30,11 +17,12 @@ const Button = ({
     blue: "bg-blue-500 hover:bg-blue-700 active:bg-blue-800",
     green: "bg-green-500 hover:bg-green-700 active:bg-green-800",
     red: "bg-red-500 hover:bg-red-700 active:bg-red-800",
+    yellow: "bg-yellow-500 hover:bg-yellow-700 active:bg-yellow-800",
+    neutral: "bg-gray-500 hover:bg-gray-700 active:bg-gray-800",
   };
 
   return (
     <button
-      onClick={handleClick}
       className={clsx(
         buttonSizes[size],
         buttonColors[color],
@@ -42,7 +30,6 @@ const Button = ({
       )}
     >
       <div>{name.toUpperCase()}</div>
-      {state}
     </button>
   );
 };
