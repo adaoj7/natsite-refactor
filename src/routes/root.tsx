@@ -1,4 +1,4 @@
-﻿import { Outlet, Link } from "react-router-dom";
+﻿import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 const routes = [
@@ -6,6 +6,7 @@ const routes = [
   ["/about", "About"],
   [
     "menu",
+    ["/getInvolved", "Get Involved"],
     [
       ["/setup", "Setup"],
       ["/host", "Host"],
@@ -13,11 +14,10 @@ const routes = [
       ["/donate", "Donate"],
     ],
   ],
-  ["/fourthRoute", "Fourth Route"],
-  ["/fifthRoute", "Fifth Route"],
-  ["/sixthRoute", "Sixth Route"],
-  ["/seventhRoute", "Seventh Route"],
-  ["/eighthRoute", "Eighth Route"],
+  ["/thisYear", "This Year"],
+  ["/gallery", "Fifth Route"],
+  ["/lightTheWorld", "Light the World"],
+  ["/contact", "Contact"],
 ];
 
 export default function Root() {

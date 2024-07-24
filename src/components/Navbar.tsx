@@ -2,7 +2,6 @@
 // do I want more granular control over the routes?
 // the reason I question is because I have the nested routes, but I probably can nest them in the structure that I pass in
 
-import React from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, MenuItem, MenuButton, MenuItems } from "@headlessui/react";
 
@@ -14,7 +13,8 @@ type MenuItem = Array<string>;
 export default function Navbar({ routes }: NavbarProps) {
   const allRoutes = routes.map((route) => {
     if (route[0] === "menu") {
-      const menu = route[1];
+      const menuName = route[1];
+      const menu = route[2];
       const menuReturn = menu.map((menuItem: MenuItem) => {
         return (
           <MenuItem key={menuItem[0]}>
@@ -25,6 +25,9 @@ export default function Navbar({ routes }: NavbarProps) {
 
       return (
         <Menu as="div" key={route[0]}>
+          <MenuButton as="a" href={menuName[0]}>
+            {menuName[1]}
+          </MenuButton>
           <MenuItems>{menuReturn}</MenuItems>
         </Menu>
       );
