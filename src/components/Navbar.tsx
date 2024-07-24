@@ -4,7 +4,7 @@
 
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, MenuItem } from "@headlessui/react";
+import { Menu, MenuItem, MenuButton, MenuItems } from "@headlessui/react";
 
 type NavbarProps = {
   routes: Array<string> | Array<Array<string>>;
@@ -15,7 +15,19 @@ export default function Navbar({ routes }: NavbarProps) {
   const allRoutes = routes.map((route) => {
     if (route[0] === "menu") {
       const menu = route[1];
-      menu.map((menuItem: MenuItem) => {});
+      const menuReturn = menu.map((menuItem: MenuItem) => {
+        return (
+          <MenuItem key={menuItem[0]}>
+            <NavLink to={menuItem[0]}>{menuItem[1]}</NavLink>
+          </MenuItem>
+        );
+      });
+
+      return (
+        <Menu as="div" key={route[0]}>
+          <MenuItems>{menuReturn}</MenuItems>
+        </Menu>
+      );
     }
     return (
       <li>
