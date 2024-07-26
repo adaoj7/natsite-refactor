@@ -33,18 +33,18 @@ export default function Navbar({ routes }: NavbarProps) {
       );
     }
     return (
-      <li>
+      <>
         <NavLink to={route[0]} key={route[0]}>
           {route[1]}
         </NavLink>
-      </li>
+      </>
     );
   });
 
   return (
     <div>
-      <header>
-        <ul>{allRoutes}</ul>
+      <header className="sticky z-10 flex w-full">
+        <nav className="fixed">{allRoutes}</nav>
       </header>
     </div>
   );
