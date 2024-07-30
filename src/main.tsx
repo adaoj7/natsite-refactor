@@ -32,7 +32,6 @@ const router = createBrowserRouter([
       },
       {
         path: "/getInvolved",
-        element: <div>Get Involved</div>,
         children: [
           {
             path: "/getInvolved/setup",

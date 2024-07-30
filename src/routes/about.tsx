@@ -1,5 +1,11 @@
 ﻿import React from "react";
+import Spacer from "../components/Spacer";
 
 export default function About() {
-  return <div>about</div>;
+  return (
+    <>
+      <Spacer />
+      <div>about</div>
+    </>
+  );
 }

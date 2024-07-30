@@ -1,5 +1,11 @@
 ﻿import React from "react";
+import Spacer from "../components/Spacer";
 
 export default function Contact() {
-  return <div>C</div>;
+  return (
+    <>
+      <Spacer />
+      <div>C</div>
+    </>
+  );
 }

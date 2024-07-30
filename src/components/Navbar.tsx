@@ -1,6 +1,4 @@
 ﻿// recieves an array of routes and renders a navbar with links to each route
-// do I want more granular control over the routes?
-// the reason I question is because I have the nested routes, but I probably can nest them in the structure that I pass in
 
 import { NavLink } from "react-router-dom";
 import { Menu, MenuItem, MenuButton, MenuItems } from "@headlessui/react";

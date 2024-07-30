@@ -1,5 +1,11 @@
 ﻿import React from "react";
+import Spacer from "../components/Spacer";
 
 export default function Gallery() {
-  return <div>G</div>;
+  return (
+    <>
+      <Spacer />
+      <div>G</div>;
+    </>
+  );
 }
