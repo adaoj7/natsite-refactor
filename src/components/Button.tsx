@@ -3,7 +3,7 @@
 type ButtonProps = {
   name: string;
   size?: "small" | "medium" | "large";
-  color: "blue" | "green" | "red" | "yellow" | "neutral";
+  color:  "neutral";
 };
 
 const Button = ({ name, size = "medium", color }: ButtonProps) => {
@@ -14,10 +14,6 @@ const Button = ({ name, size = "medium", color }: ButtonProps) => {
   };
 
   const buttonColors = {
-    blue: "bg-blue-500 hover:bg-blue-700 active:bg-blue-800",
-    green: "bg-green-500 hover:bg-green-700 active:bg-green-800",
-    red: "bg-red-500 hover:bg-red-700 active:bg-red-800",
-    yellow: "bg-yellow-500 hover:bg-yellow-700 active:bg-yellow-800",
     neutral: "bg-gray-500 hover:bg-gray-700 active:bg-gray-800",
   };
 
@@ -29,7 +25,7 @@ const Button = ({ name, size = "medium", color }: ButtonProps) => {
         "btn h-10 w-16 text-white"
       )}
     >
-      <div>{name.toUpperCase()}</div>
+      <div>{name}</div>
     </button>
   );
 };
