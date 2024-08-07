@@ -26,7 +26,7 @@ export default function Navbar({ routes }: NavbarProps) {
           <MenuButton as="a" href={menuName[0]}>
             {menuName[1]}
           </MenuButton>
-          <MenuItems>{menuReturn}</MenuItems>
+          <MenuItems className={"flex flex-col"}>{menuReturn}</MenuItems>
         </Menu>
       );
     }
@@ -41,8 +41,8 @@ export default function Navbar({ routes }: NavbarProps) {
 
   return (
     <div>
-      <header className="sticky z-10 flex w-full">
-        <nav className="fixed">{allRoutes}</nav>
+      <header className="sticky z-10 flex flex-row w-full h-24 bg-slate-600 items-center">
+        <nav className="flex flex-row fixed">{allRoutes}</nav>
       </header>
     </div>
   );
