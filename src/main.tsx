@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import App from "./App.tsx";
-import Root from "./routes/root.tsx";
+import Root from "./root.tsx";
 import Home from "./routes/home.tsx";
 import About from "./routes/about.tsx";
 import Setup from "./routes/get-involved-routes/setup.tsx";
@@ -15,10 +15,10 @@ import LightTheWorld from "./routes/light-the-world.tsx";
 import Contact from "./routes/contact.tsx";
 import ErrorPage from "./error-page.tsx";
 import "./index.css";
+import GetInvolved from "./routes/get-involved.tsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
@@ -32,6 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/getInvolved",
+        element: <GetInvolved />,
         children: [
           {
             path: "/getInvolved/setup",

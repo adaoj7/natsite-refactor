@@ -1,7 +1,4 @@
-﻿import { Outlet } from "react-router-dom";
-import Navbar from "../components/Navbar";
-
-const routes = [
+﻿export const routes = [
   ["/", "Home Page"],
   ["/about", "About"],
   [
@@ -15,16 +12,7 @@ const routes = [
     ],
   ],
   ["/thisYear", "This Year"],
-  ["/gallery", "Fifth Route"],
+  ["/gallery", "Gallery"],
   ["/lightTheWorld", "Light the World"],
   ["/contact", "Contact"],
 ];
-
-export default function Root() {
-  return (
-    <div id="navbar">
-      <Navbar routes={routes} />
-      <Outlet />
-    </div>
-  );
-}
