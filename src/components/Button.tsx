@@ -3,10 +3,11 @@
 type ButtonProps = {
   name: string;
   size?: "small" | "medium" | "large";
-  color:  "neutral";
+  color?: "neutral";
+  type: "submit" | "button";
 };
 
-const Button = ({ name, size = "medium", color }: ButtonProps) => {
+const Button = ({ name, size = "medium", color = "neutral" }: ButtonProps) => {
   const buttonSizes = {
     small: "w-24 h-10",
     medium: "w-32 h-14",

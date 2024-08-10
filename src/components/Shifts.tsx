@@ -1,28 +1,50 @@
 ﻿import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import Button from "./Button";
+import axios from "axios";
 interface Shift {
   shiftType: "setup" | "host";
 }
+interface Day {
+  date: string;
+  shifts: Shift[];
+}
+
+interface Shift {
+  day: Day;
+  time: string;
+  timeRange: string;
+  shiftId: number;
+}
 
 export default function Shifts({ shiftType }: Shift) {
-  const { isLoading, error, data } = useQuery({
+  const { isPending, error, data } = useQuery({
     queryKey: ["shifts"],
     queryFn: async () => {
       const response = await fetch(`/api/${shiftType}`);
       return await response.json();
     },
   });
-  if (isLoading) return <p>Loading...</p>;
+  // Build this once I have logins working
+  const mutation = useMutation({
+    mutationFn: () => {
+      return axios.post(`/api/${shiftType}`, { data });
+    },
+  });
+
+  if (isPending) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
+
   return (
-    <>
+    <div className="flex ">
       <Formik
         initialValues={{ checked: [] }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           console.log(values);
+          setSubmitting(false);
+          resetForm({ checked: [] });
         }}
       >
         {({ errors, handleSubmit }) => (
@@ -30,15 +52,15 @@ export default function Shifts({ shiftType }: Shift) {
             <ul role="group" aria-labelledby="checkbox-group">
               <Dates days={data} />
             </ul>
-            <Button name="Submit" />
+            <Button name="Submit" type="submit" />
           </Form>
         )}
       </Formik>
-    </>
+    </div>
   );
 }
 
-function Dates({ days }) {
+function Dates({ days }: { days: Day[] }) {
   return (
     <>
       {days.map((day) => {
@@ -53,7 +75,7 @@ function Dates({ days }) {
   );
 }
 
-function Shift({ day }) {
+function Shift({ day }: { day: Day }) {
   return (
     <>
       {day.shifts.map((shift) => {
