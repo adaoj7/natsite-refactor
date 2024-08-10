@@ -4,7 +4,7 @@ import { routes } from "./data/routes";
 
 export default function Root() {
   return (
-    <div id="navbar">
+    <div className="h-screen">
       <Navbar routes={routes} />
       <Outlet />
     </div>

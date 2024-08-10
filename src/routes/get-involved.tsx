@@ -32,8 +32,10 @@ export default function GetInvolved() {
   return (
     <>
       <Spacer />
-      <Flex>
-        <div className="flex flex-col">{getInvolvedRoutes}</div>;
+      <Flex className="h-[calc(100%-6rem)]">
+        <div className="flex flex-col gap-4 border-r-2 border-gray-400 h-full px-4">
+          {getInvolvedRoutes}
+        </div>
         <Outlet />
       </Flex>
     </>

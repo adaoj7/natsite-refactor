@@ -18,11 +18,11 @@ export default function Navbar({ routes }: NavbarProps) {
   function scrollStyling(location: any) {
     if (location.pathname === "/") {
       if (isScrolled) {
-        return "justify-between bg-green-600";
+        return "justify-between bg-green-900";
       }
       return "bg-transparent";
     }
-    return "justify-between bg-green-600";
+    return "justify-between bg-green-900";
   }
 
   const allRoutes = routes.map((route) => {
@@ -95,7 +95,7 @@ export default function Navbar({ routes }: NavbarProps) {
 
   return (
     <div>
-      <header className="sticky z-10 flex flex-row w-full">
+      <header className="sticky z-10 flex flex-row w-full" id="navbar">
         <nav
           className={clsx(
             scrollStyling(location),
