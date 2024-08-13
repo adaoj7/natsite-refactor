@@ -4,3 +4,5 @@ This Readme will be updated as the refactor progresses
 I have implemented the surveys in about 70% of functionality, but I need to implement Auth0 to be able to finish them.
 Routing is also finished with the need for designs and things.
 I have created a new email to handle authentication control as well as stripe and whatever other things that I need to implement.
+
+This will be behind the repo @ https://github.com/Peoria-Community-Festival-of-Nativites/natsite-refactor because it was forked. They should merge occasionally, but this is not priority. For more updated repo check out the link
