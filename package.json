@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server/server.js -w server/server.js -w src",
     "tailwind": "npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && npm run tailwind",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest",
