@@ -4,7 +4,7 @@ import Shifts from "../../components/Shifts";
 export default function Host() {
   return (
     <>
-      <Spacer />
+      <Spacer />\
       <Shifts shiftType="host" />
     </>
   );

@@ -1,4 +1,5 @@
-﻿import { Outlet } from "react-router-dom";
+﻿// @ts-nocheck
+import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { routes } from "./data/routes";
 

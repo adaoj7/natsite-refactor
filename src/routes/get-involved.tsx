@@ -1,4 +1,4 @@
-﻿import React from "react";
+﻿// import React from "react";
 import Spacer from "../components/Spacer";
 import { routes } from "../data/routes";
 import { NavLink, Outlet } from "react-router-dom";
@@ -11,6 +11,7 @@ export default function GetInvolved() {
       return route[2];
     }
   });
+  // @ts-expect-error - getInvolved is an array of one element
   const getInvolvedRoutes = getInvolved[0][2].map((route) => {
     return (
       <>

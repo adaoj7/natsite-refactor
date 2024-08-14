@@ -1,4 +1,4 @@
-﻿import React from "react";
+﻿// import React from "react";
 import Spacer from "../components/Spacer";
 
 export default function About() {

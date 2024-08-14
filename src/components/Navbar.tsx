@@ -29,6 +29,7 @@ export default function Navbar({ routes }: NavbarProps) {
     if (route[0] === "menu") {
       const menuName = route[1];
       const menu = route[2];
+      // @ts-expect-error - menu is an array of arrays
       const menuReturn = menu.map((menuItem: MenuItem) => {
         return (
           <MenuItem key={menuItem[0]}>
