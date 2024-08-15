@@ -68,7 +68,7 @@ function Dates({ days }: { days: Day[] }) {
       {days.map((day) => {
         return (
           <>
-            <h2>{day.date}</h2>
+            <h2 className="text-black">{day.date}</h2>
             <Shift day={day} />
           </>
         );
@@ -85,7 +85,7 @@ function Shift({ day }: { day: Day }) {
           <>
             <h3>{shift.time}</h3>
             <input type="hidden" />
-            <label>
+            <label className="text-black">
               <Field
                 type="checkbox"
                 name="checked"

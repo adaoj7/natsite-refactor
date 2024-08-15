@@ -13,10 +13,10 @@ export default function Card({
 }: CardProps) {
   if (textSide === "left") {
     return (
-      <div className="card card-side bg-gray-500 flex flex-row m-8">
+      <div className="card card-side bg-secondary flex flex-row m-8">
         <div className="card-body w-full">
-          <h2 className="card-title flex justify-center">{title}</h2>
-          <p className="flex items-center">{content}</p>
+          <h2 className="card-title flex justify-center text-black">{title}</h2>
+          <p className="flex items-center text-black">{content}</p>
         </div>
         <figure className="p-8">
           <img src={image} />
@@ -26,15 +26,15 @@ export default function Card({
   }
 
   return (
-    <div className="card card-side bg-gray-500 flex flex-row m-8">
+    <div className="card card-side bg-secondary flex flex-row m-8">
       {" "}
       <figure className="p-8">
         <img src={image} />
       </figure>
       <div className="card-body w-full">
-        <h2 className="card-title flex justify-center">{title}</h2>
+        <h2 className="card-title flex justify-center text-black">{title}</h2>
         <div className="mt-4">
-          <p className="my-4">{content}</p>
+          <p className="my-4 text-black">{content}</p>
         </div>
       </div>
     </div>

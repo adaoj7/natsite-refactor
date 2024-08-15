@@ -1,10 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  redirect,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import App from "./App.tsx";
 import Root from "./root.tsx";
 import Home from "./routes/home.tsx";
@@ -22,10 +18,6 @@ import "./index.css";
 import GetInvolved from "./routes/get-involved.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Auth0Provider } from "@auth0/auth0-react";
-
-const auth0config = {
-  redirectUri: "http://localhost:4242",
-};
 
 const queryClient = new QueryClient();
 
@@ -45,7 +37,6 @@ const router = createBrowserRouter([
       {
         path: "/getInvolved",
         element: <GetInvolved />,
-        loader: () => import("./routes/get-involved.tsx"),
         children: [
           {
             path: "/getInvolved/setup",

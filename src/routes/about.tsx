@@ -5,7 +5,7 @@ export default function About() {
   return (
     <>
       <Spacer />
-      <div>about</div>
+      <div className="">about</div>
     </>
   );
 }

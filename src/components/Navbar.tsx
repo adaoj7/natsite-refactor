@@ -5,8 +5,6 @@ import { Menu, MenuItem, MenuButton, MenuItems } from "@headlessui/react";
 import useScrollPosition from "../hooks/useScrollPosition";
 import clsx from "clsx";
 import { useAuth0 } from "@auth0/auth0-react";
-import Login from "./Login";
-import Logout from "./Logout";
 import Auth from "./Auth";
 
 type NavbarProps = {
@@ -22,11 +20,11 @@ export default function Navbar({ routes }: NavbarProps) {
   function scrollStyling(location: any) {
     if (location.pathname === "/") {
       if (isScrolled) {
-        return "justify-between bg-green-900";
+        return "justify-between bg-primary";
       }
       return "bg-transparent";
     }
-    return "justify-between bg-green-900";
+    return "justify-between bg-primary";
   }
 
   const allRoutes = routes.map((route) => {
@@ -73,7 +71,7 @@ export default function Navbar({ routes }: NavbarProps) {
           </MenuButton>
           <MenuItems
             className={
-              "absolute right-0 mt-8 w-32 origin-top-right rounded-xl ring-opacity-50 focus:outline-none"
+              "bg-secondary flex flex-col absolute right-0 top-12 w-32 origin-top-right border-primary border-2 rounded-xl ring-opacity-50 focus:outline-none"
             }
           >
             {menuReturn}
@@ -99,11 +97,10 @@ export default function Navbar({ routes }: NavbarProps) {
     );
   });
 
-  const { user, isAuthenticated } = useAuth0();
-  console.log(user);
+  const { isAuthenticated } = useAuth0();
 
   return (
-    <div>
+    <>
       <header className="sticky z-10 flex flex-row w-full" id="navbar">
         <nav
           className={clsx(
@@ -117,6 +114,6 @@ export default function Navbar({ routes }: NavbarProps) {
           </div>
         </nav>
       </header>
-    </div>
+    </>
   );
 }

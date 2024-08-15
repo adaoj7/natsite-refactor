@@ -6,6 +6,7 @@ export default function home() {
   return (
     <>
       <HeroImage image={DesktopBackground} logo={Logo} />
+      <div>Content</div>
     </>
   );
 }
