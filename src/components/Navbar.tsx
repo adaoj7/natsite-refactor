@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { useAuth0 } from "@auth0/auth0-react";
 import Login from "./Login";
 import Logout from "./Logout";
+import Auth from "./Auth";
 
 type NavbarProps = {
   routes: Array<string> | Array<Array<string>>;
@@ -111,16 +112,9 @@ export default function Navbar({ routes }: NavbarProps) {
           )}
         >
           <div className="flex ml-28 m-2 p-3 gap-2">{allRoutes}</div>
-          {!isAuthenticated && (
-            <div className="flex justify-center align-middle p-6 h-full w-24 rounded-full mr-12 ml-6">
-              <Login />
-            </div>
-          )}
-          {isAuthenticated && (
-            <div className="flex justify-center align-middle p-6 h-full w-24 rounded-full mr-12 ml-6">
-              <Logout />
-            </div>
-          )}
+          <div className="h-auto flex items-center mr-20">
+            <Auth isAuthenticated={isAuthenticated} />
+          </div>
         </nav>
       </header>
     </div>
