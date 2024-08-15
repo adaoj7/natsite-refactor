@@ -28,12 +28,12 @@ export default function Shifts({ shiftType }: ShiftOptions) {
     },
   });
   // Build this once I have logins working
-  // @ts-ignore
   const mutation = useMutation({
     mutationFn: () => {
       return axios.post(`/api/${shiftType}`, { data });
     },
   });
+  console.log(mutation);
 
   if (isPending) return <p>Loading...</p>;
   if (error) return <p>Error</p>;

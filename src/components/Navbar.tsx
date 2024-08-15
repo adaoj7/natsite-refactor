@@ -4,6 +4,9 @@ import { NavLink, useLocation } from "react-router-dom";
 import { Menu, MenuItem, MenuButton, MenuItems } from "@headlessui/react";
 import useScrollPosition from "../hooks/useScrollPosition";
 import clsx from "clsx";
+import { useAuth0 } from "@auth0/auth0-react";
+import Login from "./Login";
+import Logout from "./Logout";
 
 type NavbarProps = {
   routes: Array<string> | Array<Array<string>>;
@@ -77,6 +80,7 @@ export default function Navbar({ routes }: NavbarProps) {
         </Menu>
       );
     }
+
     return (
       <>
         <NavLink
@@ -94,6 +98,9 @@ export default function Navbar({ routes }: NavbarProps) {
     );
   });
 
+  const { user, isAuthenticated } = useAuth0();
+  console.log(user);
+
   return (
     <div>
       <header className="sticky z-10 flex flex-row w-full" id="navbar">
@@ -104,9 +111,16 @@ export default function Navbar({ routes }: NavbarProps) {
           )}
         >
           <div className="flex ml-28 m-2 p-3 gap-2">{allRoutes}</div>
-          <div className="flex justify-center align-middle p-6 h-full w-24 rounded-full mr-12 ml-6">
-            Login
-          </div>
+          {!isAuthenticated && (
+            <div className="flex justify-center align-middle p-6 h-full w-24 rounded-full mr-12 ml-6">
+              <Login />
+            </div>
+          )}
+          {isAuthenticated && (
+            <div className="flex justify-center align-middle p-6 h-full w-24 rounded-full mr-12 ml-6">
+              <Logout />
+            </div>
+          )}
         </nav>
       </header>
     </div>
