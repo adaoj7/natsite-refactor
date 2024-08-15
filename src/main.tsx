@@ -1,6 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 // import App from "./App.tsx";
 import Root from "./root.tsx";
 import Home from "./routes/home.tsx";
@@ -18,6 +22,10 @@ import "./index.css";
 import GetInvolved from "./routes/get-involved.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Auth0Provider } from "@auth0/auth0-react";
+
+const auth0config = {
+  redirectUri: "http://localhost:4242",
+};
 
 const queryClient = new QueryClient();
 
@@ -70,6 +78,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Auth0Provider
       domain="dev-ppwy2ztmkc8qhczn.us.auth0.com"
       clientId="2E49IGFsP0ZYrxrlTWZNB3RU3maxsCTW"
+      authorizationParams={{ redirect_uri: window.location.origin }}
     >
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
