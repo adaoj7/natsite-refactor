@@ -6,7 +6,6 @@ import useScrollPosition from "../hooks/useScrollPosition";
 import clsx from "clsx";
 import { useAuth0 } from "@auth0/auth0-react";
 import Auth from "./Auth";
-import { all } from "axios";
 
 type NavbarProps = {
   routes: Array<string> | Array<Array<string>>;
