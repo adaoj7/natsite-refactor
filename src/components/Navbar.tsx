@@ -6,6 +6,7 @@ import useScrollPosition from "../hooks/useScrollPosition";
 import clsx from "clsx";
 import { useAuth0 } from "@auth0/auth0-react";
 import Auth from "./Auth";
+import { all } from "axios";
 
 type NavbarProps = {
   routes: Array<string> | Array<Array<string>>;
@@ -27,15 +28,17 @@ export default function Navbar({ routes }: NavbarProps) {
     return "justify-between bg-primary";
   }
 
-  const allRoutes = routes.map((route) => {
+  const allRoutes = routes.map((route, index) => {
     if (route[0] === "menu") {
       const menuName = route[1];
       const menu = route[2];
       // @ts-expect-error - menu is an array of arrays
-      const menuReturn = menu.map((menuItem: MenuItem) => {
+      const menuReturn = menu.map((menuItem: MenuItem, index) => {
         return (
-          <MenuItem key={menuItem[0]}>
-            <NavLink to={menuItem[0]}>{menuItem[1]}</NavLink>
+          <MenuItem key={index}>
+            <NavLink to={menuItem[0]} key={menuItem[0]}>
+              {menuItem[1]}
+            </NavLink>
           </MenuItem>
         );
       });
@@ -43,6 +46,7 @@ export default function Navbar({ routes }: NavbarProps) {
       if (location.pathname === "/") {
         return (
           <NavLink
+            key={menuName[0]}
             to={menuName[0]}
             className={({ isActive }) =>
               isActive
@@ -54,11 +58,12 @@ export default function Navbar({ routes }: NavbarProps) {
           </NavLink>
         );
       }
+
       return (
         <Menu
           as="div"
-          key={route[0]}
           className={"relative inline-block text-left"}
+          key={index}
         >
           <MenuButton
             as="a"
@@ -81,7 +86,7 @@ export default function Navbar({ routes }: NavbarProps) {
     }
 
     return (
-      <>
+      <div key={route[0]}>
         <NavLink
           to={route[0]}
           className={({ isActive }) => {
@@ -93,7 +98,7 @@ export default function Navbar({ routes }: NavbarProps) {
         >
           {route[1]}
         </NavLink>
-      </>
+      </div>
     );
   });
 

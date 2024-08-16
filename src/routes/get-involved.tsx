@@ -15,7 +15,7 @@ export default function GetInvolved() {
   // @ts-expect-error - getInvolved is an array of one element
   const getInvolvedRoutes = getInvolved[0][2].map((route) => {
     return (
-      <>
+      <div key={route[0]}>
         <NavLink
           to={route[0]}
           className={({ isActive }) =>
@@ -27,7 +27,7 @@ export default function GetInvolved() {
         >
           {route[1]}
         </NavLink>
-      </>
+      </div>
     );
   });
 
