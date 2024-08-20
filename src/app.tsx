@@ -1,5 +1,4 @@
-﻿import React from "react";
-import {
+﻿import {
   Route,
   RouterProvider,
   createBrowserRouter,
@@ -22,6 +21,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
   const { isAuthenticated } = useAuth0();
+  console.log(isAuthenticated);
 
   const router2 = createBrowserRouter(
     createRoutesFromElements(
@@ -41,49 +41,6 @@ function App() {
       </Route>
     )
   );
-
-  const router = createBrowserRouter([
-    {
-      element: <Root />,
-      errorElement: <ErrorPage />,
-      children: [
-        {
-          path: "/",
-          element: <Home />,
-        },
-        {
-          path: "/about",
-          element: <About />,
-        },
-        {
-          path: "/getInvolved",
-          element: <GetInvolved />,
-          children: [
-            {
-              path: "/getInvolved/setup",
-              element: <Setup />,
-            },
-            {
-              path: "/getInvolved/host",
-              element: <Host />,
-            },
-            {
-              path: "/getInvolved/myShifts",
-              element: <MyShifts />,
-            },
-            {
-              path: "/getInvolved/donate",
-              element: <Donate />,
-            },
-          ],
-        },
-        { path: "/thisYear", element: <ThisYear /> },
-        { path: "/gallery", element: <Gallery /> },
-        { path: "/lightTheWorld", element: <LightTheWorld /> },
-        { path: "/contact", element: <Contact /> },
-      ],
-    },
-  ]);
 
   return (
     <>
