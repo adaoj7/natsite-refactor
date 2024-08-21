@@ -17,11 +17,14 @@ import LightTheWorld from "./routes/light-the-world";
 import Contact from "./routes/contact";
 import ErrorPage from "./error-page";
 import GetInvolved from "./routes/get-involved";
+import Admin from "./routes/admin-routes/admin-main";
+import ShiftLookup from "./routes/admin-routes/shift-lookup";
+import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
-  const { isAuthenticated } = useAuth0();
-  console.log(isAuthenticated);
+  //   const { isAuthenticated, loginWithRedirect } = useAuth0();
+  useEffect(() => {}, []);
 
   const router2 = createBrowserRouter(
     createRoutesFromElements(
@@ -38,6 +41,11 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/lightTheWorld" element={<LightTheWorld />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/betaAndPsi" element={<Admin />}>
+          <Route path="/betaAndPsi/shiftLookup" element={<ShiftLookup />} />
+          <Route path="/betaAndPsi/futureShifts" element={<Admin />} />
+          <Route path="/betaAndPsi/nomination" element={<Admin />} />
+        </Route>
       </Route>
     )
   );

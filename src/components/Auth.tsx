@@ -8,6 +8,14 @@ interface AuthProps {
 const Auth: React.FC<AuthProps> = ({ isAuthenticated }) => {
   const { loginWithRedirect, logout } = useAuth0();
 
+  function handleLogin() {
+    try {
+      loginWithRedirect();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   if (isAuthenticated) {
     //maybe add a modal here to show account info or only allow logout from settings page
     return (
@@ -18,7 +26,7 @@ const Auth: React.FC<AuthProps> = ({ isAuthenticated }) => {
   }
   return (
     <>
-      <button onClick={() => loginWithRedirect()}>Login</button>
+      <button onClick={() => handleLogin()}>Login</button>
     </>
   );
 };

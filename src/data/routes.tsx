@@ -16,3 +16,9 @@
   ["/lightTheWorld", "Light the World"],
   ["/contact", "Contact"],
 ];
+
+export const adminRoutes = [
+  ["/betaAndPsi/shiftLookup", "Shift Lookup"],
+  ["/betaAndPsi/futureShifts", "Add Future Shifts"],
+  ["/betaAndPsi/nomination", "Nomination Link"],
+];

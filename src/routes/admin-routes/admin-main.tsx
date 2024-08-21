@@ -1,19 +1,14 @@
-﻿// import React from "react";
-import Spacer from "../components/Spacer";
-import { routes } from "../data/routes";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
-import Flex from "../components/Flex";
+﻿import React from "react";
+import Spacer from "../../components/Spacer";
+import { adminRoutes } from "../../data/routes";
+import { NavLink, Outlet } from "react-router-dom";
 import clsx from "clsx";
+import Flex from "../../components/Flex";
 
-export default function GetInvolved() {
-  const getInvolved = routes.filter((route) => {
-    if (route[0] === "menu") {
-      return route[2];
-    }
-  });
-  const location = useLocation();
-  // @ts-expect-error - getInvolved is an array of one element
-  const getInvolvedRoutes = getInvolved[0][2].map((route) => {
+interface AdminProps {}
+
+const Admin: React.FC<AdminProps> = () => {
+  const adminOptions = adminRoutes.map((route) => {
     return (
       <div key={route[0]}>
         <NavLink
@@ -36,15 +31,22 @@ export default function GetInvolved() {
       <Spacer />
       <Flex className="min-h-[calc(100vh-176px)]">
         <div className="flex flex-col gap-4 border-r-2 border-primary  px-4">
-          {getInvolvedRoutes}
+          {adminOptions}
         </div>
         <div className="flex justify-center w-full">
           <Outlet />
-          {location.pathname === "/getInvolved" && (
-            <div className="text-black">Get Involved</div>
+          {location.pathname === "/betaAndPsi" && (
+            <>
+              <div>
+                Shift lookup will allow you to search for those who have signed
+                up for shifts and to email them all as a group
+              </div>
+            </>
           )}
         </div>
       </Flex>
     </>
   );
-}
+};
+
+export default Admin;

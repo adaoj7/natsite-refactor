@@ -1,6 +1,4 @@
-﻿// recieves an array of routes and renders a navbar with links to each route
-
-import { NavLink, useLocation } from "react-router-dom";
+﻿import { NavLink, useLocation } from "react-router-dom";
 import { Menu, MenuItem, MenuButton, MenuItems } from "@headlessui/react";
 import useScrollPosition from "../hooks/useScrollPosition";
 import clsx from "clsx";
