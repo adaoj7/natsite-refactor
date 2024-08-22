@@ -19,12 +19,27 @@ import ErrorPage from "./error-page";
 import GetInvolved from "./routes/get-involved";
 import Admin from "./routes/admin-routes/admin-main";
 import ShiftLookup from "./routes/admin-routes/shift-lookup";
-import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 
 function App() {
-  //   const { isAuthenticated, loginWithRedirect } = useAuth0();
-  useEffect(() => {}, []);
+  const { isAuthenticated, user } = useAuth0();
+  const dispatch = useDispatch();
+  async function handleLogin() {
+    try {
+      const data = await axios
+        .post("/api/login", user)
+        .then((res) => dispatch({ type: "LOGIN", payload: res.data }));
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  if (isAuthenticated) {
+    handleLogin();
+  }
 
   const router2 = createBrowserRouter(
     createRoutesFromElements(

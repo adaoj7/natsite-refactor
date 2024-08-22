@@ -34,6 +34,7 @@ export default {
     });
     let filteredShifts;
     filteredShifts = shift.filter((year) => {
+      console.log(year);
       const yearDate = new Date().getFullYear();
       if (year.year === yearDate) {
         return year;
@@ -74,6 +75,7 @@ export default {
     });
     let filteredShifts;
     filteredShifts = shift.filter((year) => {
+      console.log(year);
       const yearDate = new Date().getFullYear();
       if (year.year === yearDate) {
         return year;
@@ -109,6 +111,9 @@ export default {
           })) >= 15
         ) {
           const shift = await Shift.findByPk(shiftId);
+          if (!shift) {
+            return res.sendStatus(404);
+          }
           await shift.update({ isFull: true });
           console.log(shift);
         }
