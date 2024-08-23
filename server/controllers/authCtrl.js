@@ -13,10 +13,27 @@ export default {
           email: email,
           name: name,
         });
-        res.status(200).json(user);
       }
+      req.session.user = {
+        userId: user.userId,
+        email: user.email,
+        name: user.name,
+        phone: user.phone,
+        church: user.church,
+        isAdmin: user.isAdmin,
+      };
       res.status(200).json(user);
       console.log(name);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
+  user: async (req, res) => {
+    try {
+      if (req.session.user) {
+        return res.status(200).send(req.session.user);
+      }
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
