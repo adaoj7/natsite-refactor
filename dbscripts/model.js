@@ -18,21 +18,14 @@ User.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    fname: {
+    name: {
       type: DataTypes.STRING,
-      // allowNull: false,
-    },
-    lname: {
-      type: DataTypes.STRING,
-      // allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
-      // allowNull: false,
     },
     phone: {
       type: DataTypes.STRING,
-      // allowNull: false,
     },
     church: {
       type: DataTypes.STRING,

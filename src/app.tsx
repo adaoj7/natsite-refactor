@@ -28,10 +28,12 @@ function App() {
   const dispatch = useDispatch();
   async function handleLogin() {
     try {
-      const data = await axios
-        .post("/api/login", user)
-        .then((res) => dispatch({ type: "LOGIN", payload: res.data }));
-      console.log(data);
+      await axios.post("/api/login", user).then((res) => {
+        console.log("response", res);
+        if (res.data) {
+          dispatch({ type: "LOGIN", payload: res.data });
+        }
+      });
     } catch (error) {
       console.error(error);
     }

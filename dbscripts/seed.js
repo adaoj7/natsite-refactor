@@ -7,10 +7,10 @@
   Day,
   ShiftType,
 } from "./model.js";
-import years from "../server/dbscripts/data/years.json" assert { type: "json" };
-import days from "../server/dbscripts/data/days.json" assert { type: "json" };
-import shifts from "../server/dbscripts/data/shifts.json" assert { type: "json" };
-import shiftType from "../server/dbscripts/data/shift-type.json" assert { type: "json" };
+import years from "../dbscripts/data/years.json" assert { type: "json" };
+import days from "../dbscripts/data/days.json" assert { type: "json" };
+import shifts from "../dbscripts/data/shifts.json" assert { type: "json" };
+import shiftType from "../dbscripts/data/shift-type.json" assert { type: "json" };
 import bcrypt from "bcryptjs";
 
 console.log("Syncing database...");
@@ -69,8 +69,7 @@ const usersToCreate = [];
 const salt = bcrypt.genSaltSync(10);
 const hash = bcrypt.hashSync("test", salt);
 usersToCreate.push({
-  fname: "Adam",
-  lname: "Johnson",
+  name: "Adam Johnson",
   phone: "3853523248",
   email: "adamin@test.com",
   hashedPass: hash,
@@ -79,8 +78,7 @@ usersToCreate.push({
 
 for (let i = 2; i <= 16; i++) {
   usersToCreate.push({
-    fname: "Adam",
-    lname: "Johnson",
+    name: `User ${i}`,
     email: `user${i}@test.com`,
     phone: "123",
   });

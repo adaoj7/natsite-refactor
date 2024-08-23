@@ -2,8 +2,10 @@
 import { Menu, MenuItem, MenuButton, MenuItems } from "@headlessui/react";
 import useScrollPosition from "../hooks/useScrollPosition";
 import clsx from "clsx";
-import { useAuth0 } from "@auth0/auth0-react";
 import Auth from "./Auth";
+import { useDispatch, useSelector } from "react-redux";
+import { useLayoutEffect } from "react";
+import axios from "axios";
 
 type NavbarProps = {
   routes: Array<string> | Array<Array<string>>;
@@ -14,6 +16,15 @@ export default function Navbar({ routes }: NavbarProps) {
   const location = useLocation();
   const scrollPosition = useScrollPosition();
   const isScrolled = scrollPosition > 0;
+  const userId = useSelector((state: any) => state.userId);
+  const dispatch = useDispatch();
+  useLayoutEffect(() => {
+    axios.get("/api/user").then((res) => {
+      if (res.data) {
+        dispatch({ type: "LOGIN", payload: res.data });
+      }
+    });
+  }, [dispatch]);
 
   function scrollStyling(location: any) {
     if (location.pathname === "/") {
@@ -99,8 +110,6 @@ export default function Navbar({ routes }: NavbarProps) {
     );
   });
 
-  const { isAuthenticated } = useAuth0();
-
   return (
     <>
       <header className="sticky z-10 flex flex-row w-full" id="navbar">
@@ -112,7 +121,7 @@ export default function Navbar({ routes }: NavbarProps) {
         >
           <div className="flex ml-28 m-2 p-3 gap-2">{allRoutes}</div>
           <div className="h-auto flex items-center mr-20">
-            <Auth isAuthenticated={isAuthenticated} />
+            {userId ? <div>goodbye</div> : <div>hello</div>}
           </div>
         </nav>
       </header>
