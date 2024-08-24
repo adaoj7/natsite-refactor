@@ -23,7 +23,6 @@ export default {
         isAdmin: user.isAdmin,
       };
       res.status(200).json(user);
-      console.log(name);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
@@ -32,7 +31,6 @@ export default {
   user: async (req, res) => {
     try {
       if (req.session.user) {
-        console.log("hit here", req.session.user);
         return res.status(200).json(req.session.user);
       }
     } catch (err) {

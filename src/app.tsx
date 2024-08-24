@@ -22,6 +22,7 @@ import ShiftLookup from "./routes/admin-routes/shift-lookup";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import User from "./routes/user";
 
 function App() {
   const { isAuthenticated, user } = useAuth0();
@@ -58,6 +59,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/lightTheWorld" element={<LightTheWorld />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/user" element={<User />} />
         <Route path="/betaAndPsi" element={<Admin />}>
           <Route path="/betaAndPsi/shiftLookup" element={<ShiftLookup />} />
           <Route path="/betaAndPsi/futureShifts" element={<Admin />} />

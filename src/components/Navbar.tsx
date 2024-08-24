@@ -6,6 +6,7 @@ import Auth from "./Auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useLayoutEffect } from "react";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 type NavbarProps = {
   routes: Array<string> | Array<Array<string>>;
@@ -13,10 +14,20 @@ type NavbarProps = {
 type MenuItem = Array<string>;
 
 export default function Navbar({ routes }: NavbarProps) {
+  const { loginWithRedirect } = useAuth0();
+  function handleLogin() {
+    try {
+      loginWithRedirect();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const location = useLocation();
   const scrollPosition = useScrollPosition();
   const isScrolled = scrollPosition > 0;
   const userId = useSelector((state: any) => state.userId);
+
   const dispatch = useDispatch();
   useLayoutEffect(() => {
     axios.get("/api/user").then((res) => {
@@ -121,7 +132,11 @@ export default function Navbar({ routes }: NavbarProps) {
         >
           <div className="flex ml-28 m-2 p-3 gap-2">{allRoutes}</div>
           <div className="h-auto flex items-center mr-20">
-            {userId ? <div>goodbye</div> : <div>hello</div>}
+            {userId ? (
+              <NavLink to={"/user"}>Profile</NavLink>
+            ) : (
+              <button onClick={() => handleLogin()}>Login</button>
+            )}
           </div>
         </nav>
       </header>
