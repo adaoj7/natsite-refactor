@@ -24,7 +24,7 @@ app.use(
 );
 
 const { setupShifts, hostShifts } = siteCtrl;
-const { login } = authCtrl;
+const { login, user } = authCtrl;
 
 // Endpoints created here. At the moment I don't have any so I don't need to set this up. I think I will build out the site pagination and then come back to this.
 
@@ -34,6 +34,7 @@ app.get("/api/host", hostShifts);
 
 // Auth0 Endpoints
 app.post("/api/login", login);
+app.get("/api/user", user);
 
 ViteExpress.listen(app, PORT, () =>
   console.log(`what is the answer? http://localhost:${PORT}`)

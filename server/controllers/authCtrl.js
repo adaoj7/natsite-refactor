@@ -32,7 +32,8 @@ export default {
   user: async (req, res) => {
     try {
       if (req.session.user) {
-        return res.status(200).send(req.session.user);
+        console.log("hit here", req.session.user);
+        return res.status(200).json(req.session.user);
       }
     } catch (err) {
       console.log(err);
