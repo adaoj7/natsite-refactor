@@ -12,7 +12,6 @@ interface User {
   name: string;
   phone: string;
   church: string;
-  email: string;
 }
 
 const User: React.FC = () => {
@@ -29,11 +28,10 @@ const User: React.FC = () => {
     },
     retry: true,
   });
-  console.log("data", data);
 
-  const mutation = useMutation({
+  const { isSuccess, isPending, mutate, mutateAsync } = useMutation({
     mutationFn: (updatedUser: User) => {
-      return axios.post("/api/user", updatedUser);
+      return axios.post("/api/updateUser", updatedUser);
     },
   });
 
@@ -55,9 +53,19 @@ const User: React.FC = () => {
                   name: data?.name,
                   phone: data?.phone,
                   church: data?.church,
-                  email: data?.email,
                 }}
-                onSubmit={async (values) => {}}
+                onSubmit={async (values, { setSubmitting, resetForm }) => {
+                  values.phone = phoneValue;
+                  console.log("values", values);
+                  await mutateAsync(values);
+                  setSubmitting(false);
+                  while (!isSuccess) {
+                    await new Promise((resolve) => setTimeout(resolve, 100)); // Check every 100ms
+                  }
+                  if (isSuccess) {
+                    setIsEditing(false);
+                  }
+                }}
               >
                 {({ values, handleChange }) => (
                   <Form className="">
@@ -66,13 +74,6 @@ const User: React.FC = () => {
                       placeholder="Enter name"
                       className="focus:outline-none border-2 border-black rounded-md h-full bg-white w-full p-2"
                       value={values.name}
-                      onChange={handleChange}
-                    />
-                    <Field
-                      name="email"
-                      placeholder="Enter email"
-                      className="focus:outline-none border-2 border-black rounded-md h-full bg-white w-full p-2"
-                      value={values.email}
                       onChange={handleChange}
                     />
                     <PhoneInput
@@ -91,6 +92,9 @@ const User: React.FC = () => {
                       value={values.church}
                       onChange={handleChange}
                     />
+                    <button type="submit" className="btn">
+                      Submit
+                    </button>
                   </Form>
                 )}
               </Formik>

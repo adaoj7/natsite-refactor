@@ -22,8 +22,8 @@ export default {
       }
       req.session.user = {
         userId: user.userId,
-        email: user.email,
         name: user.name,
+        email: user.email,
         phone: user.phone,
         church: user.church,
         isAdmin: user.isAdmin,
@@ -49,13 +49,15 @@ export default {
   updateUser: async (req, res) => {
     try {
       const { userId } = req.session.user;
+      console.log(req.body);
       const { name, email, phone, church } = req.body;
       let user = await User.findOne({ where: { userId: userId } });
       user.name = name;
-      user.email = email;
       user.phone = phone;
       user.church = church;
       await user.save();
+      console.log(user);
+
       req.session.user = {
         userId: user.userId,
         email: user.email,

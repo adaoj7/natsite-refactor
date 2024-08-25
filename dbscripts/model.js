@@ -30,9 +30,6 @@ User.init(
     church: {
       type: DataTypes.STRING,
     },
-    hashedPass: {
-      type: DataTypes.STRING,
-    },
     isAdmin: {
       type: DataTypes.BOOLEAN,
     },
