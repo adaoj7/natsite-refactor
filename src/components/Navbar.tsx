@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLayoutEffect } from "react";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
 type NavbarProps = {
   routes: Array<string> | Array<Array<string>>;
@@ -29,13 +30,19 @@ export default function Navbar({ routes }: NavbarProps) {
   const userId = useSelector((state: any) => state.userId);
 
   const dispatch = useDispatch();
-  useLayoutEffect(() => {
-    axios.get("/api/user").then((res) => {
-      if (res.data) {
-        dispatch({ type: "LOGIN", payload: res.data });
+
+  useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const response = await axios.get("/api/user");
+      if (response.data) {
+        dispatch({ type: "LOGIN", payload: response.data });
       }
-    });
-  }, [dispatch]);
+      // needs a return for the cache to work
+      return await response.data;
+    },
+    retry: true,
+  });
 
   function scrollStyling(location: any) {
     if (location.pathname === "/") {

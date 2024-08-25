@@ -14,6 +14,12 @@ export default {
           name: name,
         });
       }
+      if (!user.phone) {
+        user.phone = "";
+      }
+      if (!user.church) {
+        user.church = "";
+      }
       req.session.user = {
         userId: user.userId,
         email: user.email,
@@ -32,7 +38,42 @@ export default {
     try {
       if (req.session.user) {
         return res.status(200).json(req.session.user);
+      } else {
+        return res.status(401).json("No user found");
       }
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
+  updateUser: async (req, res) => {
+    try {
+      const { userId } = req.session.user;
+      const { name, email, phone, church } = req.body;
+      let user = await User.findOne({ where: { userId: userId } });
+      user.name = name;
+      user.email = email;
+      user.phone = phone;
+      user.church = church;
+      await user.save();
+      req.session.user = {
+        userId: user.userId,
+        email: user.email,
+        name: user.name,
+        phone: user.phone,
+        church: user.church,
+        isAdmin: user.isAdmin,
+      };
+      res.status(200).json(user);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
+  logout: async (req, res) => {
+    try {
+      req.session.destroy();
+      res.status(200).json("Logged out");
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
