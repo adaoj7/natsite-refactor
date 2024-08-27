@@ -154,6 +154,7 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
                       Submit
                     </button>
                     <button
+                      type="button"
                       onClick={() => setIsEditing(false)}
                       className="btn btn-success flex-grow"
                     >
@@ -162,6 +163,7 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
                   </div>
                   <div className="flex w-full">
                     <button
+                      type="button"
                       onClick={() => setIsEditing(false)}
                       className="btn flex-grow"
                     >
