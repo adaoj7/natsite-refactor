@@ -1,4 +1,5 @@
 ﻿import { UnknownAction } from "@reduxjs/toolkit";
+import { stat } from "fs";
 
 export interface LoginAction {
   type: "LOGIN";
@@ -25,6 +26,7 @@ const initialState = {
 
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
+const UPDATE = "UPDATE";
 
 const authReducer = (state = initialState, action: any) => {
   const { type } = action;
@@ -33,12 +35,14 @@ const authReducer = (state = initialState, action: any) => {
       return action.payload;
     case LOGOUT:
       return {
-        ...state,
         userId: null,
         name: null,
         email: null,
         isAdmin: null,
       };
+    case UPDATE:
+      console.log("UPDATE", action.payload);
+      return action.payload;
     default:
       return state;
   }
