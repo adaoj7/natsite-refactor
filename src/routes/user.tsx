@@ -20,7 +20,7 @@ interface UserFormProps {
   refetch: () => void;
 }
 
-const User: React.FC = () => {
+export default function User() {
   const { logout } = useAuth0();
   const [isEditing, setIsEditing] = React.useState(false);
 
@@ -65,6 +65,7 @@ const User: React.FC = () => {
                   >
                     Edit
                   </button>
+                  {/* I need to make this a modal to confirm the logout */}
                   <button onClick={() => logoutServer()} className="btn">
                     Logout
                   </button>
@@ -76,9 +77,7 @@ const User: React.FC = () => {
       )}
     </>
   );
-};
-
-export default User;
+}
 
 function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
   const [phoneValue, setPhoneValue] = React.useState<

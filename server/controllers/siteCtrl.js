@@ -34,7 +34,6 @@ export default {
     });
     let filteredShifts;
     filteredShifts = shift.filter((year) => {
-      console.log(year);
       const yearDate = new Date().getFullYear();
       if (year.year === yearDate) {
         return year;
@@ -50,75 +49,106 @@ export default {
   },
 
   hostShifts: async (req, res) => {
-    const shift = await Year.findAll({
-      include: [
-        {
-          model: Day,
-          separate: true,
-          order: ["dateId"],
-          include: [
-            {
-              model: Shift,
-              where: { isFull: false },
-              separate: true,
-              order: ["shiftId"],
-              include: [
-                {
-                  model: ShiftType,
-                  where: { shiftType: "host" },
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    });
-    let filteredShifts;
-    filteredShifts = shift.filter((year) => {
-      console.log(year);
-      const yearDate = new Date().getFullYear();
-      if (year.year === yearDate) {
-        return year;
-      }
-    });
-    filteredShifts = filteredShifts[0].days.filter((day) => {
-      if (day.shifts.length > 0) {
-        return day;
-      }
-    });
-    res.json(filteredShifts);
+    try {
+      const shift = await Year.findAll({
+        include: [
+          {
+            model: Day,
+            separate: true,
+            order: ["dateId"],
+            include: [
+              {
+                model: Shift,
+                where: { isFull: false },
+                separate: true,
+                order: ["shiftId"],
+                include: [
+                  {
+                    model: ShiftType,
+                    where: { shiftType: "host" },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      });
+      let filteredShifts;
+      filteredShifts = shift.filter((year) => {
+        const yearDate = new Date().getFullYear();
+        if (year.year === yearDate) {
+          return year;
+        }
+      });
+      filteredShifts = filteredShifts[0].days.filter((day) => {
+        if (day.shifts.length > 0) {
+          return day;
+        }
+      });
+      res.json(filteredShifts);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(404);
+    }
   },
 
-  shiftSignup: async (req, res) => {
+  userShifts: async (req, res) => {
+    try {
+      console.log("userShifts", req.query);
+      const { userId } = req.query;
+      const shifts = await Availability.findAll({
+        where: { userId: userId },
+        include: [
+          {
+            model: Shift,
+            // separate: true,
+            order: ["shiftId"],
+            include: [
+              {
+                model: Day,
+              },
+            ],
+          },
+        ],
+      });
+      res.json(shifts);
+      console.log(shifts);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(404);
+    }
+  },
+  volunteer: async (req, res) => {
     try {
       const { userId, checked } = req.body;
-      for (const shiftId of checked) {
-        const newVolunteerShifts = await Availability.create({
-          userId,
-          shiftId,
-        });
-        console.log(newVolunteerShifts);
-      }
-      for (const shiftId of checked) {
-        console.log(
-          (await Availability.count({
-            where: { shiftId: shiftId },
-          })) >= 15
-        );
-        if (
-          (await Availability.count({
-            where: { shiftId: shiftId },
-          })) >= 15
-        ) {
-          const shift = await Shift.findByPk(shiftId);
-          if (!shift) {
-            return res.sendStatus(404);
-          }
-          await shift.update({ isFull: true });
-          console.log(shift);
-        }
-      }
-      res.sendStatus(200);
+      console.log(req.body);
+      // for (const shiftId of checked) {
+      //   const newVolunteerShifts = await Availability.create({
+      //     userId,
+      //     shiftId,
+      //   });
+      //   console.log(newVolunteerShifts);
+      // }
+      // for (const shiftId of checked) {
+      //   console.log(
+      //     (await Availability.count({
+      //       where: { shiftId: shiftId },
+      //     })) >= 15
+      //   );
+      //   if (
+      //     (await Availability.count({
+      //       where: { shiftId: shiftId },
+      //     })) >= 15
+      //   ) {
+      //     const shift = await Shift.findByPk(shiftId);
+      //     if (!shift) {
+      //       return res.sendStatus(404);
+      //     }
+      //     await shift.update({ isFull: true });
+      //     console.log(shift);
+      //   }
+      // }
+      // res.sendStatus(200);
     } catch (theseHands) {
       console.log(theseHands);
       res.sendStatus(500);

@@ -4,6 +4,7 @@ import { Formik, Field, Form } from "formik";
 // import * as Yup from "yup";
 import Button from "./Button";
 import axios from "axios";
+import { useSelector } from "react-redux";
 interface ShiftOptions {
   shiftType: "setup" | "host";
 }
@@ -19,40 +20,68 @@ interface Shift {
   shiftId: number;
 }
 
+interface initialValues {
+  checked: string[];
+}
+
 export default function Shifts({ shiftType }: ShiftOptions) {
-  const { isPending, error, data } = useQuery({
+  const userId = useSelector((state: any) => state.userId);
+  const {
+    isPending,
+    error,
+    data: shiftData,
+    refetch: refetchShifts,
+  } = useQuery({
     queryKey: ["shifts"],
     queryFn: async () => {
-      const response = await fetch(`/api/${shiftType}`);
-      return await response.json();
+      const response = await axios.get(`/api/${shiftType}`);
+      console.log("response", response);
+      return response;
     },
   });
-  // Build this once I have logins working
-  const mutation = useMutation({
-    mutationFn: () => {
-      return axios.post(`/api/${shiftType}`, { data });
+  const { data: volunteerData, refetch: refetchUserShifts } = useQuery({
+    queryKey: ["userShifts"],
+    queryFn: async () => {
+      const response = await axios.get(`/api/userShifts`, {
+        params: { userId },
+      });
+      return response;
+    },
+    retry: true,
+  });
+  const { mutateAsync } = useMutation({
+    mutationFn: (data: initialValues) => {
+      return axios.post("/api/volunteer", { data });
+    },
+    onSettled: () => {
+      console.log("onSettled");
+      refetchShifts();
+      refetchUserShifts();
     },
   });
-  console.log(mutation);
+
+  console.log("shift data", shiftData);
+  console.log("volunteer data", volunteerData);
 
   if (isPending) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
 
   return (
-    <div className="flex ">
+    <div className="flex card bg-secondary w-96">
       <Formik
-        initialValues={{ checked: [] }}
+        initialValues={{ checked: [] } as initialValues}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
+          mutateAsync(values);
           console.log(values);
-          setSubmitting(false);
+          // setSubmitting(false);
           // @ts-ignore
-          resetForm({ checked: [] });
+          // resetForm({ checked: [] });
         }}
       >
         {({ handleSubmit }) => (
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} className="card-body">
             <ul role="group" aria-labelledby="checkbox-group">
-              <Dates days={data} />
+              <Dates days={shiftData.data} />
             </ul>
             <Button name="Submit" type="submit" />
           </Form>
@@ -67,10 +96,10 @@ function Dates({ days }: { days: Day[] }) {
     <>
       {days.map((day) => {
         return (
-          <>
+          <div key={day.date}>
             <h2 className="text-black">{day.date}</h2>
             <Shift day={day} />
-          </>
+          </div>
         );
       })}
     </>
@@ -82,7 +111,7 @@ function Shift({ day }: { day: Day }) {
     <>
       {day.shifts.map((shift) => {
         return (
-          <>
+          <div key={shift.timeRange}>
             <h3>{shift.time}</h3>
             <input type="hidden" />
             <label className="text-black">
@@ -94,7 +123,7 @@ function Shift({ day }: { day: Day }) {
               />
               {shift.timeRange}
             </label>
-          </>
+          </div>
         );
       })}
     </>
