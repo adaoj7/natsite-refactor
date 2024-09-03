@@ -95,7 +95,6 @@ export default {
 
   userShifts: async (req, res) => {
     try {
-      console.log("userShifts", req.query);
       const { userId } = req.query;
       const shifts = await Availability.findAll({
         where: { userId: userId },
@@ -116,27 +115,32 @@ export default {
       const reducerFn = (acc, curr, index) => {
         if (index === 0) {
           let shiftArr = [];
-          shiftArr.push(curr.shift);
+          shiftArr.push([curr.availabilityId, curr.shift]);
           return shiftArr;
         }
         let shiftArr = acc;
-        shiftArr.push(curr.shift);
+        shiftArr.push([curr.availabilityId, curr.shift]);
         return shiftArr;
       };
 
-      const newShifts = shifts.reduce(reducerFn, shifts[0]).map((shift) => {
+      const userShifts = shifts.reduce(reducerFn, shifts[0]).map((shift) => {
+        console.log("shift", shift);
+        const availId = shift[0];
+        const shiftObj = shift[1];
+        console.log("shiftObj", shiftObj);
         return {
-          shiftId: shift.shiftId,
-          timeRange: shift.timeRange,
-          date: shift.day.date,
-          dateId: shift.dateId,
-          typeId: shift.typeId,
-          isFull: shift.isFull,
+          availabilityId: availId,
+          shiftId: shiftObj.shiftId,
+          timeRange: shiftObj.timeRange,
+          date: shiftObj.day.date,
+          dateId: shiftObj.dateId,
+          typeId: shiftObj.typeId,
+          isFull: shiftObj.isFull,
         };
       });
 
-      res.json(newShifts);
-      console.log("shifts", newShifts);
+      res.json(userShifts);
+      console.log("usershifts", userShifts);
     } catch (error) {
       console.log(error);
       res.sendStatus(404);
@@ -145,13 +149,11 @@ export default {
   volunteer: async (req, res) => {
     try {
       const { userId, checked } = req.body;
-      console.log(req.body);
       for (const shiftId of checked) {
         const newVolunteerShifts = await Availability.create({
           userId,
           shiftId,
         });
-        console.log(newVolunteerShifts);
       }
       for (const shiftId of checked) {
         console.log(
@@ -169,7 +171,6 @@ export default {
             return res.sendStatus(404);
           }
           await shift.update({ isFull: true });
-          console.log(shift);
         }
       }
       res.sendStatus(200);
@@ -177,5 +178,28 @@ export default {
       console.log(theseHands);
       res.sendStatus(500);
     }
+  },
+  deleteShift: async (req, res) => {
+    console.log(req.body);
+    const { availabilityId, shiftId } = req.body;
+
+    try {
+      await Availability.destroy({
+        where: {
+          availabilityId: availabilityId,
+        },
+      });
+      res.sendStatus(200);
+    } catch (err) {
+      console.log(err);
+    }
+
+    if ((await Availability.count({ where: { shiftId: shiftId } })) <= 15) {
+      const shift = await Shift.findByPk(shiftId);
+      await shift.update({ isFull: false });
+      console.log(shift);
+    }
+
+    console.log("availability destroyed");
   },
 };

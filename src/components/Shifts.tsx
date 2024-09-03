@@ -82,9 +82,8 @@ export default function Shifts({ shiftType }: ShiftOptions) {
           };
           mutateAsync(bodyObj);
           console.log(bodyObj);
-          // setSubmitting(false);
-          // @ts-ignore
-          // resetForm({ checked: [] });
+          setSubmitting(false);
+          resetForm({ checked: [] });
         }}
       >
         {({ handleSubmit }) => (
@@ -116,25 +115,26 @@ function Dates({ days, userShifts }: { days: Day[]; userShifts: any }) {
 }
 
 function Shift({ day, userShifts }: { day: Day; userShifts: any }) {
-  return (
-    <>
-      {day.shifts.map((shift) => {
-        return (
-          <div key={shift.timeRange}>
-            <h3>{shift.time}</h3>
-            <input type="hidden" />
-            <label className="text-black">
-              <Field
-                type="checkbox"
-                name="checked"
-                value={shift.shiftId.toString()}
-                key={shift.shiftId.toString()}
-              />
-              {shift.timeRange}
-            </label>
-          </div>
-        );
-      })}
-    </>
-  );
+  const userShiftsArray = userShifts.data.map((shift: any) => shift.shiftId);
+
+  const shifts = day.shifts.map((shift) => {
+    if (!userShiftsArray.includes(shift.shiftId)) {
+      return (
+        <div key={shift.timeRange}>
+          <h3>{shift.time}</h3>
+          <input type="hidden" />
+          <label className="text-black">
+            <Field
+              type="checkbox"
+              name="checked"
+              value={shift.shiftId.toString()}
+              key={shift.shiftId.toString()}
+            />
+            {shift.timeRange}
+          </label>
+        </div>
+      );
+    }
+  });
+  return <>{shifts}</>;
 }

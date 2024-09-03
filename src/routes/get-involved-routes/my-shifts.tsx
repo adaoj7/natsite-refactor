@@ -2,6 +2,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import Spacer from "../../components/Spacer";
 import IsAuthenticated from "../../components/IsAuthenticated";
+import UserShifts from "../../components/UserShifts";
 
 export default function MyShifts() {
   const { isAuthenticated } = useAuth0();
@@ -13,7 +14,7 @@ export default function MyShifts() {
   return (
     <>
       <Spacer />
-      <div>My Shifts</div>;
+      <UserShifts />
     </>
   );
 }
