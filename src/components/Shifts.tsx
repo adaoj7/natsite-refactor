@@ -42,7 +42,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
   const {
     isError: errorUserShifts,
     isPending: isPendingUserShifts,
-    data: volunteerData,
+    data: userShifts,
     refetch: refetchUserShifts,
   } = useQuery({
     queryKey: ["userShifts"],
@@ -66,7 +66,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
   });
 
   console.log("shift data", shiftData);
-  console.log("volunteer data", volunteerData);
+  console.log("volunteer data", userShifts);
 
   if (isPendingShifts || isPendingUserShifts) return <p>Loading...</p>;
   if (errorShifts || errorUserShifts) return <p>Error</p>;
@@ -90,7 +90,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
         {({ handleSubmit }) => (
           <Form onSubmit={handleSubmit} className="card-body">
             <ul role="group" aria-labelledby="checkbox-group">
-              <Dates days={shiftData.data} />
+              <Dates days={shiftData.data} userShifts={userShifts} />
             </ul>
             <Button name="Submit" type="submit" />
           </Form>
@@ -100,14 +100,14 @@ export default function Shifts({ shiftType }: ShiftOptions) {
   );
 }
 
-function Dates({ days }: { days: Day[] }) {
+function Dates({ days, userShifts }: { days: Day[]; userShifts: any }) {
   return (
     <>
       {days.map((day) => {
         return (
           <div key={day.date}>
             <h2 className="text-black">{day.date}</h2>
-            <Shift day={day} />
+            <Shift day={day} userShifts={userShifts} />
           </div>
         );
       })}
@@ -115,7 +115,7 @@ function Dates({ days }: { days: Day[] }) {
   );
 }
 
-function Shift({ day }: { day: Day }) {
+function Shift({ day, userShifts }: { day: Day; userShifts: any }) {
   return (
     <>
       {day.shifts.map((shift) => {

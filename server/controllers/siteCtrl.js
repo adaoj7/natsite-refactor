@@ -112,6 +112,7 @@ export default {
           },
         ],
       });
+
       const reducerFn = (acc, curr, index) => {
         if (index === 0) {
           let shiftArr = [];
@@ -123,8 +124,7 @@ export default {
         return shiftArr;
       };
 
-      const newShifts = shifts.reduce(reducerFn, shifts[0]);
-      const returnShifts = newShifts.map((shift) => {
+      const newShifts = shifts.reduce(reducerFn, shifts[0]).map((shift) => {
         return {
           shiftId: shift.shiftId,
           timeRange: shift.timeRange,
@@ -134,8 +134,9 @@ export default {
           isFull: shift.isFull,
         };
       });
-      res.json(returnShifts);
-      console.log("shifts", returnShifts);
+
+      res.json(newShifts);
+      console.log("shifts", newShifts);
     } catch (error) {
       console.log(error);
       res.sendStatus(404);
