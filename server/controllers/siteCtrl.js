@@ -97,7 +97,7 @@ export default {
     try {
       console.log("userShifts", req.query);
       const { userId } = req.query;
-      let shifts = await Availability.findAll({
+      const shifts = await Availability.findAll({
         where: { userId: userId },
         include: [
           {
@@ -115,33 +115,27 @@ export default {
       const reducerFn = (acc, curr, index) => {
         if (index === 0) {
           let shiftArr = [];
-          Object.defineProperties(shiftArr, {
-            yearId: { value: curr.shift.day.yearId },
-            date: { value: curr.shift.day.date },
-          });
-          console.log("curr", curr.shift);
           shiftArr.push(curr.shift);
           return shiftArr;
         }
         let shiftArr = acc;
-        Object.defineProperties(shiftArr, {
-          yearId: { value: curr.shift.day.yearId },
-          date: { value: curr.shift.day.date },
-        });
-        console.log("curr", curr.shift);
         shiftArr.push(curr.shift);
         return shiftArr;
       };
 
-      shifts = shifts.reduce(reducerFn, shifts[0]);
-      shifts.map((shift) => {
-        console.log("shift", shift);
-        shift.date = shift.day.date;
-        shift.shiftId = shift.day.yearId;
+      const newShifts = shifts.reduce(reducerFn, shifts[0]);
+      const returnShifts = newShifts.map((shift) => {
+        return {
+          shiftId: shift.shiftId,
+          timeRange: shift.timeRange,
+          date: shift.day.date,
+          dateId: shift.dateId,
+          typeId: shift.typeId,
+          isFull: shift.isFull,
+        };
       });
-
-      // res.json(shifts);
-      console.log("shifts", shifts);
+      res.json(returnShifts);
+      console.log("shifts", returnShifts);
     } catch (error) {
       console.log(error);
       res.sendStatus(404);
