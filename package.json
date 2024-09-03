@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "nodemon server/server.js -w server/server.js -w src",
+    "dev": "nodemon server/server.js -w server -w src",
     "tailwind": "npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
     "tailwind:nowatch": "npx tailwindcss -i ./src/index.css -o ./dist/output.css",
     "build": "tsc -b && vite build && npm run tailwind:nowatch",

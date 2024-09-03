@@ -27,8 +27,8 @@ interface initialValues {
 export default function Shifts({ shiftType }: ShiftOptions) {
   const userId = useSelector((state: any) => state.userId);
   const {
-    isPending,
-    error,
+    isPending: isPendingShifts,
+    error: errorShifts,
     data: shiftData,
     refetch: refetchShifts,
   } = useQuery({
@@ -39,7 +39,12 @@ export default function Shifts({ shiftType }: ShiftOptions) {
       return response;
     },
   });
-  const { data: volunteerData, refetch: refetchUserShifts } = useQuery({
+  const {
+    isError: errorUserShifts,
+    isPending: isPendingUserShifts,
+    data: volunteerData,
+    refetch: refetchUserShifts,
+  } = useQuery({
     queryKey: ["userShifts"],
     queryFn: async () => {
       const response = await axios.get(`/api/userShifts`, {
@@ -51,7 +56,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
   });
   const { mutateAsync } = useMutation({
     mutationFn: (data: initialValues) => {
-      return axios.post("/api/volunteer", { data });
+      return axios.post("/api/volunteer", data);
     },
     onSettled: () => {
       console.log("onSettled");
@@ -63,16 +68,20 @@ export default function Shifts({ shiftType }: ShiftOptions) {
   console.log("shift data", shiftData);
   console.log("volunteer data", volunteerData);
 
-  if (isPending) return <p>Loading...</p>;
-  if (error) return <p>Error</p>;
+  if (isPendingShifts || isPendingUserShifts) return <p>Loading...</p>;
+  if (errorShifts || errorUserShifts) return <p>Error</p>;
 
   return (
     <div className="flex card bg-secondary w-96">
       <Formik
         initialValues={{ checked: [] } as initialValues}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          mutateAsync(values);
-          console.log(values);
+          const bodyObj = {
+            userId,
+            checked: values.checked,
+          };
+          mutateAsync(bodyObj);
+          console.log(bodyObj);
           // setSubmitting(false);
           // @ts-ignore
           // resetForm({ checked: [] });
