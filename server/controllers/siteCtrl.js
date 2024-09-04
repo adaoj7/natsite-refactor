@@ -113,6 +113,7 @@ export default {
       });
 
       const reducerFn = (acc, curr, index) => {
+        console.log("acc", acc);
         if (index === 0) {
           let shiftArr = [];
           shiftArr.push([curr.availabilityId, curr.shift]);
@@ -123,7 +124,7 @@ export default {
         return shiftArr;
       };
 
-      const userShifts = shifts.reduce(reducerFn, shifts[0]).map((shift) => {
+      const userShifts = shifts.reduce(reducerFn, []).map((shift) => {
         console.log("shift", shift);
         const availId = shift[0];
         const shiftObj = shift[1];

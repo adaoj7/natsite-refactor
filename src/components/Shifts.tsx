@@ -24,8 +24,20 @@ interface initialValues {
   checked: string[];
 }
 
+type UserShifts = {
+  data: UserShift[] | [];
+};
+
+interface UserShift {
+  date: string;
+  timeRange: string;
+  typeId: number;
+  availabilityId: number;
+  shiftId: number;
+}
 export default function Shifts({ shiftType }: ShiftOptions) {
   const userId = useSelector((state: any) => state.userId);
+
   const {
     isPending: isPendingShifts,
     error: errorShifts,
@@ -39,6 +51,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
       return response;
     },
   });
+
   const {
     isError: errorUserShifts,
     isPending: isPendingUserShifts,
@@ -54,6 +67,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
     },
     retry: true,
   });
+
   const { mutateAsync } = useMutation({
     mutationFn: (data: initialValues) => {
       return axios.post("/api/volunteer", data);
@@ -83,6 +97,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
           mutateAsync(bodyObj);
           console.log(bodyObj);
           setSubmitting(false);
+          // @ts-expect-error - props don't match
           resetForm({ checked: [] });
         }}
       >
@@ -114,8 +129,10 @@ function Dates({ days, userShifts }: { days: Day[]; userShifts: any }) {
   );
 }
 
-function Shift({ day, userShifts }: { day: Day; userShifts: any }) {
-  const userShiftsArray = userShifts.data.map((shift: any) => shift.shiftId);
+function Shift({ day, userShifts }: { day: Day; userShifts: UserShifts }) {
+  const userShiftsArray = userShifts.data.map(
+    (shift: UserShift) => shift.shiftId
+  );
 
   const shifts = day.shifts.map((shift) => {
     if (!userShiftsArray.includes(shift.shiftId)) {
@@ -128,7 +145,6 @@ function Shift({ day, userShifts }: { day: Day; userShifts: any }) {
               type="checkbox"
               name="checked"
               value={shift.shiftId.toString()}
-              key={shift.shiftId.toString()}
             />
             {shift.timeRange}
           </label>

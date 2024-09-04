@@ -5,6 +5,14 @@ import { useSelector } from "react-redux";
 
 interface UserShiftsProps {}
 
+interface Shift {
+  date: string;
+  timeRange: string;
+  typeId: number;
+  availabilityId: number;
+  shiftId: number;
+}
+
 const UserShifts: React.FC<UserShiftsProps> = () => {
   const userId = useSelector((state: any) => state.userId);
 
@@ -23,13 +31,12 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
     },
     retry: true,
   });
+
   const { mutateAsync } = useMutation({
-    mutationFn: (data) => {
-      return axios.delete("/api/volunteer", {
-        data: {
-          availabilityId: availId,
-          shiftId: shiftId,
-        },
+    mutationFn: (data: { shiftId: number; availabilityId: number }) => {
+      console.log("data", data);
+      return axios.delete("/api/deleteShift", {
+        data,
       });
     },
     onSettled: () => {
@@ -38,7 +45,7 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
     },
   });
 
-  console.log("userShifts", data);
+  console.log("userShifts", data?.data);
 
   if (isPendingUserShifts) {
     return <div>Loading...</div>;
@@ -47,26 +54,40 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
     console.log("errorUserShifts", errorUserShifts);
     return <div>Error!</div>;
   }
+  if (data.data.length === 0) {
+    return <div>No shifts found</div>;
+  }
 
-  const userShifts = data.data.map((shift: any) => {
-    const { date, timeRange, typeId } = shift;
+  const userShifts = data.data.map((shift: Shift) => {
+    const { date, timeRange, typeId, availabilityId, shiftId } = shift;
+
     return (
-      <li className="desktop:flex phone:hidden justify-between">
-        <div className="grid grid-cols-4 gap-2 items-center text-xl text-start">
-          <div className="flex justify-center">
-            <span className="font-semibold">Shift type:</span>
-            <span className="ml-2">{typeId === 1 ? "Setup" : "Host"}</span>
+      <li className="">
+        <div className="">
+          <div className="">
+            <span className="">Shift type:</span>
+            <span className="">{typeId === 1 ? "Setup" : "Host"}</span>
           </div>
-          <div className="flex justify-center">
-            <span className="font-semibold">Date:</span>
-            <span className="ml-2">{date}</span>
+          <div className="">
+            <span
+              className="
+            "
+            >
+              Date:
+            </span>
+            <span className="">{date}</span>
           </div>
           <div>
-            <span className="font-semibold">Time:</span>
-            <span className="ml-2">{timeRange}</span>
+            <span className="">Time:</span>
+            <span className="">{timeRange}</span>
           </div>
-          <div className="flex justify-center">
-            <button className="btn">Remove Shift</button>
+          <div className="">
+            <button
+              className=""
+              onClick={() => mutateAsync({ availabilityId, shiftId })}
+            >
+              Remove Shift
+            </button>
           </div>
         </div>
       </li>

@@ -23,7 +23,8 @@ app.use(
   })
 );
 
-const { setupShifts, hostShifts, volunteer, userShifts } = siteCtrl;
+const { setupShifts, hostShifts, volunteer, userShifts, deleteShift } =
+  siteCtrl;
 const { login, user, updateUser, logout } = authCtrl;
 
 // Endpoints created here. At the moment I don't have any so I don't need to set this up. I think I will build out the site pagination and then come back to this.
@@ -33,6 +34,7 @@ app.get("/api/setup", setupShifts);
 app.get("/api/host", hostShifts);
 app.get("/api/userShifts", userShifts);
 app.post("/api/volunteer", volunteer);
+app.delete("/api/deleteShift", deleteShift);
 
 // Auth0 Endpoints
 app.post("/api/login", login);
