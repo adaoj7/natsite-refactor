@@ -1,7 +1,9 @@
 ﻿import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { availableMemory } from "process";
 import React from "react";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 interface UserShiftsProps {}
 
@@ -55,14 +57,25 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
     return <div>Error!</div>;
   }
   if (data.data.length === 0) {
-    return <div>No shifts found</div>;
+    return (
+      <div className="flex flex-col">
+        <h1>No Shifts</h1>
+        <div>
+          If you would like to sign up for shifts please head to:
+          <NavLink to={"/getInvolved/setup"} className="ml-1">
+            Setup{" "}
+          </NavLink>
+          or <NavLink to={"/getInvolved/host"}>Host</NavLink>
+        </div>
+      </div>
+    );
   }
 
   const userShifts = data.data.map((shift: Shift) => {
     const { date, timeRange, typeId, availabilityId, shiftId } = shift;
 
     return (
-      <li className="">
+      <li className="" key={availabilityId}>
         <div className="">
           <div className="">
             <span className="">Shift type:</span>

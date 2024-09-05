@@ -114,11 +114,6 @@ export default {
 
       const reducerFn = (acc, curr, index) => {
         console.log("acc", acc);
-        if (index === 0) {
-          let shiftArr = [];
-          shiftArr.push([curr.availabilityId, curr.shift]);
-          return shiftArr;
-        }
         let shiftArr = acc;
         shiftArr.push([curr.availabilityId, curr.shift]);
         return shiftArr;

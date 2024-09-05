@@ -1,20 +1,13 @@
 ﻿import clsx from "clsx";
+import MobileBackground from "../assets/backgrounds/Background-Mobile-PSO.jpg";
+import DesktopBackground from "../assets/backgrounds/Background-Desktop-Edited.jpg";
+import Logo from "../assets/logos/CFN White-01.png";
 
 type HeroProps = {
-  //   size: "small" | "medium" | "large";
-  phone?: "phone" | "desktop";
-  image: string;
-  logo?: string;
   className?: string;
 };
 
-export default function HeroImage({
-  //   size,
-  phone,
-  image,
-  logo,
-  className,
-}: HeroProps) {
+export default function HeroImage({ className }: HeroProps) {
   //   const imageSize = {
   //     small: "w-24 h-10",
   //     medium: "w-32 h-14",
@@ -26,19 +19,31 @@ export default function HeroImage({
   return (
     <div>
       <div className={clsx("top-0 flex relative", className)}>
-        {phone === "phone" ? (
-          <img src={image} alt="phoneHero" className="h-full" />
-        ) : (
-          <>
-            <img src={image} alt="desktopHero" className="min-h-screen" />
-            <img
-              src={logo}
-              alt="heroLogo"
-              className="absolute w-1/3 top-1/2 right-44 min-h-1/4"
-            />
-          </>
-        )}
+        <div className="md:hidden">
+          <PhoneHero />
+        </div>
+        {/* Maybe change the breakpoint */}
+        <div className="hidden md:flex">
+          <DesktopHero />
+        </div>
       </div>
     </div>
   );
 }
+
+const PhoneHero: React.FC = () => {
+  return (
+    <>
+      <img src={MobileBackground} className="h-full" />
+    </>
+  );
+};
+
+const DesktopHero: React.FC = () => {
+  return (
+    <>
+      <img src={DesktopBackground} className="min-h-screen" />
+      <img src={Logo} className="absolute w-1/3 top-1/2 right-44 min-h-1/4" />
+    </>
+  );
+};

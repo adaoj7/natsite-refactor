@@ -2,16 +2,23 @@
 import { Menu, MenuItem, MenuButton, MenuItems } from "@headlessui/react";
 import useScrollPosition from "../hooks/useScrollPosition";
 import clsx from "clsx";
-import Auth from "./Auth";
 import { useDispatch, useSelector } from "react-redux";
-import { useLayoutEffect } from "react";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { IoMenu } from "react-icons/io5";
+import MobileLogo from "../assets/logos/CFN-White-Shadow-01.svg";
 
 type NavbarProps = {
   routes: Array<string> | Array<Array<string>>;
 };
+
+type AllRoutesProps = {
+  routes: Array<string> | Array<Array<string>>;
+  userId: number | null;
+  handleLogin: () => void;
+};
+
 type MenuItem = Array<string>;
 
 export default function Navbar({ routes }: NavbarProps) {
@@ -54,6 +61,126 @@ export default function Navbar({ routes }: NavbarProps) {
     return "justify-between bg-primary";
   }
 
+  return (
+    <>
+      <header className="sticky z-10 flex flex-row w-full" id="navbar">
+        <nav className="md:hidden fixed w-full">
+          <AllRoutesMobile
+            routes={routes}
+            userId={userId}
+            handleLogin={handleLogin}
+          />
+        </nav>
+        <nav
+          className={clsx(
+            scrollStyling(location),
+            "md:flex hidden fixed justify-between w-screen font-bold text-white z--10"
+          )}
+        >
+          <div className="flex ml-28 m-2 p-3 gap-2">
+            <AllRoutesDesktop
+              routes={routes}
+              userId={userId}
+              handleLogin={handleLogin}
+            />
+          </div>
+        </nav>
+      </header>
+    </>
+  );
+}
+
+// first navbar component
+const AllRoutesMobile: React.FC<AllRoutesProps> = ({
+  routes,
+  userId,
+  handleLogin,
+}) => {
+  const allRoutes = routes.map((route, index) => {
+    if (route[0] === "menu") {
+      const menuName = route[1];
+      const menu = route[2];
+      // @ts-expect-error - menu is an array of arrays
+      const menuReturn = menu.map((menuItem: MenuItem, index) => {
+        return (
+          <li key={index}>
+            <NavLink to={menuItem[0]} key={menuItem[0]}>
+              {menuItem[1]}
+            </NavLink>
+          </li>
+        );
+      });
+
+      return (
+        <>
+          <li>
+            <details open>
+              <summary className="text-white">Get Involved</summary>
+              <div>
+                <ul
+                  className={"flex flex-col text-white"}
+                  // anchor="bottom start"
+                >
+                  <div className="border-t border-black"></div>
+                  {menuReturn}
+                  <div className="border-b border-black"></div>
+                </ul>
+              </div>
+            </details>
+          </li>
+        </>
+      );
+    }
+
+    return (
+      <li key={route[0]}>
+        <NavLink
+          to={route[0]}
+          className={({ isActive }) => {
+            if (isActive) {
+              return "text-white";
+            }
+            return "text-white";
+          }}
+        >
+          {route[1]}
+        </NavLink>
+      </li>
+    );
+  });
+
+  return (
+    <div className="flex drawer h-24 bg-primary w-full items-center">
+      <img src={MobileLogo} className="h-16 ml-6 invert" />
+
+      <input id="mobile-drawer" type="checkbox" className="drawer-toggle" />
+      <label htmlFor="mobile-drawer" className="flex justify-end w-full m-4">
+        <IoMenu className="relative text-white" size={40} />
+      </label>
+      <div className="drawer-side">
+        <label htmlFor="mobile-drawer" className="drawer-overlay"></label>
+        <ul className="menu min-h-full w-60 bg-secondary">
+          {allRoutes}
+
+          <li className="text-white">
+            {userId ? (
+              <NavLink to={"/user"}>Profile</NavLink>
+            ) : (
+              <button onClick={() => handleLogin()}>Login</button>
+            )}
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+// second Navbar component
+const AllRoutesDesktop: React.FC<AllRoutesProps> = ({
+  routes,
+  userId,
+  handleLogin,
+}) => {
   const allRoutes = routes.map((route, index) => {
     if (route[0] === "menu") {
       const menuName = route[1];
@@ -130,23 +257,14 @@ export default function Navbar({ routes }: NavbarProps) {
 
   return (
     <>
-      <header className="sticky z-10 flex flex-row w-full" id="navbar">
-        <nav
-          className={clsx(
-            scrollStyling(location),
-            "fixed flex justify-between w-screen font-bold text-white z--10 "
-          )}
-        >
-          <div className="flex ml-28 m-2 p-3 gap-2">{allRoutes}</div>
-          <div className="h-auto flex items-center mr-20">
-            {userId ? (
-              <NavLink to={"/user"}>Profile</NavLink>
-            ) : (
-              <button onClick={() => handleLogin()}>Login</button>
-            )}
-          </div>
-        </nav>
-      </header>
+      {allRoutes}
+      <div className="h-auto flex items-center mr-20">
+        {userId ? (
+          <NavLink to={"/user"}>Profile</NavLink>
+        ) : (
+          <button onClick={() => handleLogin()}>Login</button>
+        )}
+      </div>
     </>
   );
-}
+};

@@ -24,10 +24,6 @@ interface initialValues {
   checked: string[];
 }
 
-type UserShifts = {
-  data: UserShift[] | [];
-};
-
 interface UserShift {
   date: string;
   timeRange: string;
@@ -35,6 +31,11 @@ interface UserShift {
   availabilityId: number;
   shiftId: number;
 }
+
+type UserShifts = {
+  data: UserShift[] | [];
+};
+
 export default function Shifts({ shiftType }: ShiftOptions) {
   const userId = useSelector((state: any) => state.userId);
 
