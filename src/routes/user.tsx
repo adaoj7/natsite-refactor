@@ -1,4 +1,4 @@
-﻿import React, { Suspense, useEffect } from "react";
+﻿import React, { useEffect } from "react";
 import Spacer from "../components/Spacer";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { default as PhoneInput } from "react-phone-number-input/input";

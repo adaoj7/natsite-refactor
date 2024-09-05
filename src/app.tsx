@@ -23,8 +23,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import User from "./routes/user";
-import { Suspense } from "react";
-import Spacer from "./components/Spacer";
 
 function App() {
   const { isAuthenticated, user } = useAuth0();

@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <>
-      <HeroImage image={DesktopBackground} logo={Logo} />
+      <HeroImage />
       <div>Content</div>
     </>
   );

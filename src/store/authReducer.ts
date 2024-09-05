@@ -1,5 +1,4 @@
 ﻿import { UnknownAction } from "@reduxjs/toolkit";
-import { stat } from "fs";
 
 export interface LoginAction {
   type: "LOGIN";
