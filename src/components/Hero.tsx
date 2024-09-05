@@ -34,7 +34,7 @@ export default function HeroImage({ className }: HeroProps) {
 const PhoneHero: React.FC = () => {
   return (
     <>
-      <img src={MobileBackground} className="h-full" />
+      <img src={MobileBackground} className="" />
     </>
   );
 };
