@@ -5,11 +5,13 @@ import { Formik, Field, Form } from "formik";
 import Button from "./Button";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { helperFunctions } from "../helper-functions/helper-functions";
 interface ShiftOptions {
   shiftType: "setup" | "host";
 }
 interface Day {
   date: string;
+  dayOfWeek: string;
   shifts: Shift[];
 }
 
@@ -38,7 +40,9 @@ type UserShifts = {
 
 export default function Shifts({ shiftType }: ShiftOptions) {
   const userId = useSelector((state: any) => state.userId);
+  const { capitalizeFirstLetter } = helperFunctions;
 
+  const capShiftType = capitalizeFirstLetter(shiftType);
   const {
     isPending: isPendingShifts,
     error: errorShifts,
@@ -87,7 +91,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
   if (errorShifts || errorUserShifts) return <p>Error</p>;
 
   return (
-    <div className="flex card bg-secondary w-96">
+    <div className="flex card bg-secondary max-w-full flex-grow m-12">
       <Formik
         initialValues={{ checked: [] } as initialValues}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -104,10 +108,23 @@ export default function Shifts({ shiftType }: ShiftOptions) {
       >
         {({ handleSubmit }) => (
           <Form onSubmit={handleSubmit} className="card-body">
-            <ul role="group" aria-labelledby="checkbox-group">
+            <h2 className="card-header text-xl font-semibold flex justify-center">
+              {capShiftType}
+            </h2>
+            <p className="flex justify-center min-h-8">
+              Please use this form to sign up for {shiftType} shifts during the
+              festival.
+            </p>{" "}
+            <ul
+              role="group"
+              aria-labelledby="checkbox-group"
+              className="flex flex-wrap gap-4 flex-grow md:justify-around"
+            >
               <Dates days={shiftData.data} userShifts={userShifts} />
             </ul>
-            <Button name="Submit" type="submit" />
+            <div className="flex justify-end md:justify-center">
+              <Button name="Submit" type="submit" className="" />
+            </div>
           </Form>
         )}
       </Formik>
@@ -120,8 +137,10 @@ function Dates({ days, userShifts }: { days: Day[]; userShifts: any }) {
     <>
       {days.map((day) => {
         return (
-          <div key={day.date}>
-            <h2 className="text-black">{day.date}</h2>
+          <div key={day.date} className="text-lg font-semibold">
+            <div className="my-1">
+              {day.dayOfWeek}, {day.date}
+            </div>
             <Shift day={day} userShifts={userShifts} />
           </div>
         );
@@ -138,14 +157,14 @@ function Shift({ day, userShifts }: { day: Day; userShifts: UserShifts }) {
   const shifts = day.shifts.map((shift) => {
     if (!userShiftsArray.includes(shift.shiftId)) {
       return (
-        <div key={shift.timeRange}>
-          <h3>{shift.time}</h3>
+        <div key={shift.timeRange} className="">
           <input type="hidden" />
-          <label className="text-black">
+          <label className="font-normal">
             <Field
               type="checkbox"
               name="checked"
               value={shift.shiftId.toString()}
+              className="mr-2 checkbox size-4 checkbox-sm bg-white checkbox-primary"
             />
             {shift.timeRange}
           </label>

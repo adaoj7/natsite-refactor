@@ -30,10 +30,11 @@ const yearsInDB = await Promise.all(
 
 const daysInDB = await Promise.all(
   days.map((param) => {
-    const { date, yearId } = param;
+    const { date, dayOfWeek, yearId } = param;
 
     const newDay = Day.create({
       date,
+      dayOfWeek,
       yearId,
     });
     return newDay;

@@ -79,6 +79,9 @@ Day.init(
     date: {
       type: DataTypes.STRING,
     },
+    dayOfWeek: {
+      type: DataTypes.STRING,
+    },
     yearId: {
       type: DataTypes.INTEGER,
     },

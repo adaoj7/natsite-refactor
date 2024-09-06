@@ -44,7 +44,6 @@ export default {
         return day;
       }
     });
-
     res.json(filteredShifts);
   },
 

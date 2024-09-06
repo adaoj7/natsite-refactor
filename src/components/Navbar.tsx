@@ -116,16 +116,16 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
           <li>
             <details open>
               <summary className="text-white">Get Involved</summary>
-              <div>
-                <ul
-                  className={"flex flex-col text-white"}
-                  // anchor="bottom start"
-                >
-                  <div className="border-t border-black"></div>
-                  {menuReturn}
-                  <div className="border-b border-black"></div>
-                </ul>
-              </div>
+              <ul
+                className={
+                  "flex flex-col text-white ml-6 border-l border-gray-200"
+                }
+                // anchor="bottom start"
+              >
+                <div className=""></div>
+                {menuReturn}
+                <div className=""></div>
+              </ul>
             </details>
           </li>
         </>
@@ -160,15 +160,17 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
       <div className="drawer-side">
         <label htmlFor="mobile-drawer" className="drawer-overlay"></label>
         <ul className="menu min-h-full w-60 bg-secondary">
-          {allRoutes}
+          <div className="mt-4">
+            {allRoutes}
 
-          <li className="text-white">
-            {userId ? (
-              <NavLink to={"/user"}>Profile</NavLink>
-            ) : (
-              <button onClick={() => handleLogin()}>Login</button>
-            )}
-          </li>
+            <li className="text-white">
+              {userId ? (
+                <NavLink to={"/user"}>Profile</NavLink>
+              ) : (
+                <button onClick={() => handleLogin()}>Login</button>
+              )}
+            </li>
+          </div>
         </ul>
       </div>
     </div>

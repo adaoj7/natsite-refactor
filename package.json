@@ -41,6 +41,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.9",
     "@tanstack/eslint-plugin-query": "^5.51.1",
     "@testing-library/dom": "^10.3.2",
     "@testing-library/jest-dom": "^6.4.6",
