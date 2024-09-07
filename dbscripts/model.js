@@ -1,9 +1,13 @@
 ﻿﻿import { DataTypes, Model } from "sequelize";
 import util from "util";
 import connectToDB from "./db.js";
-import Sequelize from "sequelize";
+import "dotenv/config";
 
-export const db = await connectToDB("postgresql:///natsite-refactor");
+// eslint-disable-next-line no-undef
+const { CONNECTION_STRING } = process.env;
+const dbURI = CONNECTION_STRING;
+
+export const db = await connectToDB(dbURI);
 
 export class User extends Model {
   [util.inspect.custom]() {

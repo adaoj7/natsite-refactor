@@ -10,4 +10,13 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./tests/setup.js",
   },
+  optimizeDeps: {
+    exclude: ['lightningcss']
+  },
+  build: {
+    chunkSizeWarningLimit: 900,
+    // rollupOptions: {
+    //   external: ["lightningcss"]
+    // }
+  }
 });

@@ -122,8 +122,8 @@ export default function Shifts({ shiftType }: ShiftOptions) {
             >
               <Dates days={shiftData.data} userShifts={userShifts} />
             </ul>
-            <div className="flex justify-end md:justify-center">
-              <Button name="Submit" type="submit" className="" />
+            <div className="flex justify-center mt-8">
+              <Button name="Submit" type="submit" className="md:w-96" />
             </div>
           </Form>
         )}
@@ -159,12 +159,12 @@ function Shift({ day, userShifts }: { day: Day; userShifts: UserShifts }) {
       return (
         <div key={shift.timeRange} className="">
           <input type="hidden" />
-          <label className="font-normal">
+          <label className="flex font-normal select-none items-center">
             <Field
               type="checkbox"
               name="checked"
               value={shift.shiftId.toString()}
-              className="mr-2 checkbox size-4 checkbox-sm bg-white checkbox-primary"
+              className="mr-2 checkbox size-4 checkbox-sm rounded-md bg-white checkbox-primary"
             />
             {shift.timeRange}
           </label>
