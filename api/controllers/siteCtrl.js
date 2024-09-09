@@ -5,7 +5,7 @@
   Year,
   Availability,
   User,
-} from "../../dbscripts/model.js";
+} from "../dbscripts/model.js";
 
 export default {
   setupShifts: async (req, res) => {

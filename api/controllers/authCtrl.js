@@ -1,4 +1,4 @@
-﻿import { User } from "../../dbscripts/model.js";
+﻿import { User } from "../dbscripts/model.js";
 import bcrypt from "bcryptjs";
 
 export default {

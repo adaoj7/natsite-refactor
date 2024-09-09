@@ -74,16 +74,14 @@ export default function Navbar({ routes }: NavbarProps) {
         <nav
           className={clsx(
             scrollStyling(location),
-            "md:flex hidden fixed justify-between w-screen font-bold text-white z--10"
+            "md:flex hidden fixed justify-between w-full font-bold text-white z--10"
           )}
         >
-          <div className="flex ml-28 m-2 p-3 gap-2">
-            <AllRoutesDesktop
-              routes={routes}
-              userId={userId}
-              handleLogin={handleLogin}
-            />
-          </div>
+          <AllRoutesDesktop
+            routes={routes}
+            userId={userId}
+            handleLogin={handleLogin}
+          />
         </nav>
       </header>
     </>
@@ -259,7 +257,7 @@ const AllRoutesDesktop: React.FC<AllRoutesProps> = ({
 
   return (
     <>
-      {allRoutes}
+      <div className="flex ml-28 m-2 p-3 gap-2 w-full">{allRoutes}</div>
       <div className="h-auto flex items-center mr-20">
         {userId ? (
           <NavLink to={"/user"}>Profile</NavLink>

@@ -5,14 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon api/index.js -w api -w src",
-    "tailwind": "npx tailwindcss -i ./src/index.css -o ./assets/output.css --watch",
-    "tailwind:nowatch": "npx tailwindcss -i ./src/index.css -o ./dist/assets/output.css",
+    "pm2": "pm2 start api/index.js --name natsite",
+    "tailwind": "npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
+    "tailwind:nowatch": "npx tailwindcss -i ./src/index.css -o ./dist/output.css",
     "build": "tsc -b && vite build && npm run tailwind:nowatch",
     "build-vite": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite",
     "test": "vitest",
     "all": "concurrently npm:dev npm:tailwind",
+    "all-pm2": "concurrently npm:pm2 npm:tailwind:nowatch && pm2 list",
+    "stop": "pm2 delete natsite",
     "seed": "node dbscripts/seed.js"
   },
   "dependencies": {
@@ -31,6 +34,7 @@
     "libphonenumber-js": "^1.11.7",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.4",
+    "pm2": "^5.4.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0",
