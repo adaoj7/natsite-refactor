@@ -6,6 +6,22 @@ export default {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}", "./index.html"],
   mode: "jit",
   theme: {
+    screens: {
+      phone: "300px",
+      // => @media (min-width: 640px) { ... }
+
+      desktop: "800px",
+      // => @media (min-width: 1024px) { ... }
+
+      // 'xl': '1280px',
+      // => @media (min-width: 1280px) { ... }
+    },
+    fontFamily: {
+      Roboto: ['"Roboto Slab"', "serif"],
+      OpenSans: ['"Open Sans"', "sans-serif"],
+      Playfair: ['"Playfair Display"', "serif"],
+      Montserrat: ['"Montserrat"', "sans-serif"],
+    },
     extend: {
       colors: {
         primary: "#6B705C",

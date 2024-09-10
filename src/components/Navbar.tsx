@@ -64,7 +64,7 @@ export default function Navbar({ routes }: NavbarProps) {
   return (
     <>
       <header className="sticky z-10 flex flex-row w-full" id="navbar">
-        <nav className="md:hidden fixed w-full">
+        <nav className="desktop:hidden fixed w-full">
           <AllRoutesMobile
             routes={routes}
             userId={userId}
@@ -74,7 +74,7 @@ export default function Navbar({ routes }: NavbarProps) {
         <nav
           className={clsx(
             scrollStyling(location),
-            "md:flex hidden fixed justify-between w-full font-bold text-white z--10"
+            "desktop:flex hidden fixed justify-between w-full font-bold text-white z--10"
           )}
         >
           <AllRoutesDesktop
@@ -229,7 +229,7 @@ const AllRoutesDesktop: React.FC<AllRoutesProps> = ({
           </MenuButton>
           <MenuItems
             className={
-              "bg-secondary flex flex-col absolute right-0 top-12 w-32 origin-top-right border-primary border-2 rounded-xl ring-opacity-50 focus:outline-none"
+              "bg-secondary flex flex-col absolute right-0 top-12 w-32 p-4 origin-top-right border-primary border-2 rounded-xl ring-opacity-50 focus:outline-none"
             }
           >
             {menuReturn}

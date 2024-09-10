@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon api/index.js -w api -w src",
-    "pm2": "pm2 start api/index.js --name natsite",
+    "pm2-runtime": "pm2-runtime api/index.js --name natsite",
     "tailwind": "npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
     "tailwind:nowatch": "npx tailwindcss -i ./src/index.css -o ./dist/output.css",
     "build": "tsc -b && vite build && npm run tailwind:nowatch",
@@ -14,7 +14,7 @@
     "preview": "vite",
     "test": "vitest",
     "all": "concurrently npm:dev npm:tailwind",
-    "all-pm2": "concurrently npm:pm2 npm:tailwind:nowatch && pm2 list",
+    "all-pm2": "concurrently npm:pm2-runtime npm:tailwind:nowatch && pm2 list",
     "stop": "pm2 delete natsite",
     "seed": "node dbscripts/seed.js"
   },
@@ -58,6 +58,7 @@
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
     "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
     "concurrently": "^8.2.2",
     "daisyui": "^4.12.10",
     "eslint": "^8.57.0",
@@ -68,8 +69,9 @@
     "eslint-plugin-react-refresh": "^0.4.7",
     "pg": "^8.12.0",
     "pg-hstore": "^2.3.4",
+    "postcss": "^8.4.45",
     "prettier": "^3.3.3",
-    "tailwindcss": "^3.4.6",
+    "tailwindcss": "^3.4.10",
     "typescript": "^5.2.2",
     "vite": "^5.3.1",
     "vitest": "^2.0.3"

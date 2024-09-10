@@ -35,7 +35,7 @@ export default function GetInvolved() {
     <>
       <Spacer />
       <Flex className="min-h-[calc(100vh-176px)]">
-        <div className="hidden md:flex flex-col gap-4 border-r-2 border-primary px-4 ">
+        <div className="hidden desktop:flex flex-col gap-4 border-r-2 border-primary px-4 ">
           {getInvolvedRoutes}
         </div>
         <div className="flex justify-center w-full">

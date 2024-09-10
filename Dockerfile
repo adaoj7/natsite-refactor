@@ -12,9 +12,10 @@ COPY . .
 
 # Install dependencies
 RUN npm install
+RUN npm install -g pm2
 
 # Expose the port the app runs on
 EXPOSE 4242
 
 # Define the command to run your application
-CMD ["npm", "run", "all-pm2"]
+CMD ["sh", "-c", "npm run tailwind:nowatch && pm2-runtime api/index.js"]

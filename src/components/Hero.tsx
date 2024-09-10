@@ -19,11 +19,11 @@ export default function HeroImage({ className }: HeroProps) {
   return (
     <div>
       <div className={clsx("top-0 flex relative", className)}>
-        <div className="md:hidden">
+        <div className="desktop:hidden phone:flex">
           <PhoneHero />
         </div>
         {/* Maybe change the breakpoint */}
-        <div className="hidden md:flex">
+        <div className="hidden desktop:flex">
           <DesktopHero />
         </div>
       </div>
