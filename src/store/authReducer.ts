@@ -40,7 +40,6 @@ const authReducer = (state = initialState, action: any) => {
         isAdmin: null,
       };
     case UPDATE:
-      console.log("UPDATE", action.payload);
       return action.payload;
     default:
       return state;

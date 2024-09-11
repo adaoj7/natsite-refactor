@@ -21,6 +21,7 @@ export default {
       OpenSans: ['"Open Sans"', "sans-serif"],
       Playfair: ['"Playfair Display"', "serif"],
       Montserrat: ['"Montserrat"', "sans-serif"],
+      Dancing: ['"Dancing Script"', "cursive"],
     },
     extend: {
       colors: {

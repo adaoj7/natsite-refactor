@@ -1,6 +1,7 @@
 ﻿export const routes = [
   ["/", "Home Page"],
   ["/about", "About"],
+  ["/thisYear", "This Year"],
   [
     "menu",
     ["/getInvolved", "Get Involved"],
@@ -11,8 +12,7 @@
       ["/getInvolved/donate", "Donate"],
     ],
   ],
-  ["/thisYear", "This Year"],
-  ["/gallery", "Gallery"],
+  // ["/gallery", "Gallery"],
   ["/lightTheWorld", "Light the World"],
   ["/contact", "Contact"],
 ];

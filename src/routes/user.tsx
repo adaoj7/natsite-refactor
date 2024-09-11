@@ -42,39 +42,41 @@ export default function User() {
   return (
     <>
       <Spacer />
-      {isEditing ? (
-        <UserForm setIsEditing={setIsEditing} refetch={refetch} user={user} />
-      ) : (
-        <div className="flex justify-center items-center">
-          <div className="card bg-secondary w-96 shadow-xl">
-            <div className="card-body">
-              <p className="card-title">Not Editing!</p>
-              <div className="card-actions flex-col justify-between">
-                {data && (
-                  <ul>
-                    <li>Name: {data.name}</li>
-                    <li>Email: {data.email}</li>
-                    <li>Phone: {data.phone ? data.phone : "N/A"}</li>
-                    <li>Church: {data.church ? data.church : "N/A"}</li>
-                  </ul>
-                )}
-                <Flex className="w-full gap-2" direction="col">
-                  <button
-                    className="btn btn-primary w-full"
-                    onClick={() => setIsEditing(true)}
-                  >
-                    Edit
-                  </button>
-                  {/* I need to make this a modal to confirm the logout */}
-                  <button onClick={() => logoutServer()} className="btn">
-                    Logout
-                  </button>
-                </Flex>
+      <div className="my-8">
+        {isEditing ? (
+          <UserForm setIsEditing={setIsEditing} refetch={refetch} user={user} />
+        ) : (
+          <div className="flex justify-center items-center">
+            <div className="card bg-secondary w-96 shadow-xl">
+              <div className="card-body">
+                <p className="card-title">Profile:</p>
+                <div className="card-actions flex-col justify-between">
+                  {data && (
+                    <ul>
+                      <li>Name: {data.name}</li>
+                      <li>Email: {data.email}</li>
+                      <li>Phone: {data.phone ? data.phone : "N/A"}</li>
+                      <li>Church: {data.church ? data.church : "N/A"}</li>
+                    </ul>
+                  )}
+                  <Flex className="w-full gap-2" direction="col">
+                    <button
+                      className="btn btn-primary w-full"
+                      onClick={() => setIsEditing(true)}
+                    >
+                      Edit
+                    </button>
+                    {/* I need to make this a modal to confirm the logout */}
+                    <button onClick={() => logoutServer()} className="btn">
+                      Logout
+                    </button>
+                  </Flex>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 }
@@ -112,7 +114,7 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
       <div className="flex justify-center items-center">
         <div className="card bg-secondary w-96 shadow-xl">
           <div className="card-body">
-            <p className="card-title">Editing!</p>
+            <p className="card-title">Edit Profile</p>
             <Formik
               initialValues={{
                 name: user?.name,
@@ -121,6 +123,7 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
               }}
               onSubmit={async (values) => {
                 handleSubmit(values);
+                setIsEditing(false);
               }}
             >
               {({ values, handleChange }) => (
@@ -149,15 +152,8 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
                     onChange={handleChange}
                   />
                   <div className="w-full flex gap-2">
-                    <button type="submit" className="btn flex-grow">
-                      Submit
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setIsEditing(false)}
-                      className="btn btn-success flex-grow"
-                    >
-                      Save
+                    <button type="submit" className="btn btn-primary flex-grow">
+                      Save{" "}
                     </button>
                   </div>
                   <div className="flex w-full">

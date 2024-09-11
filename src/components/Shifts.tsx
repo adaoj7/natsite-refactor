@@ -52,7 +52,6 @@ export default function Shifts({ shiftType }: ShiftOptions) {
     queryKey: ["shifts"],
     queryFn: async () => {
       const response = await axios.get(`/api/${shiftType}`);
-      console.log("response", response);
       return response;
     },
   });
@@ -78,14 +77,10 @@ export default function Shifts({ shiftType }: ShiftOptions) {
       return axios.post("/api/volunteer", data);
     },
     onSettled: () => {
-      console.log("onSettled");
       refetchShifts();
       refetchUserShifts();
     },
   });
-
-  console.log("shift data", shiftData);
-  console.log("volunteer data", userShifts);
 
   if (isPendingShifts || isPendingUserShifts) return <p>Loading...</p>;
   if (errorShifts || errorUserShifts) return <p>Error</p>;
@@ -100,7 +95,6 @@ export default function Shifts({ shiftType }: ShiftOptions) {
             checked: values.checked,
           };
           mutateAsync(bodyObj);
-          console.log(bodyObj);
           setSubmitting(false);
           // @ts-expect-error - props don't match
           resetForm({ checked: [] });

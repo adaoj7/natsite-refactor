@@ -38,7 +38,7 @@ function MobileHome() {
           <div className="card bg-secondary rounded-3xl shadow-sm">
             <div className="flex card-body justify-around ">
               {/* <!-- Interactive event scheduler/calendar --> */}
-              <h2 className="card-title justify-center text-2xl">
+              <h2 className="card-title justify-center text-5xl font-Dancing">
                 All is Bright
               </h2>
               <h2 className="flex justify-center font-semibold">
@@ -107,7 +107,7 @@ function MobileHome() {
               </ul>
               <span>
                 For more information on how to become a{" "}
-                <NavLink to="/donate" className="hover:underline">
+                <NavLink to="/getInvolved/donate" className="hover:underline">
                   Friend of the Nativity{" "}
                 </NavLink>
               </span>
@@ -154,11 +154,11 @@ function MobileHome() {
                 <span>We offer two main types of volunteering:</span>
               </div>
               <span className="flex justify-center mt-4">
-                <NavLink to={"/volunteer/setup"} className="btn font-bold ">
+                <NavLink to={"/getInvolved/setup"} className="btn font-bold ">
                   Setup Shifts
                 </NavLink>{" "}
                 <span className="m-3">and</span>{" "}
-                <NavLink to={"/volunteer/host"} className="btn font-bold ">
+                <NavLink to={"/getInvolved/host"} className="btn font-bold ">
                   Host Shifts
                 </NavLink>
               </span>
@@ -190,7 +190,7 @@ function DesktopHome() {
                 <span className="hover:no-underline">-</span>
                 <NavLink
                   to="/about"
-                  className="card-actions items-end hover:underline "
+                  className="card-actions items-end underline "
                 >
                   About Us
                 </NavLink>
@@ -199,37 +199,41 @@ function DesktopHome() {
           </div>
 
           <div className="card bg-secondary rounded-3xl shadow-sm basis-1/4">
-            <div className="flex card-body justify-around ">
+            <div className="flex card-body justify-between ">
               {/* <!-- Interactive event scheduler/calendar --> */}
-              <h2 className="flex justify-center font-semibold">
-                All is Bright
-              </h2>
-              <h2 className="flex justify-center font-semibold">
-                December 5-8, 2024
-              </h2>
-              <ul className="m-4 [&>*]:whitespace-nowrap gap-4">
+              <div>
+                <h2 className="card-title text-5xl justify-center font-Dancing mb-4">
+                  All is Bright
+                </h2>
+                <h2 className="card-title justify-center">
+                  December 5-8, 2024
+                </h2>
+              </div>
+              <ul className="m-4 [&>*]:whitespace-nowrap text-center">
                 <li className="flex flex-col">
                   <span>Thursday 3pm-9pm</span>
-                  <span>- Live Nativity 4:00pm-7:00pm</span>
+                  <span>Live Nativity 4:00pm-7:00pm</span>
                 </li>
-                <li className="my-4">Friday & Saturday 10am-9pm</li>
+                <li className="my-8">Friday & Saturday 10am-9pm</li>
                 <li className="">Sunday 12pm-6pm</li>
               </ul>
-              <h2 className="flex items-start font-semibold text-lg ml-6">
-                Address:
-              </h2>
-              <div className="flex flex-col justify-center card-actions items-center">
-                <button
-                  onClick={() =>
-                    window.open(
-                      `https://www.google.com/maps/place/The+Community+Festival+of+Nativities/@40.7352662,-89.6539589,15.5z/data=!4m6!3m5!1s0x880a5c39a382250d:0x6fcfa24cada00e1b!8m2!3d40.732102!4d-89.651485!16s%2Fg%2F11f63xgxt0?entry=ttu`
-                    )
-                  }
-                  className="flex justify-center text-black font-bold btn whitespace-nowrap shadow-sm"
-                  title="Address in Google Maps"
-                >
-                  3700 West Reservoir Boulevard
-                </button>
+              <div className="mb-8">
+                <h2 className="flex items-start font-semibold text-lg ml-4 mb-4">
+                  Address:
+                </h2>
+                <div className="flex flex-col justify-center card-actions items-center">
+                  <button
+                    onClick={() =>
+                      window.open(
+                        `https://www.google.com/maps/place/The+Community+Festival+of+Nativities/@40.7352662,-89.6539589,15.5z/data=!4m6!3m5!1s0x880a5c39a382250d:0x6fcfa24cada00e1b!8m2!3d40.732102!4d-89.651485!16s%2Fg%2F11f63xgxt0?entry=ttu`
+                      )
+                    }
+                    className="flex justify-center text-black font-bold btn whitespace-nowrap shadow-sm"
+                    title="Address in Google Maps"
+                  >
+                    3700 West Reservoir Boulevard
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -249,7 +253,7 @@ function DesktopHome() {
               </ul>
               <span>
                 For more information on how to become a{" "}
-                <NavLink to="/donate" className="underline">
+                <NavLink to="/getInvolved/donate" className="underline">
                   Friend of the Nativity{" "}
                 </NavLink>
               </span>
@@ -299,11 +303,17 @@ function DesktopHome() {
                 <span>We offer two main types of volunteering:</span>
               </div>
               <span className="flex justify-center mt-4">
-                <NavLink to={"/volunteer/setup"} className="btn font-bold w-24">
+                <NavLink
+                  to={"/getInvolved/setup"}
+                  className="btn font-bold w-24"
+                >
                   Setup
                 </NavLink>{" "}
                 <span className="m-3">and</span>{" "}
-                <NavLink to={"/volunteer/host"} className="btn font-bold w-24">
+                <NavLink
+                  to={"/getInvolved/host"}
+                  className="btn font-bold w-24"
+                >
                   Hosting
                 </NavLink>
               </span>

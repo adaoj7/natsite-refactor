@@ -35,18 +35,14 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
 
   const { mutateAsync } = useMutation({
     mutationFn: (data: { shiftId: number; availabilityId: number }) => {
-      console.log("data", data);
       return axios.delete("/api/deleteShift", {
         data,
       });
     },
     onSettled: () => {
-      console.log("onSettled");
       refetchUserShifts();
     },
   });
-
-  console.log("userShifts", data?.data);
 
   if (isPendingUserShifts) {
     return <div>Loading...</div>;
