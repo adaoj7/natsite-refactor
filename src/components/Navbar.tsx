@@ -120,9 +120,7 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
                 }
                 // anchor="bottom start"
               >
-                <div className=""></div>
                 {menuReturn}
-                <div className=""></div>
               </ul>
             </details>
           </li>
@@ -160,7 +158,6 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
         <ul className="menu min-h-full w-60 bg-secondary">
           <div className="mt-4">
             {allRoutes}
-
             <li className="text-white">
               {userId ? (
                 <NavLink to={"/user"}>Profile</NavLink>

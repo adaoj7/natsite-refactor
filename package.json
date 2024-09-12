@@ -16,7 +16,7 @@
     "all": "concurrently npm:dev npm:tailwind",
     "all-pm2": "concurrently npm:pm2-runtime npm:tailwind:nowatch && pm2 list",
     "stop": "pm2 delete natsite",
-    "seed": "node dbscripts/seed.js"
+    "seed": "node api/dbscripts/seed.js"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",

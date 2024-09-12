@@ -4,6 +4,7 @@ import ViteExpress from "vite-express";
 import session from "express-session";
 import siteCtrl from "./controllers/siteCtrl.js";
 import authCtrl from "./controllers/authCtrl.js";
+import adminCtrl from "./controllers/adaminCtrl.js";
 
 const app = express();
 const PORT = 4242;
@@ -26,7 +27,7 @@ app.use(
 const { setupShifts, hostShifts, volunteer, userShifts, deleteShift } =
   siteCtrl;
 const { login, user, updateUser, logout } = authCtrl;
-
+const { allShifts, getShiftsForAdmin } = adminCtrl;
 // Endpoints created here. At the moment I don't have any so I don't need to set this up. I think I will build out the site pagination and then come back to this.
 
 // Volunteer Form Endpoints
@@ -35,6 +36,10 @@ app.get("/api/host", hostShifts);
 app.get("/api/userShifts", userShifts);
 app.post("/api/volunteer", volunteer);
 app.delete("/api/deleteShift", deleteShift);
+
+// Admin Endpoints
+app.get("/api/adminQuery", allShifts);
+app.post("/api/adminQuery", getShiftsForAdmin);
 
 // Auth0 Endpoints
 app.post("/api/login", login);

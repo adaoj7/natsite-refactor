@@ -13,14 +13,12 @@ export default {
       include: [
         {
           model: Day,
-          separate: true,
-          order: ["dateId"],
           include: [
             {
               model: Shift,
               where: { isFull: false },
               separate: true,
-              order: ["shiftId"],
+              order: [["shiftId", "ASC"]],
               include: [
                 {
                   model: ShiftType,
@@ -31,7 +29,12 @@ export default {
           ],
         },
       ],
+      order: [
+        ["year", "ASC"],
+        [Day, "dateId", "ASC"],
+      ],
     });
+    console.log("blarg-shift", shift);
     let filteredShifts;
     filteredShifts = shift.filter((year) => {
       const yearDate = new Date().getFullYear();
@@ -53,14 +56,12 @@ export default {
         include: [
           {
             model: Day,
-            separate: true,
-            order: ["dateId"],
             include: [
               {
                 model: Shift,
                 where: { isFull: false },
                 separate: true,
-                order: ["shiftId"],
+                order: [["shiftId", "ASC"]],
                 include: [
                   {
                     model: ShiftType,
@@ -70,6 +71,10 @@ export default {
               },
             ],
           },
+        ],
+        order: [
+          ["year", "ASC"],
+          [Day, "dateId", "ASC"],
         ],
       });
       let filteredShifts;
@@ -84,7 +89,6 @@ export default {
           return day;
         }
       });
-      console.log(filteredShifts);
       res.json(filteredShifts);
     } catch (error) {
       console.log(error);
@@ -112,17 +116,14 @@ export default {
       });
 
       const reducerFn = (acc, curr, index) => {
-        console.log("acc", acc);
         let shiftArr = acc;
         shiftArr.push([curr.availabilityId, curr.shift]);
         return shiftArr;
       };
 
       const userShifts = shifts.reduce(reducerFn, []).map((shift) => {
-        console.log("shift", shift);
         const availId = shift[0];
         const shiftObj = shift[1];
-        console.log("shiftObj", shiftObj);
         return {
           availabilityId: availId,
           shiftId: shiftObj.shiftId,
@@ -135,7 +136,6 @@ export default {
       });
 
       res.json(userShifts);
-      console.log("usershifts", userShifts);
     } catch (error) {
       console.log(error);
       res.sendStatus(404);

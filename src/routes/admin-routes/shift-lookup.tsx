@@ -1,11 +1,202 @@
-﻿import React from "react";
+﻿import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { Field, Form, Formik } from "formik";
+import { useState } from "react";
 
-interface ShiftLookupProps {}
+interface DateOptionProps {
+  dates: Shifts[];
+}
+interface ShiftOptionProps {
+  formValues: ShiftLookupForm;
+  data: Shifts[];
+}
 
-const ShiftLookup: React.FC<ShiftLookupProps> = () => {
+type Shifts = {
+  date: string;
+  dayOfWeek: string;
+  shifts: Shift[];
+};
+
+type Shift = {
+  dateId: string;
+  date: string;
+  timeRange: string;
+};
+
+type ShiftLookupForm = {
+  date: string;
+  time: string;
+  data: string;
+};
+
+export const ShiftLookup = () => {
+  return (
+    <div className=" w-[650px]">
+      <DateAndTimeGraph />
+      <ShiftForm />
+    </div>
+  );
+};
+
+const DateAndTimeGraph: React.FC = () => {
+  return (
+    <div className="card">
+      <div className="card-body">
+        <h1 className="card-title">Date and Time Graph</h1>
+      </div>
+    </div>
+  );
+};
+
+const ShiftForm: React.FC = () => {
+  const [volunteersAvail, setVolunteersAvail] = useState<any[]>([]);
+  const getShifts = async () => {
+    const res = await axios.get("/api/adminQuery");
+    console.log("res", res);
+    return res.data[0];
+  };
+  const { data, isLoading } = useQuery({
+    queryKey: ["shifts"],
+    queryFn: () => getShifts(),
+  });
+  if (isLoading) return <div>Loading...</div>;
+  return (
+    <div className="">
+      <Formik<ShiftLookupForm>
+        initialValues={{
+          date: "",
+          time: "",
+          data: "",
+        }}
+        onSubmit={async (values) => {
+          const sendQuery = async () => {
+            const bodyObj = {
+              date: values.date,
+              time: values.time,
+            };
+            const { data } = await axios.post("/api/adminQuery", bodyObj);
+            console.log("data", data);
+            if (!data.error) {
+              setVolunteersAvail(data);
+            } else {
+              console.log(data.error);
+            }
+          };
+          sendQuery();
+        }}
+      >
+        {({ values, errors }) => (
+          <Form className="card">
+            <div className="card-body">
+              <h1 className="card-title">Search Shifts</h1>
+              <div className="flex flex-col">
+                <DateOptions dates={data.days} />
+                <ShiftOptions formValues={values} data={data.days} />
+              </div>
+              <div className="flex justify-center mt-4">
+                <button type="submit" className="btn font-semibold ">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </Form>
+        )}
+      </Formik>
+      <QueryResults values={volunteersAvail} />
+    </div>
+  );
+};
+
+const DateOptions: React.FC<DateOptionProps> = ({ dates }) => {
+  const dateMap = dates.map((ele, i) => {
+    const shifts = ele.shifts.map((ele) => ele);
+    if (shifts.length > 0) {
+      return (
+        <option value={ele.date} key={i}>
+          {ele.dayOfWeek}, {ele.date}
+        </option>
+      );
+    }
+  });
+  return (
+    <Field
+      name="date"
+      component="select"
+      className="border-[1px] border-gray-300 rounded-md mb-4"
+    >
+      <option key="random">Select a Date</option>
+      {dateMap}
+    </Field>
+  );
+};
+
+const ShiftOptions: React.FC<ShiftOptionProps> = ({ formValues, data }) => {
+  const { date } = formValues;
+  let times: any[] = [];
+  const timesOnDate = data.filter((e) => e.date === date);
+  times = timesOnDate[0]?.shifts.map((ele, i) => {
+    return (
+      <option value={ele.timeRange} key={i}>
+        {ele.timeRange}
+      </option>
+    );
+  });
+  return (
+    <Field
+      name="time"
+      component="select"
+      className="border-[1px] border-gray-300 rounded-md"
+    >
+      <option key="random">Select a Time</option>
+      {times}
+    </Field>
+  );
+};
+
+const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
+  const { volunteersAvail } = values;
+  let emailString = "";
+  const emailList = volunteersAvail
+    ?.map((ele, i) => {
+      return (emailString += `${ele.email},`);
+    })
+    .slice(0, -1);
+
+  console.log("volunteersAvail", volunteersAvail);
+  const volunteerList = volunteersAvail?.map((ele, i) => {
+    return (
+      <div key={i} className="grid grid-cols-3 my-2">
+        <div className="flex justify-start">{ele.name}</div>
+        <div className="flex justify-start">{ele.email}</div>
+        <div className="flex justify-end">{ele.phone}</div>
+      </div>
+    );
+  });
+
   return (
     <>
-      <div>Shift Lookup</div>
+      {volunteerList && (
+        <div className="card">
+          <div className="card-body">
+            <div>
+              <div className="">
+                <div className="card-title">Volunteers</div>
+                <div className="">{volunteerList}</div>
+              </div>
+              <div className="flex justify-center mt-6 card-actions">
+                <button
+                  className="btn"
+                  onClick={() =>
+                    (window.location = `mailto:?cc=${emailString}`)
+                  }
+                >
+                  Send To These Emails
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

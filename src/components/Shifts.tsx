@@ -129,7 +129,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
 function Dates({ days, userShifts }: { days: Day[]; userShifts: any }) {
   return (
     <>
-      {days.map((day) => {
+      {days?.map((day) => {
         return (
           <div key={day.date} className="text-lg font-semibold">
             <div className="my-1">

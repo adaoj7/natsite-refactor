@@ -23,6 +23,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import User from "./routes/user";
+import FormLinks from "./routes/admin-routes/form-links";
 
 function App() {
   const { isAuthenticated, user } = useAuth0();
@@ -61,7 +62,7 @@ function App() {
         <Route path="/user" element={<User />} />
         <Route path="/betaAndPsi" element={<Admin />}>
           <Route path="/betaAndPsi/shiftLookup" element={<ShiftLookup />} />
-          <Route path="/betaAndPsi/futureShifts" element={<Admin />} />
+          <Route path="/betaAndPsi/formLinks" element={<FormLinks />} />
           <Route path="/betaAndPsi/nomination" element={<Admin />} />
         </Route>
       </Route>

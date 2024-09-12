@@ -19,6 +19,5 @@
 
 export const adminRoutes = [
   ["/betaAndPsi/shiftLookup", "Shift Lookup"],
-  ["/betaAndPsi/futureShifts", "Add Future Shifts"],
-  ["/betaAndPsi/nomination", "Nomination Link"],
+  ["/betaAndPsi/formLinks", "Form Links"],
 ];

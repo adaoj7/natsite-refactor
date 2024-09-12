@@ -1,13 +1,14 @@
 ﻿import React from "react";
 import Spacer from "../../components/Spacer";
 import { adminRoutes } from "../../data/routes";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import clsx from "clsx";
 import Flex from "../../components/Flex";
 
 interface AdminProps {}
 
 const Admin: React.FC<AdminProps> = () => {
+  const location = useLocation();
   const adminOptions = adminRoutes.map((route) => {
     return (
       <div key={route[0]}>
@@ -36,12 +37,36 @@ const Admin: React.FC<AdminProps> = () => {
         <div className="flex justify-center w-full">
           <Outlet />
           {location.pathname === "/betaAndPsi" && (
-            <>
-              <div>
-                Shift lookup will allow you to search for those who have signed
-                up for shifts and to email them all as a group
+            <div className="flex flex-col gap-4">
+              <div className="card">
+                <div className="card-body">
+                  <h2 className="card-title">Shift Lookup</h2>
+                  <div className="">
+                    Shift lookup will allow you to search for those who have
+                    signed up for shifts and to email them all as a group
+                  </div>
+                  <div className="card-actions justify-center">
+                    <NavLink to="/betaAndPsi/shiftLookup" className="btn">
+                      Shift Lookup
+                    </NavLink>
+                  </div>
+                </div>
               </div>
-            </>
+              <div className="card">
+                <div className="card-body">
+                  <h2 className="card-title">Form Links</h2>
+                  <div className="">
+                    Form links will allow you to edit the links for the forms
+                    that are sent out to the public.
+                  </div>
+                  <div className="card-actions justify-center">
+                    <NavLink to="/betaAndPsi/formLinks" className="btn">
+                      Form Links
+                    </NavLink>
+                  </div>
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </Flex>
