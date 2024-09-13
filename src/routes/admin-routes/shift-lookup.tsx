@@ -11,6 +11,10 @@ interface ShiftOptionProps {
   data: Shifts[];
 }
 
+interface QueryResultsProps {
+  values: any;
+}
+
 type Shifts = {
   date: string;
   dayOfWeek: string;
@@ -32,18 +36,7 @@ type ShiftLookupForm = {
 export const ShiftLookup = () => {
   return (
     <div className=" w-[650px]">
-      <DateAndTimeGraph />
       <ShiftForm />
-    </div>
-  );
-};
-
-const DateAndTimeGraph: React.FC = () => {
-  return (
-    <div className="card">
-      <div className="card-body">
-        <h1 className="card-title">Date and Time Graph</h1>
-      </div>
     </div>
   );
 };
@@ -88,7 +81,7 @@ const ShiftForm: React.FC = () => {
         {({ values, errors }) => (
           <Form className="card">
             <div className="card-body">
-              <h1 className="card-title">Search Shifts</h1>
+              <h1 className="card-title text-3xl">Search Shifts</h1>
               <div className="flex flex-col">
                 <DateOptions dates={data.days} />
                 <ShiftOptions formValues={values} data={data.days} />
@@ -157,13 +150,13 @@ const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
   const { volunteersAvail } = values;
   let emailString = "";
   const emailList = volunteersAvail
-    ?.map((ele, i) => {
+    ?.map((ele: any, i: any) => {
       return (emailString += `${ele.email},`);
     })
     .slice(0, -1);
 
   console.log("volunteersAvail", volunteersAvail);
-  const volunteerList = volunteersAvail?.map((ele, i) => {
+  const volunteerList = volunteersAvail?.map((ele: any, i: any) => {
     return (
       <div key={i} className="grid grid-cols-3 my-2">
         <div className="flex justify-start">{ele.name}</div>
@@ -187,10 +180,11 @@ const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
                 <button
                   className="btn"
                   onClick={() =>
-                    (window.location = `mailto:?cc=${emailString}`)
+                    //@ts-expect-error window is not defined
+                    (window.location = `mailto:?cc=${emailList}`)
                   }
                 >
-                  Send To These Emails
+                  Email This List
                 </button>
               </div>
             </div>

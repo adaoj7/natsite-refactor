@@ -1,4 +1,11 @@
-﻿import { Day, Shift, User, Availability, Year } from "../dbscripts/model.js";
+﻿import {
+  Day,
+  Shift,
+  User,
+  Availability,
+  Year,
+  ShiftType,
+} from "../dbscripts/model.js";
 
 export default {
   allShifts: async (req, res) => {
@@ -52,6 +59,74 @@ export default {
       res.json({ volunteersAvail });
     } catch (error) {
       res.status(500).json({ error: error.message });
+    }
+  },
+  shiftAvailabilities: async (req, res) => {
+    try {
+      const shiftAvailabilities = await Shift.findAll({
+        include: [
+          {
+            model: Availability,
+            include: [
+              {
+                model: User,
+                attributes: ["userId", "name"],
+              },
+            ],
+          },
+          {
+            model: Day,
+            attributes: ["date"],
+          },
+          {
+            model: ShiftType,
+            attributes: ["shiftType"],
+          },
+        ],
+        attributes: ["shiftId", "timeRange", "isFull"],
+        order: [["shiftId", "ASC"]],
+      });
+
+      const shiftTypesMap = {};
+
+      shiftAvailabilities.forEach((shift) => {
+        const shiftType = shift.shift_type.shiftType;
+        const date = shift.day.date;
+        const availabilities = 15 - shift.availabilities.length;
+
+        if (!shiftTypesMap[shiftType]) {
+          shiftTypesMap[shiftType] = [];
+        }
+
+        const existingDateEntry = shiftTypesMap[shiftType].find(
+          (entry) => entry.date === date
+        );
+
+        if (existingDateEntry) {
+          existingDateEntry.shifts.push({
+            shiftId: shift.shiftId,
+            timeRange: shift.timeRange,
+            isFull: shift.isFull,
+            availabilityCount: availabilities,
+          });
+        } else {
+          shiftTypesMap[shiftType].push({
+            date,
+            shifts: [
+              {
+                shiftId: shift.shiftId,
+                timeRange: shift.timeRange,
+                isFull: shift.isFull,
+                availabilityCount: availabilities,
+              },
+            ],
+          });
+        }
+      });
+
+      res.json(shiftTypesMap);
+    } catch (error) {
+      res.status(500).send(error);
     }
   },
 };

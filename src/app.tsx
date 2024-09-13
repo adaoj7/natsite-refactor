@@ -24,6 +24,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import User from "./routes/user";
 import FormLinks from "./routes/admin-routes/form-links";
+import ShiftAvailabilities from "./routes/admin-routes/shift-availabilities";
 
 function App() {
   const { isAuthenticated, user } = useAuth0();
@@ -61,9 +62,12 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/user" element={<User />} />
         <Route path="/betaAndPsi" element={<Admin />}>
+          <Route
+            path="/betaAndPsi/shiftAvailabilities"
+            element={<ShiftAvailabilities />}
+          />
           <Route path="/betaAndPsi/shiftLookup" element={<ShiftLookup />} />
           <Route path="/betaAndPsi/formLinks" element={<FormLinks />} />
-          <Route path="/betaAndPsi/nomination" element={<Admin />} />
         </Route>
       </Route>
     )

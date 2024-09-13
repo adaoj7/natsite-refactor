@@ -18,6 +18,7 @@
 ];
 
 export const adminRoutes = [
+  ["/betaAndPsi/shiftAvailabilities", "Shift Availabilities"],
   ["/betaAndPsi/shiftLookup", "Shift Lookup"],
   ["/betaAndPsi/formLinks", "Form Links"],
 ];

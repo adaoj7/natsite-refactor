@@ -27,7 +27,7 @@ app.use(
 const { setupShifts, hostShifts, volunteer, userShifts, deleteShift } =
   siteCtrl;
 const { login, user, updateUser, logout } = authCtrl;
-const { allShifts, getShiftsForAdmin } = adminCtrl;
+const { allShifts, getShiftsForAdmin, shiftAvailabilities } = adminCtrl;
 // Endpoints created here. At the moment I don't have any so I don't need to set this up. I think I will build out the site pagination and then come back to this.
 
 // Volunteer Form Endpoints
@@ -40,7 +40,7 @@ app.delete("/api/deleteShift", deleteShift);
 // Admin Endpoints
 app.get("/api/adminQuery", allShifts);
 app.post("/api/adminQuery", getShiftsForAdmin);
-
+app.get("/api/shiftAvailabilities", shiftAvailabilities);
 // Auth0 Endpoints
 app.post("/api/login", login);
 app.get("/api/user", user);
