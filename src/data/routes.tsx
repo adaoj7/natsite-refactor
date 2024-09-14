@@ -6,6 +6,7 @@
     "menu",
     ["/getInvolved", "Get Involved"],
     [
+      ["/getInvolved/availabilities", "Availabilities"],
       ["/getInvolved/setup", "Setup"],
       ["/getInvolved/host", "Host"],
       ["/getInvolved/myShifts", "My Shifts"],

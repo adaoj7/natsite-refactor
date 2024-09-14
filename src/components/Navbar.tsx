@@ -113,12 +113,11 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
         <>
           <li>
             <details open>
-              <summary className="text-white">Get Involved</summary>
+              <summary>Get Involved</summary>
               <ul
                 className={
                   "flex flex-col text-white ml-6 border-l border-gray-200"
                 }
-                // anchor="bottom start"
               >
                 {menuReturn}
               </ul>
@@ -130,17 +129,7 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
 
     return (
       <li key={route[0]}>
-        <NavLink
-          to={route[0]}
-          className={({ isActive }) => {
-            if (isActive) {
-              return "text-white";
-            }
-            return "text-white";
-          }}
-        >
-          {route[1]}
-        </NavLink>
+        <NavLink to={route[0]}>{route[1]}</NavLink>
       </li>
     );
   });
@@ -156,9 +145,9 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
       <div className="drawer-side">
         <label htmlFor="mobile-drawer" className="drawer-overlay"></label>
         <ul className="menu min-h-full w-60 bg-secondary">
-          <div className="mt-4">
+          <div className="mt-4 text-white">
             {allRoutes}
-            <li className="text-white">
+            <li className="">
               {userId ? (
                 <NavLink to={"/user"}>Profile</NavLink>
               ) : (
@@ -199,9 +188,10 @@ const AllRoutesDesktop: React.FC<AllRoutesProps> = ({
             key={menuName[0]}
             to={menuName[0]}
             className={({ isActive }) =>
-              isActive
-                ? "flex align-middle p-4 rounded-3xl whitespace-nowrap"
-                : "text-white flex align-middle p-4 hover:underline whitespace-nowrap"
+              clsx(
+                "flex align-middle p-4 whitespace-nowrap",
+                isActive ? "underline" : "hover:underline"
+              )
             }
           >
             {menuName[1]}
@@ -210,25 +200,14 @@ const AllRoutesDesktop: React.FC<AllRoutesProps> = ({
       }
 
       return (
-        <Menu
-          as="div"
-          className={"relative inline-block text-left"}
-          key={index}
-        >
+        <Menu as="div" className="relative" key={index}>
           <MenuButton
-            as="a"
-            className={
-              "text-white flex align-middle p-4 hover:underline whitespace-nowrap "
-            }
-            href={menuName[0]}
+            as="div"
+            className="flex p-4 hover:underline whitespace-nowrap hover:cursor-pointer select-none"
           >
             {menuName[1]}
           </MenuButton>
-          <MenuItems
-            className={
-              "bg-secondary flex flex-col absolute right-0 top-12 w-32 p-4 origin-top-right border-primary border-2 rounded-xl ring-opacity-50 focus:outline-none"
-            }
-          >
+          <MenuItems className="flex flex-col absolute top-12 p-4 origin-top-right bg-secondary border-primary border-2 rounded-xl">
             {menuReturn}
           </MenuItems>
         </Menu>
@@ -239,12 +218,12 @@ const AllRoutesDesktop: React.FC<AllRoutesProps> = ({
       <div key={route[0]}>
         <NavLink
           to={route[0]}
-          className={({ isActive }) => {
-            if (isActive) {
-              return "flex align-middle p-4 rounded-3xl whitespace-nowrap underline";
-            }
-            return "text-white flex align-middle p-4 hover:underline whitespace-nowrap";
-          }}
+          className={({ isActive }) =>
+            clsx(
+              "flex align-middle p-4 whitespace-nowrap",
+              isActive ? "underline" : "hover:underline"
+            )
+          }
         >
           {route[1]}
         </NavLink>

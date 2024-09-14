@@ -51,6 +51,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/getInvolved" element={<GetInvolved />}>
+          <Route
+            path="/getInvolved/availabilities"
+            element={<ShiftAvailabilities />}
+          />
           <Route path="/getInvolved/setup" element={<Setup />} />
           <Route path="/getInvolved/host" element={<Host />} />
           <Route path="/getInvolved/myShifts" element={<MyShifts />} />
