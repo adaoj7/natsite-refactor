@@ -2,12 +2,15 @@
 import morgan from "morgan";
 import ViteExpress from "vite-express";
 import session from "express-session";
+import Stripe from "stripe";
 import siteCtrl from "./controllers/siteCtrl.js";
 import authCtrl from "./controllers/authCtrl.js";
 import adminCtrl from "./controllers/adaminCtrl.js";
+import process from "process";
 
 const app = express();
 const PORT = 4242;
+export const stripe = new Stripe(process.env.STRIPE_PRiVATE_TEST_KEY);
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
