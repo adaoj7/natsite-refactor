@@ -27,11 +27,17 @@ import FormLinks from "./routes/admin-routes/form-links";
 import ShiftAvailabilities from "./routes/admin-routes/shift-availabilities";
 
 function App() {
-  const { isAuthenticated, user } = useAuth0();
+  const { user } = useAuth0();
+  console.log(user);
+  const roles = user?.["https://pc-fn.org/roles"];
+  // const isAdmin = roles?.includes("Admin");
+  const isAdmin = true;
+  console.log(roles);
   const dispatch = useDispatch();
   async function handleLogin() {
     try {
       await axios.post("/api/login", user).then((res) => {
+        console.log(res.data);
         if (res.data) {
           dispatch({ type: "LOGIN", payload: res.data });
         }
@@ -41,7 +47,7 @@ function App() {
     }
   }
 
-  if (isAuthenticated) {
+  if (user) {
     handleLogin();
   }
 
@@ -65,13 +71,19 @@ function App() {
         <Route path="/lightTheWorld" element={<LightTheWorld />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/user" element={<User />} />
-        <Route path="/betaAndPsi" element={<Admin />}>
+        <Route path="/betaAndPsi" element={isAdmin ? <Admin /> : null}>
           <Route
             path="/betaAndPsi/shiftAvailabilities"
-            element={<ShiftAvailabilities />}
+            element={isAdmin ? <ShiftAvailabilities /> : null}
           />
-          <Route path="/betaAndPsi/shiftLookup" element={<ShiftLookup />} />
-          <Route path="/betaAndPsi/formLinks" element={<FormLinks />} />
+          <Route
+            path="/betaAndPsi/shiftLookup"
+            element={isAdmin ? <ShiftLookup /> : null}
+          />
+          <Route
+            path="/betaAndPsi/formLinks"
+            element={isAdmin ? <FormLinks /> : null}
+          />
         </Route>
       </Route>
     )

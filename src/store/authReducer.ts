@@ -6,7 +6,6 @@ export interface LoginAction {
     userId: number;
     name: string;
     email: string;
-    isAdmin: boolean;
   };
 }
 
@@ -20,7 +19,6 @@ const initialState = {
   userId: null,
   name: null,
   email: null,
-  isAdmin: null,
 };
 
 const LOGIN = "LOGIN";
@@ -37,7 +35,6 @@ const authReducer = (state = initialState, action: any) => {
         userId: null,
         name: null,
         email: null,
-        isAdmin: null,
       };
     case UPDATE:
       return action.payload;

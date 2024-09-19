@@ -4,7 +4,7 @@ import useScrollPosition from "../hooks/useScrollPosition";
 import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, RedirectLoginOptions } from "@auth0/auth0-react";
 import { useQuery } from "@tanstack/react-query";
 import { IoMenu } from "react-icons/io5";
 import MobileLogo from "../assets/logos/CFN-White-Shadow-01.svg";
@@ -15,14 +15,14 @@ type NavbarProps = {
 
 type AllRoutesProps = {
   routes: Array<string> | Array<Array<string>>;
-  userId: number | null;
+  user: any | undefined;
   handleLogin: () => void;
 };
 
 type MenuItem = Array<string>;
 
 export default function Navbar({ routes }: NavbarProps) {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, user } = useAuth0();
   function handleLogin() {
     try {
       loginWithRedirect();
@@ -34,8 +34,6 @@ export default function Navbar({ routes }: NavbarProps) {
   const location = useLocation();
   const scrollPosition = useScrollPosition();
   const isScrolled = scrollPosition > 0;
-  const userId = useSelector((state: any) => state.userId);
-
   const dispatch = useDispatch();
 
   useQuery({
@@ -67,7 +65,7 @@ export default function Navbar({ routes }: NavbarProps) {
         <nav className="desktop:hidden fixed w-full">
           <AllRoutesMobile
             routes={routes}
-            userId={userId}
+            user={user}
             handleLogin={handleLogin}
           />
         </nav>
@@ -79,7 +77,7 @@ export default function Navbar({ routes }: NavbarProps) {
         >
           <AllRoutesDesktop
             routes={routes}
-            userId={userId}
+            user={user}
             handleLogin={handleLogin}
           />
         </nav>
@@ -88,10 +86,9 @@ export default function Navbar({ routes }: NavbarProps) {
   );
 }
 
-// first navbar component
 const AllRoutesMobile: React.FC<AllRoutesProps> = ({
   routes,
-  userId,
+  user,
   handleLogin,
 }) => {
   const allRoutes = routes.map((route) => {
@@ -148,7 +145,7 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
           <div className="mt-4 text-white">
             {allRoutes}
             <li className="">
-              {userId ? (
+              {user ? (
                 <NavLink to={"/user"}>Profile</NavLink>
               ) : (
                 <button onClick={() => handleLogin()}>Login</button>
@@ -161,10 +158,9 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
   );
 };
 
-// second Navbar component
 const AllRoutesDesktop: React.FC<AllRoutesProps> = ({
   routes,
-  userId,
+  user,
   handleLogin,
 }) => {
   const allRoutes = routes.map((route, index) => {
@@ -235,7 +231,7 @@ const AllRoutesDesktop: React.FC<AllRoutesProps> = ({
     <>
       <div className="flex ml-28 m-2 p-3 gap-2 w-full">{allRoutes}</div>
       <div className="h-auto flex items-center mr-20">
-        {userId ? (
+        {user ? (
           <NavLink to={"/user"}>Profile</NavLink>
         ) : (
           <button onClick={() => handleLogin()}>Login</button>

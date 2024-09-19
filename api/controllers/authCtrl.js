@@ -18,15 +18,14 @@ export default {
         user.phone = "";
       }
       if (!user.church) {
-        user.church = "";
+        user.church = null;
       }
       req.session.user = {
         userId: user.userId,
         name: user.name,
         email: user.email,
         phone: user.phone,
-        church: user.church,
-        isAdmin: user.isAdmin,
+        church: user.churchId,
       };
       res.status(200).json(user);
     } catch (err) {
@@ -50,11 +49,11 @@ export default {
     try {
       const { userId } = req.session.user;
       console.log(req.body);
-      const { name, email, phone, church } = req.body;
+      const { name, email, phone, churchId } = req.body;
       let user = await User.findOne({ where: { userId: userId } });
       user.name = name;
       user.phone = phone;
-      user.church = church;
+      user.churchId = churchId;
       await user.save();
       console.log(user);
 
@@ -63,8 +62,7 @@ export default {
         email: user.email,
         name: user.name,
         phone: user.phone,
-        church: user.church,
-        isAdmin: user.isAdmin,
+        churchId: user.churchId,
       };
       res.status(200).json(user);
     } catch (err) {

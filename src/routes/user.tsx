@@ -36,7 +36,7 @@ export default function User() {
 
   const logoutServer = async () => {
     await axios.delete("/api/logout");
-    logout();
+    logout({ logoutParams: { returnTo: window.location.origin } });
   };
 
   return (

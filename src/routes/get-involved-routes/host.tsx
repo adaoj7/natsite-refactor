@@ -1,13 +1,14 @@
 ﻿import Spacer from "../../components/Spacer";
 import Shifts from "../../components/Shifts";
-import { useAuth0 } from "@auth0/auth0-react";
-import IsAuthenticated from "../../components/IsAuthenticated";
+import { useSelector } from "react-redux";
 
 export default function Host() {
-  const { isAuthenticated } = useAuth0();
+  const { user } = useSelector((state: any) => state.user);
 
-  if (!isAuthenticated) {
-    return <IsAuthenticated isAuthenticated={isAuthenticated} />;
+  if (!user) {
+    return <div>Please login to view this page</div>;
+  } else if (!user.churchId) {
+    return <div>Please complete your profile to view this page</div>;
   }
 
   return (
