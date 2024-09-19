@@ -8,6 +8,7 @@ export default {
     try {
       const { name, email } = req.body;
       let user = await User.findOne({ where: { email: email } });
+      console.log("user", user);
       if (!user) {
         user = await User.create({
           email: email,
@@ -23,19 +24,17 @@ export default {
       if (!user.churchId) {
         user.churchId = null;
       } else if (user.churchId) {
-        church.churchName = await Church.findOne({
+        church = await Church.findOne({
           where: { churchId: user.churchId },
         });
-        console.log("church", church);
       }
-
-      console.log("church", church);
 
       req.session.user = {
         userId: user.userId,
         name: user.name,
         email: user.email,
         phone: user.phone,
+        churchId: user.churchId,
         churchName: church.churchName,
       };
       res.status(200).json(user);
@@ -60,21 +59,32 @@ export default {
     try {
       const { userId } = req.session.user;
       console.log(req.body);
-      const { name, email, phone, churchId } = req.body;
-      console.log("churchId", churchId);
-      let user = await User.findOne({ where: { userId: userId } });
-      user.name = name;
-      user.phone = phone;
-      user.churchId = churchId;
-      await user.save();
-      console.log(user);
-      const church = await Church.findOne({ where: { churchId: churchId } });
+      const { name, phone, churchId } = req.body;
+      console.log("body", req.body);
+      const user = await User.findOne({ where: { userId: userId } });
+      console.log("user", user);
+      user.set({
+        name: name || "",
+        phone: phone || "",
+        churchId: churchId ? Number(churchId) : null,
+      });
+      user.changed(true);
+      console.log(user.changed());
+      const savedUser = await user.save();
+      console.log("savedUser", savedUser);
+      let church = {
+        churchName: null,
+      };
+      if (churchId) {
+        church = await Church.findOne({ where: { churchId: churchId } });
+      }
 
       req.session.user = {
         userId: user.userId,
         email: user.email,
         name: user.name,
         phone: user.phone,
+        churchId: user.churchId,
         churchName: church.churchName,
       };
       res.status(200).json(user);

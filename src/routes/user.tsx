@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 interface User {
   name: string;
   phone: string | E164Number | undefined;
-  churchId: number;
+  churchId: number | undefined;
 }
 interface UserFormProps {
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,6 +38,8 @@ export default function User() {
     await axios.delete("/api/logout");
     logout({ logoutParams: { returnTo: window.location.origin } });
   };
+
+  console.log("user", user);
 
   return (
     <>
@@ -101,7 +103,7 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
     },
   });
 
-  const { data: churches } = useQuery({
+  const { data: churches, isLoading } = useQuery({
     queryKey: ["churches"],
     queryFn: async () => {
       const response = await axios.get("/api/churches");
@@ -120,6 +122,8 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
     setPhoneValue(values.phone);
   }
 
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <>
       <div className="flex justify-center items-center">
@@ -130,9 +134,10 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
               initialValues={{
                 name: user?.name,
                 phone: user?.phone,
-                churchId: user?.churchId,
+                churchId: user?.churchId || "",
               }}
               onSubmit={async (values) => {
+                // @ts-expect-error churchId is potentially undefined in the User type
                 handleSubmit(values);
                 setIsEditing(false);
               }}
@@ -163,6 +168,9 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
                     value={values.churchId}
                     onChange={handleChange}
                   >
+                    <option key="random" value={""}>
+                      Select a church
+                    </option>
                     {churches?.map((church: any) => (
                       <option key={church.churchId} value={church.churchId}>
                         {church.churchName}
