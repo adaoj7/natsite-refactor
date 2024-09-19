@@ -27,8 +27,14 @@ app.use(
   })
 );
 
-const { setupShifts, hostShifts, volunteer, userShifts, deleteShift } =
-  siteCtrl;
+const {
+  setupShifts,
+  hostShifts,
+  volunteer,
+  userShifts,
+  deleteShift,
+  churches,
+} = siteCtrl;
 const { login, user, updateUser, logout } = authCtrl;
 const { allShifts, getShiftsForAdmin, shiftAvailabilities } = adminCtrl;
 // Endpoints created here. At the moment I don't have any so I don't need to set this up. I think I will build out the site pagination and then come back to this.
@@ -39,7 +45,7 @@ app.get("/api/host", hostShifts);
 app.get("/api/userShifts", userShifts);
 app.post("/api/volunteer", volunteer);
 app.delete("/api/deleteShift", deleteShift);
-
+app.get("/api/churches", churches);
 // Admin Endpoints
 app.get("/api/adminQuery", allShifts);
 app.post("/api/adminQuery", getShiftsForAdmin);

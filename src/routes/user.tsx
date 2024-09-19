@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 interface User {
   name: string;
   phone: string | E164Number | undefined;
-  church: string;
+  churchId: number;
 }
 interface UserFormProps {
   setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
@@ -56,7 +56,9 @@ export default function User() {
                       <li>Name: {data.name}</li>
                       <li>Email: {data.email}</li>
                       <li>Phone: {data.phone ? data.phone : "N/A"}</li>
-                      <li>Church: {data.church ? data.church : "N/A"}</li>
+                      <li>
+                        Church: {data.churchName ? data.churchName : "N/A"}
+                      </li>
                     </ul>
                   )}
                   <Flex className="w-full gap-2" direction="col">
@@ -99,6 +101,15 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
     },
   });
 
+  const { data: churches } = useQuery({
+    queryKey: ["churches"],
+    queryFn: async () => {
+      const response = await axios.get("/api/churches");
+      return await response.data;
+    },
+  });
+  console.log("churches", churches);
+
   useEffect(() => {
     setPhoneValue(user.phone);
   }, [user.phone]);
@@ -119,7 +130,7 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
               initialValues={{
                 name: user?.name,
                 phone: user?.phone,
-                church: user?.church,
+                churchId: user?.churchId,
               }}
               onSubmit={async (values) => {
                 handleSubmit(values);
@@ -145,12 +156,19 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
                     //might need to validate for length
                   />
                   <Field
-                    name="church"
+                    name="churchId"
+                    component="select"
                     placeholder="Enter church"
                     className="focus:outline-none border-2 border-black rounded-md h-full bg-white w-full p-2"
-                    value={values.church}
+                    value={values.churchId}
                     onChange={handleChange}
-                  />
+                  >
+                    {churches?.map((church: any) => (
+                      <option key={church.churchId} value={church.churchId}>
+                        {church.churchName}
+                      </option>
+                    ))}
+                  </Field>
                   <div className="w-full flex gap-2">
                     <button type="submit" className="btn btn-primary flex-grow">
                       Save{" "}

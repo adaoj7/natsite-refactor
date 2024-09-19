@@ -1,4 +1,4 @@
-﻿import { User } from "../dbscripts/model.js";
+﻿import { User, Church } from "../dbscripts/model.js";
 import bcrypt from "bcryptjs";
 
 export default {
@@ -17,15 +17,26 @@ export default {
       if (!user.phone) {
         user.phone = "";
       }
-      if (!user.church) {
-        user.church = null;
+      let church = {
+        churchName: null,
+      };
+      if (!user.churchId) {
+        user.churchId = null;
+      } else if (user.churchId) {
+        church.churchName = await Church.findOne({
+          where: { churchId: user.churchId },
+        });
+        console.log("church", church);
       }
+
+      console.log("church", church);
+
       req.session.user = {
         userId: user.userId,
         name: user.name,
         email: user.email,
         phone: user.phone,
-        church: user.churchId,
+        churchName: church.churchName,
       };
       res.status(200).json(user);
     } catch (err) {
@@ -50,19 +61,21 @@ export default {
       const { userId } = req.session.user;
       console.log(req.body);
       const { name, email, phone, churchId } = req.body;
+      console.log("churchId", churchId);
       let user = await User.findOne({ where: { userId: userId } });
       user.name = name;
       user.phone = phone;
       user.churchId = churchId;
       await user.save();
       console.log(user);
+      const church = await Church.findOne({ where: { churchId: churchId } });
 
       req.session.user = {
         userId: user.userId,
         email: user.email,
         name: user.name,
         phone: user.phone,
-        churchId: user.churchId,
+        churchName: church.churchName,
       };
       res.status(200).json(user);
     } catch (err) {

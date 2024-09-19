@@ -5,6 +5,7 @@
   Year,
   Availability,
   User,
+  Church,
 } from "../dbscripts/model.js";
 
 export default {
@@ -196,5 +197,9 @@ export default {
     }
 
     console.log("availability destroyed");
+  },
+  churches: async (req, res) => {
+    const churches = await Church.findAll();
+    res.json(churches);
   },
 };
