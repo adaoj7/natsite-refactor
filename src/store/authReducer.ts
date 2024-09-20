@@ -6,6 +6,9 @@ export interface LoginAction {
     userId: number;
     name: string;
     email: string;
+    phone: string;
+    churchId: number;
+    churchName: string;
   };
 }
 
@@ -19,6 +22,9 @@ const initialState = {
   userId: null,
   name: null,
   email: null,
+  phone: null,
+  churchId: null,
+  churchName: null,
 };
 
 const LOGIN = "LOGIN";
@@ -34,7 +40,10 @@ const authReducer = (state = initialState, action: any) => {
       return {
         userId: null,
         name: null,
+        phone: null,
         email: null,
+        churchId: null,
+        churchName: null,
       };
     case UPDATE:
       return action.payload;

@@ -45,7 +45,6 @@ const ShiftForm: React.FC = () => {
   const [volunteersAvail, setVolunteersAvail] = useState<any[]>([]);
   const getShifts = async () => {
     const res = await axios.get("/api/adminQuery");
-    console.log("res", res);
     return res.data[0];
   };
   const { data, isLoading } = useQuery({
@@ -68,7 +67,6 @@ const ShiftForm: React.FC = () => {
               time: values.time,
             };
             const { data } = await axios.post("/api/adminQuery", bodyObj);
-            console.log("data", data);
             if (!data.error) {
               setVolunteersAvail(data);
             } else {
@@ -155,7 +153,6 @@ const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
     })
     .slice(0, -1);
 
-  console.log("volunteersAvail", volunteersAvail);
   const volunteerList = volunteersAvail?.map((ele: any, i: any) => {
     return (
       <div key={i} className="grid grid-cols-3 my-2">

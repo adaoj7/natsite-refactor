@@ -8,7 +8,6 @@ export default {
     try {
       const { name, email } = req.body;
       let user = await User.findOne({ where: { email: email } });
-      console.log("user", user);
       if (!user) {
         user = await User.create({
           email: email,
@@ -37,7 +36,7 @@ export default {
         churchId: user.churchId,
         churchName: church.churchName,
       };
-      res.status(200).json(user);
+      res.status(200).json(req.session.user);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
@@ -58,20 +57,15 @@ export default {
   updateUser: async (req, res) => {
     try {
       const { userId } = req.session.user;
-      console.log(req.body);
       const { name, phone, churchId } = req.body;
-      console.log("body", req.body);
       const user = await User.findOne({ where: { userId: userId } });
-      console.log("user", user);
       user.set({
         name: name || "",
         phone: phone || "",
         churchId: churchId ? Number(churchId) : null,
       });
       user.changed(true);
-      console.log(user.changed());
       const savedUser = await user.save();
-      console.log("savedUser", savedUser);
       let church = {
         churchName: null,
       };
@@ -87,7 +81,7 @@ export default {
         churchId: user.churchId,
         churchName: church.churchName,
       };
-      res.status(200).json(user);
+      res.status(200).json(req.session.user);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);

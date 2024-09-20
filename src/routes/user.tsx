@@ -39,8 +39,6 @@ export default function User() {
     logout({ logoutParams: { returnTo: window.location.origin } });
   };
 
-  console.log("user", user);
-
   return (
     <>
       <Spacer />
@@ -110,7 +108,6 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
       return await response.data;
     },
   });
-  console.log("churches", churches);
 
   useEffect(() => {
     setPhoneValue(user.phone);

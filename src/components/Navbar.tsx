@@ -107,7 +107,7 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
       });
 
       return (
-        <>
+        <div key={menu[0]}>
           <li>
             <details open>
               <summary>Get Involved</summary>
@@ -120,7 +120,7 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
               </ul>
             </details>
           </li>
-        </>
+        </div>
       );
     }
 

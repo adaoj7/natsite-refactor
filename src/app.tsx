@@ -28,16 +28,13 @@ import ShiftAvailabilities from "./routes/admin-routes/shift-availabilities";
 
 function App() {
   const { user } = useAuth0();
-  console.log(user);
   const roles = user?.["https://pc-fn.org/roles"];
   // const isAdmin = roles?.includes("Admin");
   const isAdmin = true;
-  console.log(roles);
   const dispatch = useDispatch();
   async function handleLogin() {
     try {
       await axios.post("/api/login", user).then((res) => {
-        console.log(res.data);
         if (res.data) {
           dispatch({ type: "LOGIN", payload: res.data });
         }

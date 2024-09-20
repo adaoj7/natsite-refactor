@@ -3,12 +3,17 @@ import Shifts from "../../components/Shifts";
 import { useSelector } from "react-redux";
 
 export default function Host() {
-  const { user } = useSelector((state: any) => state.user);
+  const userId = useSelector((state: any) => state.userId);
+  const churchId = useSelector((state: any) => state.churchId);
 
-  if (!user) {
-    return <div>Please login to view this page</div>;
-  } else if (!user.churchId) {
-    return <div>Please complete your profile to view this page</div>;
+  if (!userId) {
+    return <div className="mt-8">Please login to view this page.</div>;
+  } else if (!churchId) {
+    return (
+      <div className="mt-8">
+        Please complete your profile to view this page.
+      </div>
+    );
   }
 
   return (

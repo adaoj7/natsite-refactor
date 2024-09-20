@@ -117,7 +117,11 @@ export default function Shifts({ shiftType }: ShiftOptions) {
               <Dates days={shiftData.data} userShifts={userShifts} />
             </ul>
             <div className="flex justify-center mt-8">
-              <Button name="Submit" type="submit" className="md:w-96" />
+              <Button
+                name="Submit"
+                type="submit"
+                className="md:w-96 btn-primary"
+              />
             </div>
           </Form>
         )}

@@ -35,7 +35,6 @@ export default {
         [Day, "dateId", "ASC"],
       ],
     });
-    console.log("blarg-shift", shift);
     let filteredShifts;
     filteredShifts = shift.filter((year) => {
       const yearDate = new Date().getFullYear();
@@ -176,7 +175,6 @@ export default {
     }
   },
   deleteShift: async (req, res) => {
-    console.log(req.body);
     const { availabilityId, shiftId } = req.body;
 
     try {

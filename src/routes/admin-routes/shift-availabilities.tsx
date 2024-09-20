@@ -34,7 +34,6 @@ const DateAndTimeGraph: React.FC = () => {
         shifts: shiftTypeData[date].shifts,
       };
     });
-    console.log("dates", dates);
     const shiftTimes = dates.map((date) => {
       const shiftTimes = date.shifts.map((shift: any) => {
         const color = () => {
