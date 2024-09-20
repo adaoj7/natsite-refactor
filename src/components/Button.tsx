@@ -3,21 +3,38 @@
 type ButtonProps = {
   name: string;
   size?: "small" | "medium" | "large";
-  color?: "neutral";
+  color?: "primary" | "secondary";
   type: "submit" | "button";
   className?: string;
 };
 
-const Button = ({ name, size = "medium", className }: ButtonProps) => {
+const Button = ({
+  name,
+  size = "medium",
+  color = "primary",
+  className,
+  type = "submit",
+}: ButtonProps) => {
   const buttonSizes = {
     small: "w-24 h-10",
     medium: "w-32 h-14",
     large: "w-40 h-16",
   };
 
+  const buttonColors = {
+    primary: "btn-primary",
+    secondary: "btn-secondary",
+  };
+
   return (
     <button
-      className={clsx(buttonSizes[size], "btn h-10 w-16 text-white", className)}
+      className={clsx(
+        buttonSizes[size],
+        buttonColors[color],
+        "btn h-10 w-16 text-white",
+        className
+      )}
+      type={type}
     >
       <div>{name}</div>
     </button>
