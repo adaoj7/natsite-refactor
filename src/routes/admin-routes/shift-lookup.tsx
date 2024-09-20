@@ -127,20 +127,22 @@ const ShiftOptions: React.FC<ShiftOptionProps> = ({ formValues, data }) => {
   const timesOnDate = data.filter((e) => e.date === date);
   times = timesOnDate[0]?.shifts.map((ele, i) => {
     return (
-      <option value={ele.timeRange} key={i}>
-        {ele.timeRange}
-      </option>
+      <div key={i}>
+        <option value={ele.timeRange}>{ele.timeRange}</option>
+      </div>
     );
   });
   return (
-    <Field
-      name="time"
-      component="select"
-      className="border-[1px] border-gray-300 rounded-md"
-    >
-      <option key="random">Select a Time</option>
-      {times}
-    </Field>
+    <div key={date}>
+      <Field
+        name="time"
+        component="select"
+        className="border-[1px] border-gray-300 rounded-md"
+      >
+        <option key="random">Select a Time</option>
+        {times}
+      </Field>
+    </div>
   );
 };
 

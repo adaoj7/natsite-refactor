@@ -34,8 +34,8 @@ const DateAndTimeGraph: React.FC = () => {
         shifts: shiftTypeData[date].shifts,
       };
     });
-    const shiftTimes = dates.map((date) => {
-      const shiftTimes = date.shifts.map((shift: any) => {
+    const shiftTimes = dates.map((date, i) => {
+      const shiftTimes = date.shifts.map((shift: any, i: number) => {
         const color = () => {
           const avail = shift.availabilityCount;
           if (avail >= 10) {
@@ -46,30 +46,30 @@ const DateAndTimeGraph: React.FC = () => {
             return "text-green-500";
           }
         };
+
         if (shift.isFull) {
           return (
-            <>
-              <div className="flex flex-row gap-2 justify-between">
-                <div>{shift.timeRange}</div>
-                <div>Shift Full</div>
-              </div>
-            </>
+            <div
+              className="flex flex-row gap-2 justify-between"
+              key={shift.timeRange}
+            >
+              <div>{shift.timeRange}</div>
+              <div>Shift Full</div>
+            </div>
           );
         }
         return (
-          <>
-            <div className="flex flex-col">
-              <div className="whitespace-nowrap">{shift.timeRange}</div>
-              <div>
-                Available Slots:{" "}
-                <span className={clsx(color())}>{shift.availabilityCount}</span>
-              </div>
+          <div className="flex flex-col" key={shift.timeRange}>
+            <div className="whitespace-nowrap">{shift.timeRange}</div>
+            <div>
+              Available Slots:{" "}
+              <span className={clsx(color())}>{shift.availabilityCount}</span>
             </div>
-          </>
+          </div>
         );
       });
       return (
-        <div className="card">
+        <div className="card" key={date.date}>
           <div className="card-body">
             <div className="font-semibold mb-2">Date: {date.date}</div>
             <div className="flex flex-row gap-6">{shiftTimes}</div>
@@ -80,7 +80,7 @@ const DateAndTimeGraph: React.FC = () => {
 
     const shiftTypeTitle = helperFunctions.capitalizeFirstLetter(shiftType);
     return (
-      <div className="flex flex-col flex-wrap">
+      <div className="flex flex-col flex-wrap" key={shiftType}>
         <h1 className="card-title">{shiftTypeTitle}</h1>
         <div className="">{shiftTimes}</div>
       </div>
