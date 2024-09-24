@@ -1,7 +1,8 @@
 This is a refactor of the website for the Community Festival of Nativities.
 This Readme will be updated as the refactor progresses
 
-I have implemented the surveys in about 70% of functionality, but I need to implement Auth0 to be able to finish them.
-Routing is also finished with the need for designs and things.
-I have created a new email to handle authentication control as well as stripe and whatever other things that I need to implement.
-I plan on using vercel, probably to host since it should help with CI/CD
+Current features include:
+ - Signup forms
+ - List of dates and times with number of signups per slot
+ - Admin functionality to be able to get list of volunteers
+ - Festival information on pages including home page
