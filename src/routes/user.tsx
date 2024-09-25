@@ -119,7 +119,18 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
     setPhoneValue(values.phone);
   }
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center">
+        <div className="card bg-secondary w-96 shadow-xl">
+          <div className="card-body">
+            {" "}
+            <p className="card-title">Edit Profile</p>
+            <div>Loading...</div>
+          </div>
+        </div>
+      </div>
+    );
 
   return (
     <>

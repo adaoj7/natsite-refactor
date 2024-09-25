@@ -10,7 +10,7 @@ import { IoMenu } from "react-icons/io5";
 import MobileLogo from "../assets/logos/CFN-White-Shadow-01.svg";
 
 type NavbarProps = {
-  routes: Array<string> | Array<Array<string>>;
+  routes: any;
 };
 
 type AllRoutesProps = {
