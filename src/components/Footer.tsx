@@ -1,6 +1,6 @@
 ﻿import React from "react";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 interface FooterProps {}
 
@@ -30,12 +30,12 @@ const Footer: React.FC<FooterProps> = () => {
         </nav>
         <nav>
           <div className="grid grid-flow-col gap-4">
-            <a>
+            <Link to="https://www.instagram.com/peoria_nativity">
               <FaInstagram size={30} />
-            </a>
-            <a>
+            </Link>
+            <Link to="https://www.facebook.com/CommunityFestivalofNativities">
               <FaFacebook size={30} />
-            </a>
+            </Link>
           </div>
         </nav>
         <aside>
