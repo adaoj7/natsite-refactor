@@ -129,4 +129,22 @@ export default {
       res.status(500).send(error);
     }
   },
+  getAllChurchVolunteers: async (req, res) => {
+    try {
+      const churchVolunteers = await User.findAll({
+        // churchUser does not exist at all
+        // I need to find all users who have a shift
+        include: [
+          {
+            model: Shift,
+          },
+        ],
+      });
+      // I need to rework this query tomorrow
+      console.log(churchVolunteers);
+      // res.json(churchVolunteers);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  },
 };

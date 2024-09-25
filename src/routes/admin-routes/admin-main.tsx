@@ -34,7 +34,7 @@ const Admin: React.FC<AdminProps> = () => {
         <div className="flex flex-col gap-4 border-r-2 border-primary  px-4">
           {adminOptions}
         </div>
-        <div className="flex justify-center w-full">
+        <div className="flex w-full">
           <Outlet />
           {location.pathname === "/betaAndPsi" && (
             <div className="flex flex-col gap-4">

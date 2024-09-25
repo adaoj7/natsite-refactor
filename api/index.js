@@ -36,7 +36,12 @@ const {
   churches,
 } = siteCtrl;
 const { login, user, updateUser, logout } = authCtrl;
-const { allShifts, getShiftsForAdmin, shiftAvailabilities } = adminCtrl;
+const {
+  allShifts,
+  getShiftsForAdmin,
+  shiftAvailabilities,
+  getAllChurchVolunteers,
+} = adminCtrl;
 // Endpoints created here. At the moment I don't have any so I don't need to set this up. I think I will build out the site pagination and then come back to this.
 
 // Volunteer Form Endpoints
@@ -50,6 +55,7 @@ app.get("/api/churches", churches);
 app.get("/api/adminQuery", allShifts);
 app.post("/api/adminQuery", getShiftsForAdmin);
 app.get("/api/shiftAvailabilities", shiftAvailabilities);
+app.get("/api/getAllChurchVolunteers", getAllChurchVolunteers);
 // Auth0 Endpoints
 app.post("/api/login", login);
 app.get("/api/user", user);

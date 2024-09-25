@@ -35,7 +35,7 @@ type ShiftLookupForm = {
 
 export const ShiftLookup = () => {
   return (
-    <div className=" w-[650px]">
+    <div className=" w-[650px] mx-auto">
       <ShiftForm />
     </div>
   );
@@ -53,7 +53,7 @@ const ShiftForm: React.FC = () => {
   });
   if (isLoading) return <div>Loading...</div>;
   return (
-    <div className="">
+    <div className="ml-auto">
       <Formik<ShiftLookupForm>
         initialValues={{
           date: "",
@@ -127,9 +127,9 @@ const ShiftOptions: React.FC<ShiftOptionProps> = ({ formValues, data }) => {
   const timesOnDate = data.filter((e) => e.date === date);
   times = timesOnDate[0]?.shifts.map((ele, i) => {
     return (
-      <div key={i}>
-        <option value={ele.timeRange}>{ele.timeRange}</option>
-      </div>
+      <option value={ele.timeRange} key={i}>
+        {ele.timeRange}
+      </option>
     );
   });
   return (
@@ -137,7 +137,7 @@ const ShiftOptions: React.FC<ShiftOptionProps> = ({ formValues, data }) => {
       <Field
         name="time"
         component="select"
-        className="border-[1px] border-gray-300 rounded-md"
+        className="border-[1px] border-gray-300 rounded-md w-full"
       >
         <option key="random">Select a Time</option>
         {times}
