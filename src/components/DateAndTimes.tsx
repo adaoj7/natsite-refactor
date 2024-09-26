@@ -79,7 +79,7 @@ const DateAndTimeGraphMobile: React.FC = () => {
         );
       });
       return (
-        <li className="pointer-events-none" key={date.date}>
+        <li key={date.date}>
           <details className="w-full pointer-events-auto">
             <summary className="text-lg font-semibold">
               Date: {date.date}
