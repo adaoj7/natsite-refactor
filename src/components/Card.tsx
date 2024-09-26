@@ -40,7 +40,7 @@ export default function Card({
       <div className="card-body w-full">
         <h2 className="card-title flex justify-center text-black">{title}</h2>
         <div className="mt-4">
-          <p className="my-4 text-black">{children || content}</p>
+          <div className="my-4 text-black">{children || content}</div>
         </div>
       </div>
     </div>

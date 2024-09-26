@@ -4,7 +4,7 @@ import { routes } from "../data/routes";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import Flex from "../components/Flex";
 import clsx from "clsx";
-import ShiftAvailabilities from "./admin-routes/shift-availabilities";
+import DateAndTimeGraph from "../components/DateAndTimes";
 
 export default function GetInvolved() {
   const location = useLocation();
@@ -39,9 +39,9 @@ export default function GetInvolved() {
         <div className="hidden desktop:flex flex-col gap-4 border-r-2 border-primary px-4">
           {getInvolvedRoutes}
         </div>
-        <div className="flex justify-center w-full">
+        <div className="flex w-full">
           <Outlet />
-          {location.pathname === "/getInvolved" && <ShiftAvailabilities />}
+          {location.pathname === "/getInvolved" && <DateAndTimeGraph />}
         </div>
       </Flex>
     </>

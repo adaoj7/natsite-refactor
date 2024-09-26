@@ -8,6 +8,7 @@ import { useAuth0, RedirectLoginOptions } from "@auth0/auth0-react";
 import { useQuery } from "@tanstack/react-query";
 import { IoMenu } from "react-icons/io5";
 import MobileLogo from "../assets/logos/CFN-White-Shadow-01.svg";
+import { useState } from "react";
 
 type NavbarProps = {
   routes: any;
@@ -61,7 +62,7 @@ export default function Navbar({ routes }: NavbarProps) {
 
   return (
     <>
-      <header className="sticky z-10 flex flex-row w-full" id="navbar">
+      <header className="sticky z-30 flex flex-row w-full" id="navbar">
         <nav className="desktop:hidden fixed w-full">
           <AllRoutesMobile
             routes={routes}
@@ -72,7 +73,7 @@ export default function Navbar({ routes }: NavbarProps) {
         <nav
           className={clsx(
             scrollStyling(location),
-            "desktop:flex hidden fixed justify-between w-full font-bold text-white z--10"
+            "desktop:flex hidden fixed justify-between w-full font-bold text-white z--30"
           )}
         >
           <AllRoutesDesktop
@@ -91,6 +92,10 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
   user,
   handleLogin,
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDrawer = () => {
+    setIsOpen(!isOpen);
+  };
   const allRoutes = routes.map((route) => {
     if (route[0] === "menu") {
       // const menuName = route[1];
@@ -99,7 +104,7 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
       const menuReturn = menu.map((menuItem: MenuItem, index) => {
         return (
           <li key={index}>
-            <NavLink to={menuItem[0]} key={menuItem[0]}>
+            <NavLink to={menuItem[0]} key={menuItem[0]} onClick={toggleDrawer}>
               {menuItem[1]}
             </NavLink>
           </li>
@@ -111,11 +116,7 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
           <li>
             <details open>
               <summary>Get Involved</summary>
-              <ul
-                className={
-                  "flex flex-col text-white ml-6 border-l border-gray-200"
-                }
-              >
+              <ul className="flex flex-col text-white ml-6 border-l border-gray-200">
                 {menuReturn}
               </ul>
             </details>
@@ -126,7 +127,9 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
 
     return (
       <li key={route[0]}>
-        <NavLink to={route[0]}>{route[1]}</NavLink>
+        <NavLink to={route[0]} onClick={toggleDrawer}>
+          {route[1]}
+        </NavLink>
       </li>
     );
   });
@@ -135,7 +138,13 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
     <div className="flex drawer h-24 bg-primary w-full items-center">
       <img src={MobileLogo} className="h-16 ml-6 invert" />
 
-      <input id="mobile-drawer" type="checkbox" className="drawer-toggle" />
+      <input
+        id="mobile-drawer"
+        type="checkbox"
+        className="drawer-toggle"
+        checked={isOpen}
+        onChange={toggleDrawer}
+      />
       <label htmlFor="mobile-drawer" className="flex justify-end w-full m-4">
         <IoMenu className="relative text-white" size={40} />
       </label>

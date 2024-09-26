@@ -35,13 +35,22 @@ type ShiftLookupForm = {
 
 export const ShiftLookup = () => {
   return (
-    <div className=" w-[650px] mx-auto">
-      <ShiftForm />
-    </div>
+    <>
+      <div className="desktop:hidden">
+        <ShiftFormMobile />
+      </div>
+      <div className="hidden desktop:block w-[650px] mx-auto">
+        <ShiftFormDesktop />
+      </div>
+    </>
   );
 };
 
-const ShiftForm: React.FC = () => {
+const ShiftFormMobile: React.FC = () => {
+  return <div>Hello There</div>;
+};
+
+const ShiftFormDesktop: React.FC = () => {
   const [volunteersAvail, setVolunteersAvail] = useState<any[]>([]);
   const getShifts = async () => {
     const res = await axios.get("/api/adminQuery");

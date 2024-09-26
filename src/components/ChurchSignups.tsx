@@ -5,11 +5,11 @@ import React from "react";
 interface ChurchSignupsProps {}
 
 const ChurchSignups: React.FC<ChurchSignupsProps> = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["churchVolunteers"],
-    queryFn: () => axios.get("/api/getAllChurchVolunteers"),
-  });
-  console.log(data);
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["churchVolunteers"],
+  //   queryFn: () => axios.get("/api/getAllChurchVolunteers"),
+  // });
+  const isLoading = true;
   if (isLoading) {
     return (
       <div className="card">

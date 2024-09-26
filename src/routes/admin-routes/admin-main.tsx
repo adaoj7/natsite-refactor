@@ -1,13 +1,105 @@
-﻿import React from "react";
+﻿import React, { useState } from "react";
 import Spacer from "../../components/Spacer";
 import { adminRoutes } from "../../data/routes";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import clsx from "clsx";
 import Flex from "../../components/Flex";
+import { IoChevronDown, IoChevronUp, IoMenu } from "react-icons/io5";
 
 interface AdminProps {}
 
 const Admin: React.FC<AdminProps> = () => {
+  return (
+    <>
+      <nav className="desktop:hidden">
+        <AdminMobile />
+      </nav>
+      <nav className="hidden desktop:block">
+        <AdminDesktop />
+      </nav>
+    </>
+  );
+};
+
+const AdminMobile: React.FC<AdminProps> = () => {
+  return (
+    <>
+      <AdminMobileNavbar />
+      <Spacer size="md" />
+      <Outlet />
+    </>
+  );
+};
+
+const AdminMobileNavbar: React.FC<AdminProps> = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDrawer = () => {
+    setIsOpen(!isOpen);
+  };
+  const adminOptions = adminRoutes.map((route) => {
+    return (
+      <li key={route[0]}>
+        <NavLink
+          to={route[0]}
+          className={({ isActive }) =>
+            clsx(
+              "text-white flex align-middle p-4 whitespace-nowrap",
+              isActive ? "underline" : "hover:underline"
+            )
+          }
+          onClick={toggleDrawer}
+        >
+          {route[1]}
+        </NavLink>
+      </li>
+    );
+  });
+  return (
+    <header className="sticky z-20">
+      <nav className="fixed w-full">
+        <Spacer />
+        <div className="drawer w-full bg-secondary place-content-center">
+          <input
+            id="my-drawer"
+            type="checkbox"
+            className="drawer-toggle"
+            checked={isOpen}
+            onChange={toggleDrawer}
+          />
+          {/* Page content here */}
+          {isOpen ? (
+            <label
+              htmlFor="my-drawer"
+              className="flex justify-center w-40 my-1"
+            >
+              <IoChevronUp className="relative text-white" size={30} />
+            </label>
+          ) : (
+            <label
+              htmlFor="my-drawer"
+              className="flex justify-center w-40 my-1"
+            >
+              <IoChevronDown className="relative text-white" size={30} />
+            </label>
+          )}
+          <div className="drawer-side">
+            <label
+              htmlFor="my-drawer"
+              aria-label="close sidebar"
+              className="drawer-overlay"
+            ></label>
+            <ul className="menu bg-secondary text-white min-h-full w-80 pl-8 p-4">
+              <Spacer />
+              {adminOptions}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+  );
+};
+
+const AdminDesktop: React.FC<AdminProps> = () => {
   const location = useLocation();
   const adminOptions = adminRoutes.map((route) => {
     return (

@@ -25,6 +25,7 @@ import { useDispatch } from "react-redux";
 import User from "./routes/user";
 import FormLinks from "./routes/admin-routes/form-links";
 import ShiftAvailabilities from "./routes/admin-routes/shift-availabilities";
+import DateAndTimeGraph from "./components/DateAndTimes";
 
 function App() {
   const { user } = useAuth0();
@@ -56,7 +57,7 @@ function App() {
         <Route path="/getInvolved" element={<GetInvolved />}>
           <Route
             path="/getInvolved/availabilities"
-            element={<ShiftAvailabilities />}
+            element={<DateAndTimeGraph />}
           />
           <Route path="/getInvolved/setup" element={<Setup />} />
           <Route path="/getInvolved/host" element={<Host />} />
