@@ -2,9 +2,9 @@
 import { Menu, MenuItem, MenuButton, MenuItems } from "@headlessui/react";
 import useScrollPosition from "../hooks/useScrollPosition";
 import clsx from "clsx";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
-import { useAuth0, RedirectLoginOptions } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { useQuery } from "@tanstack/react-query";
 import { IoMenu } from "react-icons/io5";
 import MobileLogo from "../assets/logos/CFN-White-Shadow-01.svg";

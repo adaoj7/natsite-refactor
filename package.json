@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon api/index.js -w api -w src",
-    "pm2-runtime": "pm2-runtime api/index.js --name natsite",
+    "pm2-runtime": "pm2-runtime api/index.js --name natsite -- --serve-dist",
     "tailwind": "npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
     "tailwind:nowatch": "npx tailwindcss -i ./src/index.css -o ./dist/output.css",
     "build": "tsc -b && vite build && npm run tailwind:nowatch",
@@ -14,7 +14,7 @@
     "preview": "vite",
     "test": "vitest",
     "all": "concurrently npm:dev npm:tailwind",
-    "all-pm2": "concurrently npm:pm2-runtime npm:tailwind:nowatch && pm2 list",
+    "pm2-build": "npm run build && npm run pm2-runtime",
     "stop": "pm2 delete natsite",
     "seed": "node api/dbscripts/seed.js"
   },

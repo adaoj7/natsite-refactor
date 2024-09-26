@@ -32,6 +32,7 @@ function ContactMobile() {
                 Email:{" "}
                 <button
                   onClick={() =>
+                    // @ts-expect-error window is not defined
                     (window.location = "mailto:peorianativities@gmail.com")
                   }
                   className=""
@@ -73,6 +74,7 @@ function ContactDesktop() {
               Email:{" "}
               <button
                 onClick={() =>
+                  // @ts-expect-error window is not defined
                   (window.location = "mailto:peorianativities@gmail.com")
                 }
                 className=""

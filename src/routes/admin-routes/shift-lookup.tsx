@@ -85,7 +85,7 @@ const ShiftFormDesktop: React.FC = () => {
           sendQuery();
         }}
       >
-        {({ values, errors }) => (
+        {({ values }) => (
           <Form className="card">
             <div className="card-body">
               <h1 className="card-title text-3xl">Search Shifts</h1>
@@ -159,7 +159,7 @@ const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
   const { volunteersAvail } = values;
   let emailString = "";
   const emailList = volunteersAvail
-    ?.map((ele: any, i: any) => {
+    ?.map((ele: any) => {
       return (emailString += `${ele.email},`);
     })
     .slice(0, -1);

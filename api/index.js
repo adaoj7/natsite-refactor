@@ -7,10 +7,14 @@ import siteCtrl from "./controllers/siteCtrl.js";
 import authCtrl from "./controllers/authCtrl.js";
 import adminCtrl from "./controllers/adaminCtrl.js";
 import process from "process";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 const PORT = 4242;
 export const stripe = new Stripe(process.env.STRIPE_PRiVATE_TEST_KEY);
+
+const isProduction = process.argv.includes("--serve-dist");
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
@@ -62,6 +66,24 @@ app.get("/api/user", user);
 app.post("/api/updateUser", updateUser);
 app.delete("/api/logout", logout);
 
-ViteExpress.listen(app, PORT, () =>
-  console.log(`what is the answer? http://localhost:${PORT}`)
-);
+if (isProduction) {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const distPath = path.join(__dirname, "..", "dist");
+  app.use(express.static(distPath));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+  });
+  app.listen(PORT, () =>
+    console.log(
+      `Production server running and the answer is http://localhost:${PORT}`
+    )
+  );
+} else {
+  app.use(express.static("public"));
+  ViteExpress.listen(app, PORT, () =>
+    console.log(
+      `Development server running and the answer is http://localhost:${PORT}`
+    )
+  );
+}

@@ -29,7 +29,7 @@ import DateAndTimeGraph from "./components/DateAndTimes";
 
 function App() {
   const { user } = useAuth0();
-  const roles = user?.["https://pc-fn.org/roles"];
+  // const roles = user?.["https://pc-fn.org/roles"];
   // const isAdmin = roles?.includes("Admin");
   const isAdmin = true;
   const dispatch = useDispatch();

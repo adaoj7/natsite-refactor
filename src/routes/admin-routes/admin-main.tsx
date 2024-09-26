@@ -4,7 +4,7 @@ import { adminRoutes } from "../../data/routes";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import clsx from "clsx";
 import Flex from "../../components/Flex";
-import { IoChevronDown, IoChevronUp, IoMenu } from "react-icons/io5";
+import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 
 interface AdminProps {}
 

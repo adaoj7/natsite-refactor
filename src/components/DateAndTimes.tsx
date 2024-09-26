@@ -41,7 +41,7 @@ const DateAndTimeGraphMobile: React.FC = () => {
         shifts: shiftTypeData[date].shifts,
       };
     });
-    const shiftTimes = dates.map((date, i) => {
+    const shiftTimes = dates.map((date) => {
       const shiftTimes = date.shifts.map((shift: any) => {
         const color = () => {
           const avail = shift.availabilityCount;
@@ -133,7 +133,7 @@ const DateAndTimeGraphDesktop: React.FC = () => {
         shifts: shiftTypeData[date].shifts,
       };
     });
-    const shiftTimes = dates.map((date, i) => {
+    const shiftTimes = dates.map((date) => {
       const shiftTimes = date.shifts.map((shift: any) => {
         const color = () => {
           const avail = shift.availabilityCount;

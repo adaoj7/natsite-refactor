@@ -18,4 +18,4 @@ RUN npm install -g pm2
 EXPOSE 4242
 
 # Define the command to run your application
-CMD ["sh", "-c", "npm run tailwind:nowatch && pm2-runtime api/index.js"]
+CMD ["sh", "-c", "npm run pm2-build"]
