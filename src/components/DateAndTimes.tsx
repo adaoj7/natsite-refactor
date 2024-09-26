@@ -80,9 +80,10 @@ const DateAndTimeGraphMobile: React.FC = () => {
       });
       return (
         <li className="pointer-events-none" key={date.date}>
-          <div className="text-lg font-semibold">Date: {date.date}</div>
           <details className="w-full pointer-events-auto">
-            <summary>Shift Times</summary>
+            <summary className="text-lg font-semibold">
+              Date: {date.date}
+            </summary>
             <ul className="flex flex-col">{shiftTimes}</ul>
           </details>
         </li>
