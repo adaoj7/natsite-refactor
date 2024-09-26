@@ -66,7 +66,10 @@ const DateAndTimeGraphMobile: React.FC = () => {
           );
         }
         return (
-          <li className="grid grid-cols-2" key={shift.timeRange}>
+          <li
+            className="grid grid-cols-2 pointer-events-none"
+            key={shift.timeRange}
+          >
             <div className="whitespace-nowrap">{shift.timeRange}</div>
             <div className="whitespace-nowrap">
               Slots:{" "}
@@ -76,9 +79,9 @@ const DateAndTimeGraphMobile: React.FC = () => {
         );
       });
       return (
-        <li className="" key={date.date}>
+        <li className="pointer-events-none" key={date.date}>
           <div className="text-lg font-semibold">Date: {date.date}</div>
-          <details className="w-full">
+          <details className="w-full pointer-events-auto">
             <summary>Shift Times</summary>
             <ul className="flex flex-col">{shiftTimes}</ul>
           </details>
