@@ -35,10 +35,10 @@ export default function GetInvolved() {
   return (
     <>
       <Spacer />
-      <Flex className="min-h-[calc(100vh-176px)]">
-        <div className="hidden desktop:flex flex-col gap-4 border-r-2 border-primary px-4">
+      <Flex className="min-h-[calc(100vh-342px)]">
+        <nav className="hidden desktop:flex flex-col gap-4 border-r-2 border-primary px-4">
           {getInvolvedRoutes}
-        </div>
+        </nav>
         <div className="flex w-full">
           <Outlet />
           {location.pathname === "/getInvolved" && <DateAndTimeGraph />}

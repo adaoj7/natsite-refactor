@@ -24,7 +24,7 @@ const DonateMobile = ({ createDonationSession }: DonateProps) => {
   return (
     <>
       <div className="flex justify-center items-center h-40 mt-24 font-medium text-2xl px-6 ">
-        Click here to be taken to a secure payment powered by Stripe
+        Click donate to be taken to a secure payment powered by Stripe
       </div>
       <form
         onSubmit={createDonationSession}
@@ -49,7 +49,7 @@ const DonateDesktop = ({ createDonationSession }: DonateProps) => {
       <Spacer size="sm" />
       <div className="card">
         <div className="card-body gap-8">
-          <div className="flex justify-center text-lg px-60">
+          <div className="flex justify-center text-xl px-40">
             The Community Festival of Nativities is a recognized non-profit;
             monetary and in-kind donations are tax-deductible. Your generous
             contributions help us maintain this as a free event to the public.
@@ -59,7 +59,7 @@ const DonateDesktop = ({ createDonationSession }: DonateProps) => {
             className="flex justify-center items-center gap-4"
           >
             <div className="flex justify-center">
-              Click here to be taken to a secure payment powered by Stripe
+              Click donate to be taken to a secure payment powered by Stripe
             </div>
             <button
               type="submit"
