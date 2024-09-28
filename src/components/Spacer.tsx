@@ -1,10 +1,11 @@
 ﻿import clsx from "clsx";
 interface SpacerProps {
-  size?: "sm" | "md";
+  size?: "xs" | "sm" | "md";
 }
 
 export default function Spacer({ size = "sm" }: SpacerProps) {
   const sizeMap = {
+    xs: "h-12",
     sm: "h-24",
     md: "h-36",
   };
