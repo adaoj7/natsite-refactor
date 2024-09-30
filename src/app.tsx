@@ -29,9 +29,9 @@ import DateAndTimeGraph from "./components/DateAndTimes";
 
 function App() {
   const { user } = useAuth0();
-  // const roles = user?.["https://pc-fn.org/roles"];
-  // const isAdmin = roles?.includes("Admin");
-  const isAdmin = true;
+  const roles = user?.["https://pc-fn.org/roles"];
+  const isAdmin = roles?.includes("Admin");
+  // const isAdmin = false;
   const dispatch = useDispatch();
   async function handleLogin() {
     try {
@@ -69,18 +69,18 @@ function App() {
         <Route path="/lightTheWorld" element={<LightTheWorld />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/user" element={<User />} />
-        <Route path="/betaAndPsi" element={isAdmin ? <Admin /> : null}>
+        <Route path="/betaAndPsi" element={isAdmin ? <Admin /> : <Home />}>
           <Route
             path="/betaAndPsi/shiftAvailabilities"
-            element={isAdmin ? <ShiftAvailabilities /> : null}
+            element={isAdmin ? <ShiftAvailabilities /> : <Home />}
           />
           <Route
             path="/betaAndPsi/shiftLookup"
-            element={isAdmin ? <ShiftLookup /> : null}
+            element={isAdmin ? <ShiftLookup /> : <Home />}
           />
           <Route
             path="/betaAndPsi/formLinks"
-            element={isAdmin ? <FormLinks /> : null}
+            element={isAdmin ? <FormLinks /> : <Home />}
           />
         </Route>
       </Route>

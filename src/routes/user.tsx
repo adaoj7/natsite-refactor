@@ -24,7 +24,7 @@ export default function User() {
   const { logout } = useAuth0();
   const [isEditing, setIsEditing] = React.useState(false);
 
-  const { data, refetch } = useQuery({
+  const { data, refetch, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       const response = await axios.get("/api/user");
@@ -39,6 +39,17 @@ export default function User() {
     logout({ logoutParams: { returnTo: window.location.origin } });
   };
 
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center">
+        <div className="card bg-secondary w-96 shadow-xl">
+          <div className="card-body">
+            <p className="card-title">Profile:</p>
+            <div>Loading...</div>
+          </div>
+        </div>
+      </div>
+    );
   return (
     <>
       <Spacer />

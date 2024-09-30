@@ -9,33 +9,28 @@ export default {
   login: async (req, res) => {
     try {
       const { name, email } = req.body;
-      let user = await User.findOne({ where: { email: email } });
-      if (!user) {
-        user = await User.create({
-          email: email,
-          name: name,
-        });
-      }
-      if (!user.phone) {
-        user.phone = "";
+      let user = await User.findOrCreate({ where: { email: email } });
+      console.log("one user", user);
+      if (!user[0].phone) {
+        user[0].phone = "";
       }
       let church = {
         churchName: null,
       };
-      if (!user.churchId) {
-        user.churchId = null;
-      } else if (user.churchId) {
+      if (!user[0].churchId) {
+        user[0].churchId = null;
+      } else if (user[0].churchId) {
         church = await Church.findOne({
-          where: { churchId: user.churchId },
+          where: { churchId: user[0].churchId },
         });
       }
 
       req.session.user = {
-        userId: user.userId,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        churchId: user.churchId,
+        userId: user[0].userId,
+        name: user[0].name,
+        email: user[0].email,
+        phone: user[0].phone,
+        churchId: user[0].churchId,
         churchName: church.churchName,
       };
       res.status(200).json(req.session.user);
