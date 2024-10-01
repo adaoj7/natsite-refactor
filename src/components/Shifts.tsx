@@ -38,6 +38,15 @@ type UserShifts = {
   data: UserShift[] | [];
 };
 
+interface ShiftsProps {
+  userId: string;
+  capShiftType: string;
+  shiftType: string;
+  shiftData: any;
+  userShifts: any;
+  mutateAsync: any;
+}
+
 export default function Shifts({ shiftType }: ShiftOptions) {
   const userId = useSelector((state: any) => state.userId);
   const { capitalizeFirstLetter } = helperFunctions;
@@ -84,9 +93,42 @@ export default function Shifts({ shiftType }: ShiftOptions) {
 
   if (isPendingShifts || isPendingUserShifts) return <p>Loading...</p>;
   if (errorShifts || errorUserShifts) return <p>Error</p>;
-
   return (
-    <div className="flex card bg-secondary max-w-full flex-grow m-12">
+    <>
+      <div className="desktop:hidden">
+        <PhoneShifts
+          userId={userId}
+          capShiftType={capShiftType}
+          shiftType={shiftType}
+          shiftData={shiftData}
+          userShifts={userShifts}
+          mutateAsync={mutateAsync}
+        />
+      </div>
+      <div className="desktop:block hidden">
+        <DesktopShifts
+          userId={userId}
+          capShiftType={capShiftType}
+          shiftType={shiftType}
+          shiftData={shiftData}
+          userShifts={userShifts}
+          mutateAsync={mutateAsync}
+        />
+      </div>
+    </>
+  );
+}
+
+const PhoneShifts = ({
+  userId,
+  capShiftType,
+  shiftType,
+  shiftData,
+  userShifts,
+  mutateAsync,
+}: ShiftsProps) => {
+  return (
+    <div className="flex card bg-secondary max-w-full flex-grow m-4">
       <Formik
         initialValues={{ checked: [] } as initialValues}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -128,18 +170,73 @@ export default function Shifts({ shiftType }: ShiftOptions) {
       </Formik>
     </div>
   );
-}
+};
+
+const DesktopShifts = ({
+  userId,
+  capShiftType,
+  shiftType,
+  shiftData,
+  userShifts,
+  mutateAsync,
+}: ShiftsProps) => {
+  return (
+    <div className="flex card bg-secondary max-w-full flex-grow mx-auto">
+      <Formik
+        initialValues={{ checked: [] } as initialValues}
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          const bodyObj = {
+            userId,
+            checked: values.checked,
+          };
+          mutateAsync(bodyObj);
+          setSubmitting(false);
+          // @ts-expect-error - props don't match
+          resetForm({ checked: [] });
+        }}
+      >
+        {({ handleSubmit }) => (
+          <Form onSubmit={handleSubmit} className="card-body">
+            <h2 className="card-header text-xl font-semibold flex justify-center">
+              {capShiftType}
+            </h2>
+            <p className="flex justify-center min-h-8">
+              Please use this form to sign up for {shiftType} shifts during the
+              festival.
+            </p>{" "}
+            <ul
+              role="group"
+              aria-labelledby="checkbox-group"
+              className="flex flex-wrap gap-4 flex-grow md:justify-around"
+            >
+              <Dates days={shiftData.data} userShifts={userShifts} />
+            </ul>
+            <div className="flex justify-center mt-8">
+              <Button
+                name="Submit"
+                type="submit"
+                className="md:w-96 btn-primary"
+              />
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
+};
 
 function Dates({ days, userShifts }: { days: Day[]; userShifts: any }) {
   return (
     <>
       {days?.map((day) => {
         return (
-          <div key={day.date} className="text-lg font-semibold">
+          <div key={day.date} className="text-lg font-semibold mx-2">
             <div className="my-1">
               {day.dayOfWeek}, {day.date}
             </div>
-            <Shift day={day} userShifts={userShifts} />
+            <div className="">
+              <Shift day={day} userShifts={userShifts} />
+            </div>
           </div>
         );
       })}

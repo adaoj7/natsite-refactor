@@ -19,35 +19,23 @@ import ErrorPage from "./error-page";
 import GetInvolved from "./routes/get-involved";
 import Admin from "./routes/admin-routes/admin-main";
 import ShiftLookup from "./routes/admin-routes/shift-lookup";
-import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
 import User from "./routes/user";
 import FormLinks from "./routes/admin-routes/form-links";
 import ShiftAvailabilities from "./routes/admin-routes/shift-availabilities";
 import DateAndTimeGraph from "./components/DateAndTimes";
+import { useQuery } from "@tanstack/react-query";
 
 function App() {
-  const { user } = useAuth0();
-  const roles = user?.["https://pc-fn.org/roles"];
-  const isAdmin = roles?.includes("Admin");
   // const isAdmin = false;
-  const dispatch = useDispatch();
-  async function handleLogin() {
-    try {
-      await axios.post("/api/login", user).then((res) => {
-        if (res.data) {
-          dispatch({ type: "LOGIN", payload: res.data });
-        }
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  if (user) {
-    handleLogin();
-  }
+  const { data } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const response = await axios.get("/api/user");
+      return await response.data;
+    },
+  });
+  const isAdmin = data?.isAdmin;
 
   const router2 = createBrowserRouter(
     createRoutesFromElements(

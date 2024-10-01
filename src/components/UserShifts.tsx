@@ -53,14 +53,17 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
   }
   if (data.data.length === 0) {
     return (
-      <div className="flex flex-col">
-        <h1>No Shifts</h1>
-        <div>
+      <div className="card">
+        <div className="card-body text-center">
+          <h1 className="card-title">No Shifts</h1>
           If you would like to sign up for shifts please head to:
-          <NavLink to={"/getInvolved/setup"} className="ml-1">
+          <NavLink to={"/getInvolved/setup"} className="btn btn-primary">
             Setup{" "}
           </NavLink>
-          or <NavLink to={"/getInvolved/host"}>Host</NavLink>
+          or{" "}
+          <NavLink to={"/getInvolved/host"} className="btn btn-primary">
+            Host
+          </NavLink>
         </div>
       </div>
     );
@@ -70,41 +73,39 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
     const { date, timeRange, typeId, availabilityId, shiftId } = shift;
 
     return (
-      <li className="" key={availabilityId}>
-        <div className="">
-          <div className="">
-            <span className="">Shift type:</span>
-            <span className="">{typeId === 1 ? "Setup" : "Host"}</span>
-          </div>
-          <div className="">
-            <span
-              className="
-            "
-            >
-              Date:
+      <li
+        className="p-2 phone:w-full desktop:w-52 desktop:mx-4 text-lg "
+        key={availabilityId}
+      >
+        <div className="flex flex-col [&>*]:mb-2">
+          <div className="whitespace-nowrap">
+            <span>Shift type: </span>
+            <span className="font-semibold ">
+              {typeId === 1 ? "Setup" : "Host"}
             </span>
-            <span className="">{date}</span>
           </div>
-          <div>
-            <span className="">Time:</span>
-            <span className="">{timeRange}</span>
+          <div className="whitespace-nowrap">
+            <span>Date: </span>
+            <span className="font-semibold whitespace-nowrap">{date}</span>
           </div>
-          <div className="">
-            <button
-              className=""
-              onClick={() => mutateAsync({ availabilityId, shiftId })}
-            >
-              Remove Shift
-            </button>
+          <div className="whitespace-nowrap">
+            <span>Time: </span>
+            <span className="font-semibold whitespace-nowrap">{timeRange}</span>
           </div>
+          <button
+            className="flex btn"
+            onClick={() => mutateAsync({ availabilityId, shiftId })}
+          >
+            Remove Shift
+          </button>
         </div>
       </li>
     );
   });
 
   return (
-    <div className="card bg-secondary">
-      <ul className="card-body">{userShifts}</ul>
+    <div className="card">
+      <ul className="card-body list-none flex-wrap flex-row">{userShifts}</ul>
     </div>
   );
 };

@@ -41,15 +41,32 @@ export default function User() {
 
   if (isLoading)
     return (
-      <div className="flex justify-center items-center">
-        <div className="card bg-secondary w-96 shadow-xl">
-          <div className="card-body">
-            <p className="card-title">Profile:</p>
-            <div>Loading...</div>
+      <>
+        <Spacer />
+        <div className="my-8">
+          <div className="flex justify-center items-center">
+            <div className="card bg-secondary w-96 shadow-xl mx-4">
+              <div className="card-body">
+                <p className="card-title">Profile:</p>
+                <div className="card-actions flex-col justify-between">
+                  <ul>
+                    <li>Name: Loading...</li>
+                    <li>Email: Loading...</li>
+                    <li>Phone: Loading...</li>
+                    <li>Church: Loading...</li>
+                  </ul>
+                  <Flex className="w-full gap-2" direction="col">
+                    <button className="btn btn-disabled">Edit</button>
+                    <button className="btn btn-disabled">Logout</button>
+                  </Flex>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
+
   return (
     <>
       <Spacer />
@@ -58,16 +75,20 @@ export default function User() {
           <UserForm setIsEditing={setIsEditing} refetch={refetch} user={user} />
         ) : (
           <div className="flex justify-center items-center">
-            <div className="card bg-secondary w-96 shadow-xl">
+            <div className="card bg-secondary w-96 shadow-xl mx-4">
               <div className="card-body">
                 <p className="card-title">Profile:</p>
                 <div className="card-actions flex-col justify-between">
                   {data && (
-                    <ul>
-                      <li>Name: {data.name}</li>
-                      <li>Email: {data.email}</li>
-                      <li>Phone: {data.phone ? data.phone : "N/A"}</li>
-                      <li>
+                    <ul className="[&>*]:text-lg">
+                      <li className="mb-3">
+                        Name: {data.name ? data.name : "N/A"}
+                      </li>
+                      <li className="my-3">Email: {data.email}</li>
+                      <li className="my-3">
+                        Phone: {data.phone ? data.phone : "N/A"}
+                      </li>
+                      <li className="my-3">
                         Church: {data.churchName ? data.churchName : "N/A"}
                       </li>
                     </ul>
@@ -80,7 +101,16 @@ export default function User() {
                       Edit
                     </button>
                     {/* I need to make this a modal to confirm the logout */}
-                    <button onClick={() => logoutServer()} className="btn">
+                    <button
+                      onClick={() =>
+                        (
+                          document.getElementById(
+                            "modal_desktop"
+                          ) as HTMLDialogElement
+                        )?.showModal()
+                      }
+                      className="btn"
+                    >
                       Logout
                     </button>
                   </Flex>
@@ -90,6 +120,23 @@ export default function User() {
           </div>
         )}
       </div>
+      <dialog id="modal_desktop" className="modal">
+        <div className="modal-box desktop:w-1/3">
+          <h3 className="card-title my-2">Logout from your account?</h3>
+          <div className="modal-action">
+            <form method="dialog" className="flex gap-2">
+              <button
+                onClick={() => logoutServer()}
+                className="btn btn-primary"
+              >
+                Yes, log out
+              </button>
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 }
@@ -133,7 +180,7 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
   if (isLoading)
     return (
       <div className="flex justify-center items-center">
-        <div className="card bg-secondary w-96 shadow-xl">
+        <div className="card bg-secondary w-96 shadow-xl mx-4">
           <div className="card-body">
             {" "}
             <p className="card-title">Edit Profile</p>
@@ -146,7 +193,7 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
   return (
     <>
       <div className="flex justify-center items-center">
-        <div className="card bg-secondary w-96 shadow-xl">
+        <div className="card bg-secondary w-96 shadow-xl mx-4">
           <div className="card-body">
             <p className="card-title">Edit Profile</p>
             <Formik
@@ -162,16 +209,16 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
               }}
             >
               {({ values, handleChange }) => (
-                <Form className="[&>*]:my-2">
+                <Form className="">
                   <Field
                     name="name"
                     placeholder="Enter name"
-                    className="focus:outline-none border-2 border-black rounded-md h-full bg-white w-full p-2"
+                    className="focus:outline-none border-2 border-black rounded-md h-full bg-white w-full p-2 mb-2"
                     value={values.name}
                     onChange={handleChange}
                   />
                   <PhoneInput
-                    className="focus:outline-none border-2 border-black rounded-md h-full bg-white w-full p-2"
+                    className="focus:outline-none border-2 border-black rounded-md h-full bg-white w-full p-2 my-2"
                     placeholder="Enter phone number"
                     country="US"
                     smartCaret={true}
@@ -183,7 +230,7 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
                     name="churchId"
                     component="select"
                     placeholder="Enter church"
-                    className="focus:outline-none border-2 border-black rounded-md h-full bg-white w-full p-2"
+                    className="focus:outline-none border-2 border-black rounded-md h-full bg-white w-full p-2 my-2"
                     value={values.churchId}
                     onChange={handleChange}
                   >
@@ -196,7 +243,7 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
                       </option>
                     ))}
                   </Field>
-                  <div className="w-full flex gap-2">
+                  <div className="w-full flex gap-2 my-2">
                     <button type="submit" className="btn btn-primary flex-grow">
                       Save{" "}
                     </button>

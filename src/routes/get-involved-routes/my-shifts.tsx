@@ -1,11 +1,11 @@
-﻿// import React from "react";
-import Spacer from "../../components/Spacer";
-import UserShifts from "../../components/UserShifts";
+﻿import UserShifts from "../../components/UserShifts";
 import { useSelector } from "react-redux";
 
 export default function MyShifts() {
   const userId = useSelector((state: any) => state.userId);
   const churchId = useSelector((state: any) => state.churchId);
+  // const churchId = null;
+  // const userId = null;
 
   if (!userId) {
     return <div className="mx-auto mt-8">Please login to view this page.</div>;
@@ -18,9 +18,8 @@ export default function MyShifts() {
   }
 
   return (
-    <>
-      <Spacer />
+    <div className="mx-auto">
       <UserShifts />
-    </>
+    </div>
   );
 }

@@ -24,9 +24,14 @@ type MenuItem = Array<string>;
 
 export default function Navbar({ routes }: NavbarProps) {
   const { loginWithRedirect, user } = useAuth0();
-  function handleLogin() {
+  async function handleLogin() {
     try {
       loginWithRedirect();
+      await axios.post("/api/login", user).then((res) => {
+        if (res.data) {
+          dispatch({ type: "LOGIN", payload: res.data });
+        }
+      });
     } catch (error) {
       console.error(error);
     }

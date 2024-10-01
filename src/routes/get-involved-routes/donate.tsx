@@ -46,8 +46,7 @@ const DonateMobile = ({ createDonationSession }: DonateProps) => {
 const DonateDesktop = ({ createDonationSession }: DonateProps) => {
   return (
     <>
-      <Spacer size="sm" />
-      <div className="card">
+      <div className="card mt-8">
         <div className="card-body gap-8">
           <div className="flex justify-center text-xl px-40">
             The Community Festival of Nativities is a recognized non-profit;

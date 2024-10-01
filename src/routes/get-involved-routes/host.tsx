@@ -17,9 +17,8 @@ export default function Host() {
   }
 
   return (
-    <>
-      <Spacer />
+    <div className="mx-auto my-12">
       <Shifts shiftType="host" />
-    </>
+    </div>
   );
 }

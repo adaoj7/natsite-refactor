@@ -8,9 +8,12 @@ export default {
   // I need to see if there is a less round about way of doing what I am doing for auth right now
   login: async (req, res) => {
     try {
-      const { name, email } = req.body;
-      let user = await User.findOrCreate({ where: { email: email } });
-      console.log("one user", user);
+      const { name, email, "https://pc-fn.org/roles": roles } = req.body;
+      const isAdmin = roles.includes("Admin");
+      let user = await User.findOrCreate({
+        where: { email: email, isAdmin: isAdmin },
+      });
+      console.log("user", user);
       if (!user[0].phone) {
         user[0].phone = "";
       }
@@ -24,15 +27,26 @@ export default {
           where: { churchId: user[0].churchId },
         });
       }
-
-      req.session.user = {
-        userId: user[0].userId,
-        name: user[0].name,
-        email: user[0].email,
-        phone: user[0].phone,
-        churchId: user[0].churchId,
-        churchName: church.churchName,
-      };
+      if (user[0].isAdmin) {
+        req.session.user = {
+          userId: user[0].userId,
+          name: user[0].name,
+          email: user[0].email,
+          phone: user[0].phone,
+          churchId: user[0].churchId,
+          churchName: church.churchName,
+          isAdmin: user[0].isAdmin,
+        };
+      } else {
+        req.session.user = {
+          userId: user[0].userId,
+          name: user[0].name,
+          email: user[0].email,
+          phone: user[0].phone,
+          churchId: user[0].churchId,
+          churchName: church.churchName,
+        };
+      }
       res.status(200).json(req.session.user);
     } catch (err) {
       console.log(err);
@@ -69,15 +83,26 @@ export default {
       if (churchId) {
         church = await Church.findOne({ where: { churchId: churchId } });
       }
-
-      req.session.user = {
-        userId: user.userId,
-        email: user.email,
-        name: user.name,
-        phone: user.phone,
-        churchId: user.churchId,
-        churchName: church.churchName,
-      };
+      if (user.isAdmin) {
+        req.session.user = {
+          userId: user.userId,
+          email: user.email,
+          name: user.name,
+          phone: user.phone,
+          churchId: user.churchId,
+          churchName: church.churchName,
+          isAdmin: user.isAdmin,
+        };
+      } else {
+        req.session.user = {
+          userId: user.userId,
+          email: user.email,
+          name: user.name,
+          phone: user.phone,
+          churchId: user.churchId,
+          churchName: church.churchName,
+        };
+      }
       res.status(200).json(req.session.user);
     } catch (err) {
       console.log(err);
