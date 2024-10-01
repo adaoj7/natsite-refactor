@@ -12,15 +12,9 @@ const Footer: React.FC<FooterProps> = () => {
           <NavLink to={"/about"} className="link link-hover">
             About us
           </NavLink>
-          <button
-            onClick={() =>
-              // @ts-expect-error - window location is a valid method
-              (window.location = "mailto:peorianativities@gmail.com")
-            }
-            className="link link-hover"
-          >
+          <NavLink to={"/contact"} className="link link-hover">
             Contact
-          </button>
+          </NavLink>
           <NavLink to={"/getInvolved"} className="link link-hover">
             Get Involved
           </NavLink>

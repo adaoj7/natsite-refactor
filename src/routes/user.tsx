@@ -49,11 +49,11 @@ export default function User() {
               <div className="card-body">
                 <p className="card-title">Profile:</p>
                 <div className="card-actions flex-col justify-between">
-                  <ul>
-                    <li>Name: Loading...</li>
-                    <li>Email: Loading...</li>
-                    <li>Phone: Loading...</li>
-                    <li>Church: Loading...</li>
+                  <ul className="[&>*]:text-lg">
+                    <li className="mb-3">Name: Loading...</li>
+                    <li className="my-3">Email: Loading...</li>
+                    <li className="my-3">Phone: Loading...</li>
+                    <li className="my-3">Church: Loading...</li>
                   </ul>
                   <Flex className="w-full gap-2" direction="col">
                     <button className="btn btn-disabled">Edit</button>
