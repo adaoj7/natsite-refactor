@@ -42,7 +42,7 @@ export default function Navbar({ routes }: NavbarProps) {
   const isScrolled = scrollPosition > 0;
   const dispatch = useDispatch();
 
-  useQuery({
+  const { data: dbUser } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       const response = await axios.get("/api/user");
@@ -71,7 +71,7 @@ export default function Navbar({ routes }: NavbarProps) {
         <nav className="desktop:hidden fixed w-full">
           <AllRoutesMobile
             routes={routes}
-            user={user}
+            user={dbUser}
             handleLogin={handleLogin}
           />
         </nav>
@@ -83,7 +83,7 @@ export default function Navbar({ routes }: NavbarProps) {
         >
           <AllRoutesDesktop
             routes={routes}
-            user={user}
+            user={dbUser}
             handleLogin={handleLogin}
           />
         </nav>
