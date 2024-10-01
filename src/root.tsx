@@ -4,7 +4,6 @@ import { routes } from "./data/routes";
 import Footer from "./components/Footer";
 
 export default function Root() {
-  // fix ts error
   return (
     <>
       <Navbar routes={routes} />

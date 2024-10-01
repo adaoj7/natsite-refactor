@@ -1,5 +1,4 @@
 ﻿// import React from "react";
-import Spacer from "../../components/Spacer";
 import Shifts from "../../components/Shifts";
 import { useSelector } from "react-redux";
 
@@ -18,7 +17,7 @@ export default function Setup() {
   }
 
   return (
-    <div className="mx-auto my-12">
+    <div className="mx-auto phone:my-4 desktop:my-12">
       <Shifts shiftType="setup" />
     </div>
   );

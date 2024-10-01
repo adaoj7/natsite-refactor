@@ -1,5 +1,4 @@
-﻿// import React from "react";
-import Spacer from "../components/Spacer";
+﻿import Spacer from "../components/Spacer";
 import { routes } from "../data/routes";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import Flex from "../components/Flex";

@@ -1,5 +1,4 @@
-﻿// import React from "react";
-import Spacer from "../components/Spacer";
+﻿import Spacer from "../components/Spacer";
 import Flyer from "../assets/site-images/this-year/2024 Festival Handout 5.5 x 8.jpg";
 import img4x6 from "../assets/site-images/this-year/2024 Festival Invitation horizontal.jpg";
 import imgHalfSheet from "../assets/site-images/this-year/2024 Festival Handout 5.5 x 8.jpg";

@@ -1,5 +1,4 @@
-﻿import Spacer from "../../components/Spacer";
-import Shifts from "../../components/Shifts";
+﻿import Shifts from "../../components/Shifts";
 import { useSelector } from "react-redux";
 
 export default function Host() {
@@ -17,7 +16,7 @@ export default function Host() {
   }
 
   return (
-    <div className="mx-auto my-12">
+    <div className="mx-auto phone:my-4 desktop:my-12">
       <Shifts shiftType="host" />
     </div>
   );
