@@ -4,23 +4,48 @@ import img2022 from "../assets/site-images/light-the-world/DualAward-PSO.jpg";
 import img2021 from "../assets/site-images/light-the-world/2022-Drs-Ruskusky-PSO.jpg";
 import Spacer from "../components/Spacer";
 import { Link, NavLink } from "react-router-dom";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+
+type LTWProps = {
+  link: SiteLink;
+  isLoading: boolean;
+};
+
+interface SiteLink {
+  linkType: string;
+  linkName: string;
+  link: string;
+}
 
 export default function LightTheWorld() {
+  const { data: siteLink, isLoading } = useQuery({
+    queryKey: ["links"],
+    queryFn: async () => {
+      const response = await axios.get("/api/links", {
+        params: { linkType: "lightTheWorld" },
+      });
+      return response.data;
+    },
+  });
+
+  console.log("siteLink", siteLink);
+
   return (
     <>
       <Spacer />
       <div className="desktop:hidden phone:flex flex-col">
-        <LTWMobile />
+        <LTWMobile link={siteLink} isLoading={isLoading} />
       </div>
       {/* Maybe change the breakpoint */}
       <div className="hidden desktop:flex flex-col">
-        <LTWDesktop />
+        <LTWDesktop link={siteLink} isLoading={isLoading} />
       </div>
     </>
   );
 }
 
-function LTWMobile() {
+function LTWMobile({ link, isLoading }: LTWProps) {
   return (
     <>
       <div className="card">
@@ -42,9 +67,15 @@ function LTWMobile() {
               <p className="mb-4">
                 To nominate an individual or organization please click here
               </p>
-              <NavLink to={"/home"} className="btn btn-disabled">
-                Nominate
-              </NavLink>
+              {isLoading || !link ? (
+                <div className="loading loading-spinner loading-md">
+                  Nominate
+                </div>
+              ) : (
+                <NavLink to={link.link} className="btn">
+                  Nominate
+                </NavLink>
+              )}
             </div>
           </div>
         </div>
@@ -82,7 +113,7 @@ function LTWMobile() {
   );
 }
 
-function LTWDesktop() {
+function LTWDesktop({ link, isLoading }: LTWProps) {
   return (
     <>
       <div className="card justify-center flex-col">
@@ -104,9 +135,13 @@ function LTWDesktop() {
               <div className="mx-8">
                 To nominate an individual or organization please click here
               </div>
-              <NavLink to={"/home"} className="btn btn-disabled">
-                Nominate
-              </NavLink>
+              {isLoading || !link ? (
+                <div className="btn btn-disabled">Nominate</div>
+              ) : (
+                <Link to={link.link} className="btn">
+                  Nominate
+                </Link>
+              )}
             </div>
           </div>
         </div>

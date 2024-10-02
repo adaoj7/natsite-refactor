@@ -5,6 +5,7 @@
   Year,
   Availability,
   User,
+  SiteLinks,
   Church,
 } from "../dbscripts/model.js";
 
@@ -197,7 +198,49 @@ export default {
     console.log("availability destroyed");
   },
   churches: async (req, res) => {
-    const churches = await Church.findAll();
-    res.json(churches);
+    try {
+      const churches = await Church.findAll();
+      res.json(churches);
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
+  },
+
+  links: async (req, res) => {
+    try {
+      const { linkType } = req.query;
+      const link = await SiteLinks.findAll();
+
+      if (linkType) {
+        const filteredLink = link.filter((link) => {
+          if (link.linkType === linkType) {
+            return link;
+          }
+        });
+        console.log("filteredLink", filteredLink[0]);
+        res.json(filteredLink[0]);
+      } else {
+        res.json(link.sort((a, b) => a.linkType.length - b.linkType.length));
+      }
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
+  },
+  updateFormLinks: async (req, res) => {
+    try {
+      console.log("req.body", req.body);
+      const links = await SiteLinks.findAll();
+      links
+        .sort((a, b) => a.linkType.length - b.linkType.length)
+        .forEach((link) => {
+          link.update({ link: req.body[link.linkType] });
+        });
+      res.sendStatus(200);
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
   },
 };

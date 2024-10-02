@@ -38,6 +38,8 @@ const {
   userShifts,
   deleteShift,
   churches,
+  links,
+  updateFormLinks,
 } = siteCtrl;
 const { login, user, updateUser, logout } = authCtrl;
 const {
@@ -55,6 +57,8 @@ app.get("/api/userShifts", userShifts);
 app.post("/api/volunteer", volunteer);
 app.delete("/api/deleteShift", deleteShift);
 app.get("/api/churches", churches);
+app.get("/api/links", links);
+app.post("/api/updateFormLinks", updateFormLinks);
 // Admin Endpoints
 app.get("/api/adminQuery", allShifts);
 app.post("/api/adminQuery", getShiftsForAdmin);

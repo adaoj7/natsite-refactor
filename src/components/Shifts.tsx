@@ -78,7 +78,6 @@ export default function Shifts({ shiftType }: ShiftOptions) {
       });
       return response;
     },
-    retry: true,
   });
 
   const { mutateAsync } = useMutation({

@@ -30,7 +30,6 @@ export default function User() {
       const response = await axios.get("/api/user");
       return await response.data;
     },
-    retry: true,
   });
   const user = data;
 
@@ -203,7 +202,7 @@ function UserForm({ setIsEditing, user, refetch }: UserFormProps) {
                 churchId: user?.churchId || "",
               }}
               onSubmit={async (values) => {
-                // @ts-expect-error churchId is potentially undefined in the User type
+                // @ts-expect-error TS has issues with Formik and tanstack query mutations
                 handleSubmit(values);
                 setIsEditing(false);
               }}

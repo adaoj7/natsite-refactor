@@ -56,7 +56,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/lightTheWorld" element={<LightTheWorld />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/user" element={<User />} />
+        <Route path="/user" element={data ? <User /> : <Home />} />
         <Route path="/betaAndPsi" element={isAdmin ? <Admin /> : <Home />}>
           <Route
             path="/betaAndPsi/shiftAvailabilities"

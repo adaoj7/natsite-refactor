@@ -30,7 +30,6 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
       });
       return response;
     },
-    retry: true,
   });
 
   const { mutateAsync } = useMutation({

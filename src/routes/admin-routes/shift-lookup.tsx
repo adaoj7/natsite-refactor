@@ -35,14 +35,14 @@ type ShiftLookupForm = {
 
 export const ShiftLookup = () => {
   return (
-    <>
+    <div className="mx-auto">
       <div className="desktop:hidden">
         <ShiftFormMobile />
       </div>
-      <div className="hidden desktop:block w-[650px] mx-auto">
+      <div className="hidden desktop:block w-[650px]">
         <ShiftFormDesktop />
       </div>
-    </>
+    </div>
   );
 };
 
@@ -60,7 +60,8 @@ const ShiftFormDesktop: React.FC = () => {
     queryKey: ["shifts"],
     queryFn: () => getShifts(),
   });
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return <div className="flex justify-center mt-8">Loading...</div>;
   return (
     <div className="ml-auto">
       <Formik<ShiftLookupForm>

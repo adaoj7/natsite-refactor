@@ -52,7 +52,6 @@ export default function Navbar({ routes }: NavbarProps) {
       // needs a return for the cache to work
       return await response.data;
     },
-    retry: true,
   });
 
   function scrollStyling(location: any) {
