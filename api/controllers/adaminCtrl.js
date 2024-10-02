@@ -5,6 +5,7 @@
   Availability,
   Year,
   ShiftType,
+  Church,
 } from "../dbscripts/model.js";
 
 export default {
@@ -131,18 +132,58 @@ export default {
   },
   getAllChurchVolunteers: async (req, res) => {
     try {
-      const churchVolunteers = await User.findAll({
-        // churchUser does not exist at all
-        // I need to find all users who have a shift
+      const volunteersWithShifts = await User.findAll({
+        attributes: ["userId", "name", "email", "phone"],
         include: [
           {
-            model: Shift,
+            model: Church,
+            attributes: ["churchId", "churchName"],
+          },
+          {
+            model: Availability,
+            required: true,
+            include: [
+              {
+                model: Shift,
+                attributes: ["shiftId", "timeRange", "isFull"],
+              },
+            ],
           },
         ],
+        order: [
+          ["name", "ASC"],
+          [Availability, Shift, "shiftId", "ASC"],
+        ],
       });
-      // I need to rework this query tomorrow
-      console.log(churchVolunteers);
-      // res.json(churchVolunteers);
+      // now I need to get the count of users in each church
+      const churchCounts = volunteersWithShifts.reduce((acc, volunteer) => {
+        const churchId = volunteer.church.churchId;
+        if (!acc[churchId]) {
+          acc[churchId] = 0;
+        }
+        acc[churchId]++;
+        return acc;
+      }, {});
+
+      const churches = await Church.findAll({ order: [["churchId", "ASC"]] });
+      // add count to each church
+      const churchesWithCounts = churches.map((church) => {
+        const count = churchCounts[church.churchId];
+        if (count) {
+          return {
+            ...church.dataValues,
+            count,
+          };
+        } else {
+          return {
+            ...church.dataValues,
+            count: 0,
+          };
+        }
+      });
+
+      console.log("churchesWithCounts", churchesWithCounts);
+      res.json(churchesWithCounts);
     } catch (error) {
       res.status(500).send(error);
     }

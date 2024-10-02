@@ -45,6 +45,7 @@ interface ShiftsProps {
   shiftData: any;
   userShifts: any;
   mutateAsync: any;
+  isLoadingUserShifts: boolean;
 }
 
 export default function Shifts({ shiftType }: ShiftOptions) {
@@ -70,6 +71,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
     isPending: isPendingUserShifts,
     data: userShifts,
     refetch: refetchUserShifts,
+    isLoading: isLoadingUserShifts,
   } = useQuery({
     queryKey: ["userShifts"],
     queryFn: async () => {
@@ -102,6 +104,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
           shiftData={shiftData}
           userShifts={userShifts}
           mutateAsync={mutateAsync}
+          isLoadingUserShifts={isLoadingUserShifts}
         />
       </div>
       <div className="desktop:block hidden">
@@ -112,6 +115,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
           shiftData={shiftData}
           userShifts={userShifts}
           mutateAsync={mutateAsync}
+          isLoadingUserShifts={isLoadingUserShifts}
         />
       </div>
     </>
@@ -125,6 +129,7 @@ const PhoneShifts = ({
   shiftData,
   userShifts,
   mutateAsync,
+  isLoadingUserShifts,
 }: ShiftsProps) => {
   return (
     <div className="flex card bg-secondary max-w-full flex-grow m-4">
@@ -150,6 +155,7 @@ const PhoneShifts = ({
               Please use this form to sign up for {shiftType} shifts during the
               festival.
             </p>{" "}
+            {isLoadingUserShifts ?? <p>Loading...</p>}
             <ul
               role="group"
               aria-labelledby="checkbox-group"
@@ -178,6 +184,7 @@ const DesktopShifts = ({
   shiftData,
   userShifts,
   mutateAsync,
+  isLoadingUserShifts,
 }: ShiftsProps) => {
   return (
     <div className="flex card bg-secondary max-w-full flex-grow mx-auto">
@@ -203,6 +210,7 @@ const DesktopShifts = ({
               Please use this form to sign up for {shiftType} shifts during the
               festival.
             </p>{" "}
+            {isLoadingUserShifts ?? <p>Loading...</p>}
             <ul
               role="group"
               aria-labelledby="checkbox-group"
