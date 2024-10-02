@@ -62,6 +62,7 @@ const FormLinks: React.FC = () => {
 const FormLinksMobile: React.FC<FormLinksProps> = ({
   formLinks,
   mutateAsync,
+  isLoading,
 }) => {
   const initialValuesObj = formLinks?.reduce(
     (acc, link) => {
@@ -70,6 +71,11 @@ const FormLinksMobile: React.FC<FormLinksProps> = ({
     },
     {} as Record<string, string>
   );
+  console.log(initialValuesObj);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <Formik
       initialValues={{ ...initialValuesObj }}
@@ -84,16 +90,17 @@ const FormLinksMobile: React.FC<FormLinksProps> = ({
             <div className="card-body w-full">
               <h1 className="card-title text-3xl">Form Links</h1>
               <div className="card-actions flex flex-col gap-4 ">
-                {/* <div>{displayedLinks}</div> */}
                 {formLinks?.map((link) => (
                   <div key={link.linkType}>
                     <label htmlFor={link.linkType}>
-                      {link.linkName} Google Form Link
+                      {link.linkName} Form Link
                     </label>
                     <Field
+                      placeholder="Enter link URL"
                       id={link.linkType}
                       name={link.linkType}
                       value={values[link.linkType]}
+                      component="input"
                       className="border-[1px] border-gray-300 rounded-md w-full"
                     />
                   </div>

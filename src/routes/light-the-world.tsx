@@ -68,9 +68,7 @@ function LTWMobile({ link, isLoading }: LTWProps) {
                 To nominate an individual or organization please click here
               </p>
               {isLoading || !link ? (
-                <div className="loading loading-spinner loading-md">
-                  Nominate
-                </div>
+                <div className="btn btn-disabled">Nominate</div>
               ) : (
                 <NavLink to={link.link} className="btn">
                   Nominate
