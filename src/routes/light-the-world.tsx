@@ -38,11 +38,11 @@ export default function LightTheWorld() {
       {location.pathname === "/lightTheWorld" ? (
         <>
           <Spacer />
-          <div className="desktop:hidden phone:flex flex-col">
+          <div className="flex-col phone:flex desktop:hidden">
             <LTWMobile link={siteLink} isLoading={isLoading} />
           </div>
           {/* Maybe change the breakpoint */}
-          <div className="hidden desktop:flex flex-col">
+          <div className="hidden flex-col desktop:flex">
             <LTWDesktop link={siteLink} isLoading={isLoading} />
           </div>
         </>
@@ -62,7 +62,7 @@ function LTWMobile({ link, isLoading }: LTWProps) {
             Light the World Award
           </h1>
           <div className="p-4">
-            <p className="flex text-xl mb-6">
+            <p className="mb-6 flex text-xl">
               The “Light the World” award is given to a group or individuals to
               recognize their exemplary Christ-like service, sacrifice, and
               ministry in order to alleviate real struggles by reaching out to
@@ -108,13 +108,13 @@ function LTWMobile({ link, isLoading }: LTWProps) {
 function LTWDesktop({ link, isLoading }: LTWProps) {
   return (
     <>
-      <div className="card justify-center flex-col">
-        <div className="card-body ">
-          <h1 className="card-title justify-center my-4 text-2xl">
+      <div className="card flex-col justify-center">
+        <div className="card-body">
+          <h1 className="card-title my-4 justify-center text-2xl">
             Light the World Award
           </h1>
           <div className="flex flex-col px-40">
-            <p className="flex justify-center text-center text-xl mb-6">
+            <p className="mb-6 flex justify-center text-center text-xl">
               The “Light the World” award is given to a group or individuals to
               recognize their exemplary Christ-like service, sacrifice, and
               ministry in order to alleviate real struggles by reaching out to
@@ -123,7 +123,7 @@ function LTWDesktop({ link, isLoading }: LTWProps) {
               community of Central Illinois by making a meaningful and lasting
               contribution through selfless acts of service that changes lives.
             </p>
-            <div className="flex flex-row justify-center items-center">
+            <div className="flex flex-row items-center justify-center">
               <div className="mx-8">
                 To nominate an individual or organization please click here
               </div>
@@ -214,6 +214,7 @@ function LTWDesktop({ link, isLoading }: LTWProps) {
         textSide="right"
         title="2021"
         content="Some more content"
+        placement="object-top"
       >
         <div>
           <h2 className="card-title flex justify-center">

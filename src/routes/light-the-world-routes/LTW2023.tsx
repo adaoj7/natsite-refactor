@@ -1,6 +1,6 @@
 ﻿import { LTW } from "../../components/LTW";
 
-interface LTW2024Props {}
+// interface LTW2024Props {}
 
 export function LTW2023() {
   return (
