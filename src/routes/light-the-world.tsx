@@ -1,11 +1,19 @@
-﻿import Card from "../components/Card";
-import img2023 from "../assets/site-images/light-the-world/IMG_7720.jpg";
-import img2022 from "../assets/site-images/light-the-world/DualAward-PSO.jpg";
-import img2021 from "../assets/site-images/light-the-world/2022-Drs-Ruskusky-PSO.jpg";
+﻿import img2023 from "../assets/site-images/light-the-world/LTW2023.jpg";
+import img2022 from "../assets/site-images/light-the-world/LTW2022.jpg";
+import img2021Drs from "../assets/site-images/light-the-world/LTW2021-Drs.jpg";
+import img2021Clare from "../assets/site-images/light-the-world/LTW2021-Clare.jpg";
+import img2019Dr from "../assets/site-images/light-the-world/LTW2019-Dr.jpg";
+import img2019Vi from "../assets/site-images/light-the-world/LTW2019-Vi.jpg";
+import img2018 from "../assets/site-images/light-the-world/LTW2018.jpg";
+import img2017 from "../assets/site-images/light-the-world/LTW2017.jpg";
+import img2016 from "../assets/site-images/light-the-world/LTW2016.jpg";
+
+import Card from "../components/Card";
 import Spacer from "../components/Spacer";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { SpacerBar } from "../components/SpacerBar";
 
 type LTWProps = {
   link: SiteLink;
@@ -86,19 +94,106 @@ function LTWMobile({ link, isLoading }: LTWProps) {
           </div>
         </div>
       </div>
-      <Card
-        // image={img2023}
-        textSide="right"
-        title="2023"
-        content="This is my text content"
-      >
-        <div className="[&>*]:my-4">
-          <h2 className="card-title justify-center">
+      <Card image={img2023} title="2023" content="This is my text content">
+        <div className="flex flex-row">
+          <div className="">
             Loaves and Fish -- First United Methodist Church
-          </h2>
-          <h2 className="card-title justify-center">
-            Porch Pantry -- Kelli Martin
-          </h2>
+          </div>
+          <div className="">Porch Pantry -- Kelli Martin</div>
+        </div>
+      </Card>
+      <Card image={img2022} title="2022" content="This is my text content">
+        <div className="flex flex-row">
+          <div className="">Jobs Partnership--Offering A Helping Hand</div>
+          <div className="">Neal Glassett--Lifeline Pilots</div>
+        </div>
+      </Card>
+      <Card
+        image={img2021Drs}
+        title="2021"
+        content="Some more content"
+        imgPosition="object-top"
+      >
+        <div className="flex flex-row">
+          <div className="">
+            Dr. Jeff and Dr. Suzanne White Ruskusky - Almost Home Kids
+          </div>
+          <div className="">Sophia's Kitchen</div>
+        </div>
+      </Card>
+      <Card
+        image={img2019Vi}
+        title="2019"
+        content="Some more content"
+        imgPosition="object-top"
+      >
+        <div className="flex flex-row">
+          <div className="">
+            The Peoria Area Community Festival of Nativities
+          </div>
+          <div className="">
+            The Peoria Area Community Festival of Nativities
+          </div>
+        </div>
+      </Card>
+      <Card
+        image={img2019Dr}
+        title="2019"
+        content="Some more content"
+        imgPosition="object-top"
+      >
+        <div className="flex flex-row">
+          <div className="">
+            The Peoria Area Community Festival of Nativities
+          </div>
+          <div className="">
+            The Peoria Area Community Festival of Nativities
+          </div>
+        </div>
+      </Card>
+      <Card
+        image={img2018}
+        title="2018"
+        content="Some more content"
+        imgPosition="object-top"
+      >
+        <div className="flex flex-row">
+          <div className="">
+            The Peoria Area Community Festival of Nativities
+          </div>
+          <div className="">
+            The Peoria Area Community Festival of Nativities
+          </div>
+        </div>
+      </Card>
+      <Card
+        image={img2017}
+        title="2017"
+        content="Some more content"
+        imgPosition="object-top"
+      >
+        <div className="flex flex-row">
+          <div className="">
+            The Peoria Area Community Festival of Nativities
+          </div>
+          <div className="">
+            The Peoria Area Community Festival of Nativities
+          </div>
+        </div>
+      </Card>
+      <Card
+        image={img2016}
+        title="2016"
+        content="Some more content"
+        imgPosition="object-top"
+      >
+        <div className="flex flex-row">
+          <div className="">
+            The Peoria Area Community Festival of Nativities
+          </div>
+          <div className="">
+            The Peoria Area Community Festival of Nativities
+          </div>
         </div>
       </Card>
     </>
@@ -138,30 +233,80 @@ function LTWDesktop({ link, isLoading }: LTWProps) {
           </div>
         </div>
       </div>
-      <Card
-        image={img2023}
-        textSide="right"
-        title="2023"
-        content="This is my text content"
-      >
-        <div className="[&>*]:my-4">
-          <h2 className="card-title justify-center">
-            Loaves and Fish -- First United Methodist Church
-          </h2>
-          <h2 className="card-title justify-center">
-            Porch Pantry -- Kelli Martin
-          </h2>
-          <Link to={"/lightTheWorld/2023"}>View More</Link>
+      <Card image={img2023} title="2023" content="This is my text content">
+        <div className="flex flex-row justify-center">
+          <div className="px-12 [&>*]:my-4">
+            <h2 className="card-title justify-center">
+              Loaves and Fish -- First United Methodist Church
+            </h2>
+            <p>
+              Loaves and Fish is a weekly feeding ministry providing a free
+              meal, food pantry, and medical clinic to those in need each
+              Sunday. A ministry that began in 1994, Loaves and Fish serves up
+              to 200 guests weekly. Over 30,000 different volunteers have given
+              their time to the Loaves and Fish ministry.
+            </p>
+            <p>
+              Volunteers represent a variety of faith and civic organizations,
+              as well as individuals with a desire to serve.{" "}
+            </p>
+            <p>
+              It has evolved into a community needs ministry. In addition to
+              feeding physical hunger, a weekly worship service and medical
+              clinic are offered. Other community services provided include
+              weekly adult literacy classes sponsored by Common Place, a
+              clothing room, a flu shot clinic, monthly HIV/AIDS Hepatitis
+              testing, and more.
+            </p>
+            <p>
+              Food donations are received from the Midwest Food Bank, plus much
+              of the food (unused or close dated products) is picked up each
+              week by Heart of Illinois Harvest volunteers from grocery stores,
+              restaurants, and schools. Loaves and Fish also accepts donations
+              of non-perishable food items and toiletries for our guests to take
+              home. Volunteers work during the week, taking in, warehousing, and
+              organizing donations
+            </p>
+            <h2 className="card-title justify-center">
+              Porch Pantry -- Kelli Martin
+            </h2>
+            <p>
+              Porch Pantry was started in March 2020, by Kelli and Charles
+              Martin on their front porch. According to Charles, “We thought it
+              would last a few months and be over. What we found in serving the
+              Peoria area was friendship, chosen family, community, and love for
+              our neighbors.”
+            </p>
+            <p>
+              Mission statement: Porch Pantry is where we put love into action.
+              Porch Pantry of Peoria, Illinois, works to connect people, using
+              the talents and skills of many to gather, create and give
+              resources to those in need. Every item of food, clothing,
+              household goods and hygiene products is love in action. Porch
+              Pantry promotes self-sufficiency, dignity, Unity, Love for Your
+              Neighbor, Community Awareness and Involvement. We are changing the
+              world, one by one.
+            </p>
+            <p>
+              Today, Porch Pantry feeds on the average 50 people a day.
+              Families, veterans, houseless and people who have fallen on hard
+              times have become the Martins extended family. This act of love is
+              funded by the goodness of the Martins and donations from both
+              individuals and agencies in the Peoria Area. The fight to feed the
+              hungry is never ending.
+            </p>
+          </div>
         </div>
       </Card>
+      <SpacerBar size="md" />
       <Card
         image={img2022}
-        textSide="left"
         title="2022"
         content="This is my text content"
+        imgPosition="object-top"
       >
-        <div className="[&>*]:my-4">
-          <h2 className="card-title flex justify-center">
+        <div className="px-12 [&>*]:my-4">
+          <h2 className="card-title justify-center">
             Jobs Partnership--Offering A Helping Hand
           </h2>
           <p className="">
@@ -209,49 +354,244 @@ function LTWDesktop({ link, isLoading }: LTWProps) {
           </p>
         </div>
       </Card>
+      <SpacerBar />
       <Card
-        image={img2021}
-        textSide="right"
+        image={img2021Drs}
         title="2021"
         content="Some more content"
-        placement="object-top"
+        imgPosition="object-top"
       >
-        <div>
+        <div className="px-12 [&>*]:my-4">
           <h2 className="card-title flex justify-center">
             Dr. Jeff and Dr. Suzanne White Ruskusky - Almost Home Kids
           </h2>
-          <div className="[&>*]:my-4">
-            <p className="">
-              Drs. Jeff and Suzanne are local podiatrists who were very
-              instrumental in establishing Almost Home Kids in Peoria which is
-              located at 5200 N. Hamilton Rd. Peoria, IL 61614. Jeff and Suzanne
-              were the driving force behind this home being built through their
-              dedication, their fund raising, and their loving care for children
-              with special needs. While raising two sons (Garrett and Gabriel)
-              with special needs they saw the need for this home to be here in
-              Peoria not only for their sons but for other special needs
-              children in our area.
-            </p>
-            <p className="">
-              Almost Home Kids provides a bridge from hospital to home through
-              an innovative community-based care system for children with
-              medical complexities. Almost Home Kids responds to the needs of
-              families, train caregivers, offer respite care, advocate for
-              accessibility and inclusion and educate healthcare professionals.
-            </p>
-            <p className="">
-              The Peoria Home is one of only three in the nation and is
-              affiliated with OSF Healthcare Children's Hospital of Illinois.
-              For more information please go to their website:{" "}
-              <Link
-                target={"_blank"}
-                to={"https://www.almosthomekids.org/"}
-                className="underline"
-              >
-                Almost Home Kids
-              </Link>
-            </p>
-          </div>
+          <p>
+            Drs. Jeff and Suzanne are local podiatrists who were very
+            instrumental in establishing Almost Home Kids in Peoria which is
+            located at 5200 N. Hamilton Rd. Peoria, IL 61614. Jeff and Suzanne
+            were the driving force behind this home being built through their
+            dedication, their fund raising, and their loving care for children
+            with special needs. While raising two sons (Garrett and Gabriel)
+            with special needs they saw the need for this home to be here in
+            Peoria not only for their sons but for other special needs children
+            in our area.
+          </p>
+          <p>
+            Almost Home Kids provides a bridge from hospital to home through an
+            innovative community-based care system for children with medical
+            complexities. Almost Home Kids responds to the needs of families,
+            train caregivers, offer respite care, advocate for accessibility and
+            inclusion and educate healthcare professionals.
+          </p>
+          <p>
+            The Peoria Home is one of only three in the nation and is affiliated
+            with OSF Healthcare Children's Hospital of Illinois. For more
+            information please go to their website:{" "}
+            <Link
+              target={"_blank"}
+              to={"https://www.almosthomekids.org/"}
+              className="underline"
+            >
+              Almost Home Kids
+            </Link>
+          </p>
+        </div>
+      </Card>
+      <Card
+        image={img2021Clare}
+        content="Some more content"
+        imgPosition="object-top"
+      >
+        <div className="px-12 [&>*]:my-4">
+          <h2 className="card-title flex justify-center">Sophia's Kitchen</h2>
+          <p>
+            Inspired by the spirit of St. Francis and under the pastoral
+            leadership of Sacred Heart/St. Joseph Parish, this mission is an
+            outward expression of our Catholic/ Christian beliefs.
+          </p>
+          <p>
+            Volunteers make hundreds of peanut butter and jelly sandwiches
+            daily. The rest of the menu varies day by day as God provides. Local
+            grocery stores and restaurants donate liberally to help provide
+            filling and nutritious food.
+          </p>
+          <p>
+            "Who do we serve? Homeless, underemployed, unemployed, veterans,
+            elderly, and the broken. What do we serve? Peanut butter and jelly
+            sandwiches, hot soup, vegetables, fruits, treats, and hope. Guests
+            at Sophia's Kitchen are treated with dignity as we show Christ's
+            love. Anyone who is hungry is served. Our bag lunch may be taken to
+            go, or guests may join us in our Spiritual Center where volunteers
+            share their faith. All are welcome."
+          </p>
+          <p>
+            Sophia's Kitchen is located next to Historic St. Joseph Church, 103
+            Richard Pryor Place in Peoria. Sophia's Kitchen is staffed by a
+            dedicated group of volunteers, who give generously of their time so
+            that no one goes hungry. Donations are accepted Monday through
+            Friday from 8 AM to 3 PM.
+          </p>
+        </div>
+      </Card>
+      <SpacerBar />
+      <Card
+        image={img2019Dr}
+        title="2019"
+        content="Some more content"
+        imgPosition="object-top"
+      >
+        <div className="px-12 [&>*]:my-4">
+          <h2 className="card-title flex justify-center">Dr. John Carroll</h2>
+          <p>
+            Dr. John Carroll started the Haitian Hearts Organization in the
+            1990's. Haitian Hearts has brought more than 200 children and young
+            adults to the United States for heart surgery since 1995. Dr.
+            Carroll travels to Haiti to provide medical care to the people of
+            this impoverished Caribbean country. While in Haiti, Dr. Carroll
+            works in hospitals and clinics to care for the Haitian people,
+            providing general medical care, while identifying children that
+            would benefit from more advanced medical care in the United States.
+            Dr. Carroll and his wife Maria work with medical systems throughout
+            the United States to coordinate the transportation and medical care
+            required to treat these patients - often spending months, if not
+            years, organizing the specifics of visas, passports, transportation,
+            housing, medical care, and medical aftercare for each patient.
+          </p>
+        </div>
+      </Card>
+      <Card
+        image={img2019Vi}
+        content="Some more content"
+        imgPosition="object-top"
+      >
+        <div className="px-12 [&>*]:my-4">
+          <h2 className="card-title flex justify-center">Violet Heinz</h2>
+          <p>
+            Violet Heinz, 91 years old, has been a volunteer in the pre-op
+            department at Methodist Hospital for 31 years and is just short of
+            10,000 hours of volunteer service. She assembles the pre-surgery
+            kits and mentors the summer volunteers that come to the hospital.
+            She joined the Methodist Women's Service League in 2003 and has
+            exceeded an additional 2,500 hours of volunteer service for their
+            organization. Since 2003 she has made an average of 35 quilts a year
+            that are used at the annual gift show to raise funds for earmarked
+            projects at the hospital. Vi has also been a volunteer at the Heart
+            of Illinois Harvest, for the past 25 years, where she spends each
+            Friday picking up food from grocery stores and restaurants and
+            delivering to organizations that assist the poor and hungry.
+          </p>
+        </div>
+      </Card>
+      <SpacerBar />
+      <Card
+        image={img2018}
+        title="2018"
+        content="Some more content"
+        imgPosition="object-top"
+      >
+        <div className="px-12 [&>*]:my-4">
+          <h2 className="card-title flex justify-center">Dr. Gregg Stoner</h2>
+          <p>
+            In 2000, Dr. Gregg Stoner was involved in a faith-based program at
+            his parish, St. Thomas the Apostle, which had a theme of social
+            justice. The program, called JustFaith, was a nine-month program
+            based on scripture that immersed the participants in justice and
+            peace ideas and efforts. At the conclusion of the program, the
+            participants were asked to discern in what way he or she was willing
+            to make a concrete effort on behalf of justice and peace.
+          </p>
+          <p>
+            As the program concluded, Dr. Stoner made the decision to leave his
+            very successful private practice in medicine and join an emerging
+            Health Care Clinic for the uninsured in Peoria. This clinic had been
+            founded by a former bishop of the Catholic diocese of Peoria, and
+            was beginning to have an impact on the Peoria area. Its mission is
+            to provide high quality, affordable, comprehensive primary health
+            care for those who were unable to afford it. Dr. Stoner is now the
+            chief medical officer for Heartland Health Clinic. The clinic has
+            grown from one location to the present eight locations in the
+            tri-county area to better serve the community.
+          </p>
+          <p>
+            For his selfless, community-minded service, Dr. Gregg Stoner was the
+            2018 Light the World recipient.
+          </p>
+        </div>
+      </Card>
+      <SpacerBar />
+      <Card
+        image={img2017}
+        title="2017"
+        content="Some more content"
+        imgPosition="object-top"
+      >
+        <div className="px-12 [&>*]:my-4">
+          <h2 className="card-title flex justify-center">
+            Dream Center Peoria
+          </h2>
+          <p>
+            For excellence in Christ-like service, sacrifice, and life-changing
+            ministry within the Peoria community, Senator Chuck Weaver presented
+            the 2017 Light the World award to Dream Center Peoria.
+          </p>
+          <p>
+            “I cannot think of an organization more worthy and fitting of this
+            award,” Phil Luciano, award nominator, said of Dream Center Peoria.
+            “Like no other organization, Dream Center Peoria has succeeded in
+            lifting up Peoria, especially those most vulnerable and in need of
+            help.”
+          </p>
+          <p>
+            Operating since 2002, Dream Center Peoria is a faith-based,
+            non-profit organization intent on helping individuals break out of
+            poverty through several programs that fall under their three-pronged
+            approach: Basic Human Needs, Youth Development and Community
+            Outreach. From 2012-2016 alone, 122,276 nights of sleep to 1,324
+            individuals, of which 390 were children were achieved in the
+            homeless shelter with thousands more being impacted through their
+            multiplicity of programs from school backpacks filled with supplies
+            to youth vocational training and mentoring.
+          </p>
+          <p>
+            “The impact of Dream Center Peoria is so evident because of the
+            hearts of those who have consistently served this city, without
+            fanfare, for 15 years,” Brian Uhlenhopp, Dream Center Peoria
+            Development Director said. “Thank you to all who share in the great
+            story of Dream Center Peoria.”
+          </p>
+        </div>
+      </Card>
+      <SpacerBar />
+      <Card
+        image={img2016}
+        title="2016"
+        content="Some more content"
+        imgPosition="object-top"
+      >
+        <h2 className="card-title flex justify-center">
+          Sisters of St. Francis of the Immaculate Conception
+        </h2>
+        <div className="px-12 [&>*]:my-4">
+          <p>
+            In recognition for their past 125 years of unfailing ministry within
+            the Central Illinois community, the 2016 Light the World Award was
+            presented to the Sisters of St. Francis of the Immaculate
+            Conception.
+          </p>
+          <p>
+            These Sisters have blessed thousands of lives since their 1891
+            inception by Mother Mary Pacifica, baptized Margaret Forrestal, when
+            she responded to a call to staff an orphanage in Metamora, Illinois.
+            From there, the scope and breadth of the sisterhood has continually
+            increased to include teaching in parish schools and staffing homes
+            for the aging. Currently, the 23 Sisters serve in volunteer
+            capacities ranging from counseling and spiritual guidance in venues
+            throughout the community including The Children's Hospital of
+            Illinois at Saint Francis Medical Center among others. Other current
+            ministries include adult literacy and tutoring, nursing home
+            management and service, hot meal delivery to homebound individuals,
+            citizenship classes, vocational training, school teaching, and more.
+          </p>
         </div>
       </Card>
     </>
