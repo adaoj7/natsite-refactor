@@ -2,6 +2,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import Gallery from "../components/Gallery";
+import { images } from "../data/images";
 
 export default function Home() {
   const { isAuthenticated, user } = useAuth0();
@@ -19,7 +21,7 @@ export default function Home() {
   return (
     <>
       <HeroImage />
-      <div className="desktop:hidden phone:flex">
+      <div className="phone:flex desktop:hidden">
         <MobileHome />
       </div>
       {/* Maybe change the breakpoint */}
@@ -33,12 +35,12 @@ export default function Home() {
 function MobileHome() {
   return (
     <>
-      <div className="flex flex-col text-xl w-full p-4">
+      <div className="flex w-full flex-col p-4 text-xl">
         <section className="flex flex-col justify-between gap-4">
-          <div className="card bg-secondary rounded-3xl shadow-sm">
-            <div className="flex card-body justify-around ">
+          <div className="card rounded-3xl bg-secondary shadow-sm">
+            <div className="card-body flex justify-around">
               {/* <!-- Interactive event scheduler/calendar --> */}
-              <h2 className="card-title justify-center text-5xl font-Dancing">
+              <h2 className="card-title justify-center font-Dancing text-5xl">
                 All is Bright
               </h2>
               <h2 className="flex justify-center font-semibold">
@@ -52,17 +54,17 @@ function MobileHome() {
                 <li className="">Friday & Saturday 10am-9pm</li>
                 <li className="">Sunday 12pm-6pm</li>
               </ul>
-              <h2 className="flex items-start font-semibold text-lg ml-6">
+              <h2 className="ml-6 flex items-start text-lg font-semibold">
                 Address:
               </h2>
-              <div className="flex flex-col justify-center card-actions items-center">
+              <div className="card-actions flex flex-col items-center justify-center">
                 <button
                   onClick={() =>
                     window.open(
                       `https://www.google.com/maps/place/The+Community+Festival+of+Nativities/@40.7352662,-89.6539589,15.5z/data=!4m6!3m5!1s0x880a5c39a382250d:0x6fcfa24cada00e1b!8m2!3d40.732102!4d-89.651485!16s%2Fg%2F11f63xgxt0?entry=ttu`
                     )
                   }
-                  className="flex justify-center text-black font-bold btn whitespace-nowrap shadow-sm"
+                  className="btn flex justify-center whitespace-nowrap font-bold text-black shadow-sm"
                   title="Address in Google Maps"
                 >
                   3700 West Reservoir Boulevard
@@ -71,7 +73,7 @@ function MobileHome() {
             </div>
           </div>
 
-          <div className="card bg-secondary rounded-3xl shadow-sm">
+          <div className="card rounded-3xl bg-secondary shadow-sm">
             <div className="card-body">
               <h1 className="card-title justify-center text-2xl">About</h1>
               {/* <!-- Brief about the festival with a 'Read more' link to the about page --> */}
@@ -86,7 +88,7 @@ function MobileHome() {
                 <span className="hover:no-underline">-</span>
                 <NavLink
                   to="/about"
-                  className="card-actions items-end hover:underline "
+                  className="card-actions items-end hover:underline"
                 >
                   About Us
                 </NavLink>
@@ -94,7 +96,7 @@ function MobileHome() {
             </div>
           </div>
 
-          <div className="card bg-secondary rounded-3xl shadow-sm">
+          <div className="card rounded-3xl bg-secondary shadow-sm">
             <div className="card-body">
               <div className="card-title justify-center">2024 Sponsors</div>
               <ul className="flex flex-col [&>*]:my-2">
@@ -115,8 +117,8 @@ function MobileHome() {
           </div>
         </section>
 
-        <section className="flex flex-col justify-between mt-4 gap-4">
-          <div className="card bg-secondary rounded-3xl">
+        <section className="mt-4 flex flex-col justify-between gap-4">
+          <div className="card rounded-3xl bg-secondary">
             <div className="card-body gap-4">
               <div>
                 We are grateful to Brooklyn Swenson for the use of her artwork
@@ -132,7 +134,7 @@ function MobileHome() {
               </div>
               <div className="flex flex-wrap justify-center">
                 <span>Please visit her website</span>
-                <a href="https://brooklynswenson.com/" className=" underline">
+                <a href="https://brooklynswenson.com/" className="underline">
                   brooklynswenson.com
                 </a>
                 <span>to see her art gallery.</span>
@@ -140,7 +142,7 @@ function MobileHome() {
             </div>
           </div>
 
-          <div className="card bg-secondary rounded-3xl shadow-sm basis-1/3">
+          <div className="card basis-1/3 rounded-3xl bg-secondary shadow-sm">
             <div className="card-body">
               <h1 className="flex justify-center font-semibold">
                 Get Involved
@@ -153,12 +155,12 @@ function MobileHome() {
                 </span>
                 <span>We offer two main types of volunteering:</span>
               </div>
-              <span className="flex justify-center mt-4">
-                <NavLink to={"/getInvolved/setup"} className="btn font-bold ">
+              <span className="mt-4 flex justify-center">
+                <NavLink to={"/getInvolved/setup"} className="btn font-bold">
                   Setup Shifts
                 </NavLink>{" "}
                 <span className="m-3">and</span>{" "}
-                <NavLink to={"/getInvolved/host"} className="btn font-bold ">
+                <NavLink to={"/getInvolved/host"} className="btn font-bold">
                   Host Shifts
                 </NavLink>
               </span>
@@ -173,9 +175,9 @@ function MobileHome() {
 function DesktopHome() {
   return (
     <>
-      <div className="flex flex-wrap gap-16 mt-16 text-xl">
-        <section className="flex justify-between gap-8 mx-8">
-          <div className="card bg-secondary rounded-3xl shadow-sm basis-1/2">
+      <div className="mt-16 flex flex-wrap gap-8 text-xl">
+        <section className="mx-8 flex justify-between gap-8">
+          <div className="card basis-1/2 rounded-3xl bg-secondary shadow-sm">
             <div className="card-body">
               <h1 className="card-title justify-center">About</h1>
               {/* <!-- Brief about the festival with a 'Read more' link to the about page --> */}
@@ -190,7 +192,7 @@ function DesktopHome() {
                 <span className="hover:no-underline">-</span>
                 <NavLink
                   to="/about"
-                  className="card-actions items-end underline "
+                  className="card-actions items-end underline"
                 >
                   About Us
                 </NavLink>
@@ -198,18 +200,18 @@ function DesktopHome() {
             </div>
           </div>
 
-          <div className="card bg-secondary rounded-3xl shadow-sm basis-1/4">
-            <div className="flex card-body justify-between ">
+          <div className="card basis-1/4 rounded-3xl bg-secondary shadow-sm">
+            <div className="card-body flex justify-between">
               {/* <!-- Interactive event scheduler/calendar --> */}
               <div>
-                <h2 className="card-title text-5xl justify-center font-Dancing mb-4">
+                <h2 className="card-title mb-4 justify-center font-Dancing text-5xl">
                   All is Bright
                 </h2>
                 <h2 className="card-title justify-center">
                   December 5-8, 2024
                 </h2>
               </div>
-              <ul className="m-4 [&>*]:whitespace-nowrap text-center">
+              <ul className="m-4 text-center [&>*]:whitespace-nowrap">
                 <li className="flex flex-col">
                   <span>Thursday 3pm-9pm</span>
                   <span>Live Nativity 4:00pm-7:00pm</span>
@@ -218,17 +220,17 @@ function DesktopHome() {
                 <li className="">Sunday 12pm-6pm</li>
               </ul>
               <div className="mb-8">
-                <h2 className="flex items-start font-semibold text-lg ml-4 mb-4">
+                <h2 className="mb-4 ml-4 flex items-start text-lg font-semibold">
                   Address:
                 </h2>
-                <div className="flex flex-col justify-center card-actions items-center">
+                <div className="card-actions flex flex-col items-center justify-center">
                   <button
                     onClick={() =>
                       window.open(
                         `https://www.google.com/maps/place/The+Community+Festival+of+Nativities/@40.7352662,-89.6539589,15.5z/data=!4m6!3m5!1s0x880a5c39a382250d:0x6fcfa24cada00e1b!8m2!3d40.732102!4d-89.651485!16s%2Fg%2F11f63xgxt0?entry=ttu`
                       )
                     }
-                    className="flex justify-center text-black font-bold btn whitespace-nowrap shadow-sm"
+                    className="btn flex justify-center whitespace-nowrap font-bold text-black shadow-sm"
                     title="Address in Google Maps"
                   >
                     3700 West Reservoir Boulevard
@@ -238,10 +240,10 @@ function DesktopHome() {
             </div>
           </div>
 
-          <div className="card bg-secondary rounded-3xl shadow-sm basis-1/2">
+          <div className="card basis-1/2 rounded-3xl bg-secondary shadow-sm">
             <div className="card-body items-center">
               <div className="card-title">2024 Sponsors</div>
-              <ul className="flex flex-col ml-4 [&>*]:my-2">
+              <ul className="ml-4 flex flex-col [&>*]:my-2">
                 <li>St. Vincent de Paul Catholic Church</li>
                 <li>All Saints Greek Orthodox Church</li>
                 <li>Holy Family Catholic Church</li>
@@ -261,8 +263,12 @@ function DesktopHome() {
           </div>
         </section>
 
-        <section className="flex justify-between gap-8 mx-8 mb-16">
-          <div className="card bg-secondary rounded-3xl basis-2/3">
+        <section className="w-screen">
+          <Gallery images={images} />
+        </section>
+
+        <section className="mx-8 mb-16 flex justify-between gap-8">
+          <div className="card basis-2/3 rounded-3xl bg-secondary">
             <div className="card-body">
               <div>
                 We are grateful to Brooklyn Swenson for the use of her artwork
@@ -289,7 +295,7 @@ function DesktopHome() {
             </div>
           </div>
 
-          <div className="card bg-secondary rounded-3xl shadow-sm basis-1/3">
+          <div className="card basis-1/3 rounded-3xl bg-secondary shadow-sm">
             <div className="card-body">
               <h1 className="flex justify-center font-semibold">
                 Get Involved
@@ -302,17 +308,17 @@ function DesktopHome() {
                 </span>
                 <span>We offer two main types of volunteering:</span>
               </div>
-              <span className="flex justify-center mt-4">
+              <span className="mt-4 flex justify-center">
                 <NavLink
                   to={"/getInvolved/setup"}
-                  className="btn font-bold w-24"
+                  className="btn w-24 font-bold"
                 >
                   Setup
                 </NavLink>{" "}
                 <span className="m-3">and</span>{" "}
                 <NavLink
                   to={"/getInvolved/host"}
-                  className="btn font-bold w-24"
+                  className="btn w-24 font-bold"
                 >
                   Hosting
                 </NavLink>

@@ -41,14 +41,14 @@ export default function Gallery({ images }: GalleryProps) {
 
   return (
     <>
-      <div className="relative h-full w-full">
+      <div className="relative w-full">
         <div className="swiper-button-next swiper-button right-44 top-[45%] text-secondary">
           <IoIosArrowForward size={50} />
         </div>
         <div className="swiper-button-prev swiper-button left-44 top-[45%] text-secondary">
           <IoIosArrowBack size={50} />
         </div>
-        <div className="my-12">
+        <div className="">
           <Swiper
             style={customStyles}
             modules={[Pagination, A11y, Navigation]}
@@ -67,7 +67,7 @@ export default function Gallery({ images }: GalleryProps) {
             }}
             onSlideChange={() => console.log("slide change")}
             onSwiper={(swiper) => console.log(swiper)}
-            className="mySwiper my-10"
+            className="mySwiper"
           >
             {slides}
           </Swiper>
