@@ -12,7 +12,7 @@ import Host from "./routes/get-involved-routes/host";
 import MyShifts from "./routes/get-involved-routes/my-shifts";
 import Donate from "./routes/get-involved-routes/donate";
 import ThisYear from "./routes/this-year";
-import Gallery from "./routes/gallery";
+import { GalleryPage } from "./routes/gallery";
 import LightTheWorld from "./routes/light-the-world";
 import Contact from "./routes/contact";
 import ErrorPage from "./error-page";
@@ -54,7 +54,7 @@ function App() {
           <Route path="/getInvolved/donate" element={<Donate />} />
         </Route>
         <Route path="/thisYear" element={<ThisYear />} />
-        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/lightTheWorld" element={<LightTheWorld />}>
           <Route path="/lightTheWorld/2023" element={<LTW2023 />} />
         </Route>
