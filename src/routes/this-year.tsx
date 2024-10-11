@@ -8,7 +8,7 @@ export default function ThisYear() {
   return (
     <>
       <Spacer />
-      <div className="desktop:hidden phone:flex">
+      <div className="phone:flex desktop:hidden">
         <ThisYearMobile />
       </div>
       {/* Maybe change the breakpoint */}
@@ -23,23 +23,23 @@ function ThisYearMobile() {
   return (
     <>
       <div className="w-full">
-        <div className="card justify-center">
+        <div className="card my-4 flex flex-col items-center justify-center text-xl">
           <div className="card-body">
             <div className="card-title justify-center text-2xl">This Year</div>
-            <div className="card-title justify-center text-6xl font-Dancing">
+            <div className="card-title justify-center font-Dancing text-6xl">
               All is Bright
             </div>
-            <div className="flex justify-center mt-4">
+            <div className="mt-4 flex justify-center">
               <img src={Flyer} className="size-2/3" />
             </div>
           </div>
         </div>
-        <div className="card bg-secondary rounded-none  my-8">
+        <div className="card my-8 rounded-none bg-secondary">
           <div className="card-body">
-            <div className="card-title justify-center mb-4">
+            <div className="card-title mb-4 justify-center">
               Download links:
             </div>
-            <div className="flex flex-col items-center w-full gap-8">
+            <div className="flex w-full flex-col items-center gap-8">
               <a
                 href={img4x6}
                 download={"2024 Festival Invitation horizontal.jpg"}
@@ -72,21 +72,21 @@ function ThisYearMobile() {
 function ThisYearDesktop() {
   return (
     <div className="w-full">
-      <div className="card justify-center">
+      <div className="card mx-12 my-4 justify-center text-xl">
         <div className="card-body">
           <div className="card-title justify-center text-2xl">This Year</div>
-          <div className="card-title justify-center text-6xl font-Dancing">
+          <div className="card-title justify-center font-Dancing text-6xl">
             All is Bright
           </div>
-          <div className="flex justify-center mt-4">
+          <div className="mt-4 flex justify-center">
             <img src={Flyer} className="size-1/3" />
           </div>
         </div>
       </div>
-      <div className="card bg-secondary rounded-none  my-8">
+      <div className="card my-8 rounded-none bg-secondary">
         <div className="card-body">
-          <div className="card-title justify-center mb-4">Download links:</div>
-          <div className="flex justify-center w-full gap-12">
+          <div className="card-title mb-4 justify-center">Download links:</div>
+          <div className="flex w-full justify-center gap-12">
             <a
               href={img4x6}
               download={"2024 Festival Invitation horizontal.jpg"}

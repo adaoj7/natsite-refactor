@@ -13,7 +13,7 @@
       ["/getInvolved/donate", "Donate"],
     ],
   ],
-  // ["/gallery", "Gallery"],
+  ["/gallery", "Gallery"],
   ["/lightTheWorld", "Light the World"],
   ["/contact", "Contact"],
 ];
