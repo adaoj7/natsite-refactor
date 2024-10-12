@@ -7,7 +7,7 @@ import clsx from "clsx";
 const DateAndTimeGraph: React.FC = () => {
   return (
     <>
-      <div className="flex desktop:hidden w-full">
+      <div className="flex w-full desktop:hidden">
         <DateAndTimeGraphMobile />
       </div>
       <div className="hidden desktop:flex">
@@ -57,7 +57,7 @@ const DateAndTimeGraphMobile: React.FC = () => {
         if (shift.isFull) {
           return (
             <li
-              className="flex flex-row gap-2 justify-between"
+              className="flex flex-row justify-between gap-2"
               key={shift.timeRange}
             >
               <div>{shift.timeRange}</div>
@@ -67,7 +67,7 @@ const DateAndTimeGraphMobile: React.FC = () => {
         }
         return (
           <li
-            className="grid grid-cols-2 pointer-events-none"
+            className="pointer-events-none grid grid-cols-2"
             key={shift.timeRange}
           >
             <div className="whitespace-nowrap">{shift.timeRange}</div>
@@ -80,7 +80,7 @@ const DateAndTimeGraphMobile: React.FC = () => {
       });
       return (
         <li key={date.date}>
-          <details className="w-full pointer-events-auto">
+          <details className="pointer-events-auto w-full">
             <summary className="text-lg font-semibold">
               Date: {date.date}
             </summary>
@@ -102,7 +102,7 @@ const DateAndTimeGraphMobile: React.FC = () => {
   return (
     <div className="card w-full">
       <div className="card-body">
-        <h1 className="card-title text-3xl mb-4">Shift Availabilities</h1>
+        <h1 className="card-title mb-4 text-3xl">Shift Availabilities</h1>
         <div>{shiftTypes}</div>
       </div>
     </div>
@@ -149,7 +149,7 @@ const DateAndTimeGraphDesktop: React.FC = () => {
         if (shift.isFull) {
           return (
             <div
-              className="flex flex-row gap-2 justify-between"
+              className="flex flex-row justify-between gap-2"
               key={shift.timeRange}
             >
               <div>{shift.timeRange}</div>
@@ -170,7 +170,7 @@ const DateAndTimeGraphDesktop: React.FC = () => {
       return (
         <div className="card" key={date.date}>
           <div className="card-body">
-            <div className="font-semibold mb-2">Date: {date.date}</div>
+            <div className="mb-2 font-semibold">Date: {date.date}</div>
             <div className="flex flex-row gap-6">{shiftTimes}</div>
           </div>
         </div>

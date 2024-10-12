@@ -3,7 +3,7 @@ import { Navigation, Pagination, A11y } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/a11y";
-import "./gallery.css";
+import "./Gallery.css";
 // import { images } from "../data/images";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
@@ -15,7 +15,7 @@ export default function Gallery({ images }: GalleryProps) {
   let slides;
   if (images) {
     slides = images.map((image) => (
-      <SwiperSlide className="" key={image.id}>
+      <SwiperSlide key={image.id}>
         <img
           src={image.src}
           alt={image.alt}
@@ -48,7 +48,7 @@ export default function Gallery({ images }: GalleryProps) {
         <div className="swiper-button-prev swiper-button left-44 top-[45%] text-secondary">
           <IoIosArrowBack size={50} />
         </div>
-        <div className="">
+        <div>
           <Swiper
             style={customStyles}
             modules={[Pagination, A11y, Navigation]}
@@ -65,8 +65,6 @@ export default function Gallery({ images }: GalleryProps) {
               bulletClass: "swiper-pagination-bullet",
               bulletActiveClass: "swiper-pagination-bullet-active",
             }}
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
             className="mySwiper"
           >
             {slides}

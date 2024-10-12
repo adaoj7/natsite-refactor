@@ -6,11 +6,11 @@ export default function Contact() {
   return (
     <>
       <Spacer />
-      <div className="desktop:hidden phone:flex w-full justify-center">
+      <div className="w-full justify-center phone:flex desktop:hidden">
         <ContactMobile />
       </div>
       {/* Maybe change the breakpoint */}
-      <div className="hidden desktop:flex w-full justify-center">
+      <div className="hidden w-full justify-center desktop:flex">
         <ContactDesktop />
       </div>
     </>
@@ -22,7 +22,7 @@ function ContactMobile() {
     <>
       <div className="card">
         <div className="card-body flex flex-col justify-center align-middle text-xl">
-          <h2 className="card-title flex justify-center">Contact</h2>
+          <h2 className="card-title flex justify-center text-3xl">Contact</h2>
           <div>
             <div className="mt-4">
               <p className="">
@@ -51,7 +51,7 @@ function ContactMobile() {
                 `https://www.google.com/maps/place/The+Community+Festival+of+Nativities/@40.7352662,-89.6539589,15.5z/data=!4m6!3m5!1s0x880a5c39a382250d:0x6fcfa24cada00e1b!8m2!3d40.732102!4d-89.651485!16s%2Fg%2F11f63xgxt0?entry=ttu`
               )
             }
-            className="flex justify-center text-black font-bold btn whitespace-nowrap shadow-sm"
+            className="btn flex justify-center whitespace-nowrap font-bold text-black shadow-sm"
             title="Address in Google Maps"
           >
             3700 West Reservoir Boulevard
@@ -67,7 +67,7 @@ function ContactDesktop() {
     <div className="card justify-center">
       <div className="card-body">
         <h2 className="card-title justify-center text-2xl">Contact</h2>
-        <div className="flex flex-row justify-center my-8">
+        <div className="my-8 flex flex-row justify-center">
           <div className="mt-8 text-xl">
             <div>For any questions or feedback please contact us</div>
             <div className="my-4">
@@ -94,7 +94,7 @@ function ContactDesktop() {
               )
             }
             title="Link to Google Maps"
-            className="flex justify-end w-1/3 mx-10"
+            className="mx-10 flex w-1/3 justify-end"
           >
             <img src={MapPicture} className="w-full" />
           </button>

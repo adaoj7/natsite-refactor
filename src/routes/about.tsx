@@ -5,7 +5,7 @@ export default function About() {
   return (
     <>
       <Spacer />
-      <div className="desktop:hidden phone:flex">
+      <div className="phone:flex desktop:hidden">
         <AboutMobile />
       </div>
       <div className="hidden desktop:flex">
@@ -17,7 +17,7 @@ export default function About() {
 
 function AboutMobile() {
   return (
-    <div className="card text-xl flex flex-col items-center justify-center my-4">
+    <div className="card my-4 flex flex-col items-center justify-center text-xl">
       <div className="card-body">
         <h1 className="card-title flex justify-center text-2xl">
           About Us and Our Mission
@@ -51,8 +51,8 @@ function AboutMobile() {
             Mary and the Christ child at the center, often surrounded by Joseph,
             shepherds
           </p>
-          <div className="flex align-middle mt-8">
-            <img src={AboutImage} className="w-full h-full" />
+          <div className="mt-8 flex align-middle">
+            <img src={AboutImage} className="h-full w-full" />
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@ function AboutMobile() {
 function AboutDesktop() {
   return (
     <>
-      <div className="card flex flex-col items-center justify-center mx-12 my-4 text-xl">
+      <div className="card mx-12 my-4 flex flex-col items-center justify-center text-xl">
         <div className="card-body">
           <h1 className="card-title flex justify-center text-2xl">
             About Us and Our Mission
@@ -88,7 +88,7 @@ function AboutDesktop() {
               peaceful place for individuals and families to reflect upon
               Christ's sacred birth as they usher in the Christmas season.
             </p>
-            <p className=" py-2">
+            <p className="py-2">
               The nativity scene has been around since 1223, when St. Francis of
               Assisi was inspired by a trip to the Holy Land and used living
               people and animals to stage Jesus Christ's humble beginnings. The
@@ -100,8 +100,8 @@ function AboutDesktop() {
               boundaries to become a traditional Christian symbol of Christ's
               birth.
             </p>
-            <div className="flex align-middle mt-8">
-              <img src={AboutImage} className="w-full h-full m-10" />
+            <div className="mt-8 flex align-middle">
+              <img src={AboutImage} className="m-10 h-full w-full" />
             </div>
           </div>
         </div>

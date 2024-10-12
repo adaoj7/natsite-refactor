@@ -23,7 +23,7 @@ function ThisYearMobile() {
   return (
     <>
       <div className="w-full">
-        <div className="card my-4 flex flex-col items-center justify-center text-xl">
+        <div className="card justify-center text-2xl">
           <div className="card-body">
             <div className="card-title justify-center text-2xl">This Year</div>
             <div className="card-title justify-center font-Dancing text-6xl">
