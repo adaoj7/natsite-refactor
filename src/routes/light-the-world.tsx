@@ -159,6 +159,7 @@ function LTWMobile({ link, isLoading }: LTWProps) {
           </div>
         </div>
       </Card>
+      <SpacerBar />
       <Card image={img2022} title="2022" content="This is my text content">
         <div className="flex flex-row">
           <div className="px-4 [&>*]:my-2">
@@ -213,6 +214,7 @@ function LTWMobile({ link, isLoading }: LTWProps) {
           </div>
         </div>
       </Card>
+      <SpacerBar />
       <Card
         image={img2021Drs}
         title="2021"
@@ -296,6 +298,7 @@ function LTWMobile({ link, isLoading }: LTWProps) {
           </div>
         </div>
       </Card>
+      <SpacerBar />
       <Card
         image={img2019Dr}
         title="2019"
@@ -324,6 +327,7 @@ function LTWMobile({ link, isLoading }: LTWProps) {
           </div>
         </div>
       </Card>
+
       <Card
         image={img2019Vi}
         title="2018"
@@ -351,6 +355,7 @@ function LTWMobile({ link, isLoading }: LTWProps) {
           </div>
         </div>
       </Card>
+      <SpacerBar />
       <Card
         image={img2018}
         content="Some more content"
@@ -388,6 +393,7 @@ function LTWMobile({ link, isLoading }: LTWProps) {
           </div>
         </div>
       </Card>
+      <SpacerBar />
       <Card
         image={img2017}
         title="2017"
@@ -433,6 +439,7 @@ function LTWMobile({ link, isLoading }: LTWProps) {
           </div>
         </div>
       </Card>
+      <SpacerBar />
       <Card
         image={img2016}
         title="2016"
