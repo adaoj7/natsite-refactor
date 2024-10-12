@@ -12,6 +12,20 @@ interface GalleryProps {
 }
 
 export default function Gallery({ images }: GalleryProps) {
+  return (
+    <>
+      <GalleryMobile images={images} />
+      <GalleryDesktop images={images} />
+    </>
+  );
+}
+
+function GalleryMobile({ images }: GalleryProps) {
+  return <div className="phone:block desktop:hidden">GalleryMobile</div>;
+}
+
+function GalleryDesktop({ images }: GalleryProps) {
+  console.log("images", images);
   let slides;
   if (images) {
     slides = images.map((image) => (
@@ -41,7 +55,7 @@ export default function Gallery({ images }: GalleryProps) {
 
   return (
     <>
-      <div className="relative w-full">
+      <div className="relative hidden w-full desktop:block">
         <div className="swiper-button-next swiper-button right-44 top-[45%] text-secondary">
           <IoIosArrowForward size={50} />
         </div>
