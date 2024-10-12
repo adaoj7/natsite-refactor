@@ -21,6 +21,7 @@ export default function Gallery({ images }: GalleryProps) {
 }
 
 function GalleryMobile({ images }: GalleryProps) {
+  console.log("images", images);
   return <div className="phone:block desktop:hidden">GalleryMobile</div>;
 }
 

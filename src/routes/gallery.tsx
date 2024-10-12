@@ -1,9 +1,8 @@
-﻿import React from "react";
-import Gallery from "../components/Gallery";
+﻿import Gallery from "../components/Gallery";
 import Spacer from "../components/Spacer";
 import { images } from "../data/images";
 
-interface galleryProps {}
+// interface galleryProps {}
 
 export function GalleryPage() {
   return (
