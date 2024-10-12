@@ -25,7 +25,6 @@ import FormLinks from "./routes/admin-routes/form-links";
 import ShiftAvailabilities from "./routes/admin-routes/shift-availabilities";
 import DateAndTimeGraph from "./components/DateAndTimes";
 import { useQuery } from "@tanstack/react-query";
-import { LTW2023 } from "./routes/light-the-world-routes/LTW2023";
 
 function App() {
   // const isAdmin = false;
@@ -55,9 +54,7 @@ function App() {
         </Route>
         <Route path="/thisYear" element={<ThisYear />} />
         <Route path="/gallery" element={<GalleryPage />} />
-        <Route path="/lightTheWorld" element={<LightTheWorld />}>
-          <Route path="/lightTheWorld/2023" element={<LTW2023 />} />
-        </Route>
+        <Route path="/lightTheWorld" element={<LightTheWorld />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/user" element={data ? <User /> : <Home />} />
         <Route path="/betaAndPsi" element={isAdmin ? <Admin /> : <Home />}>
