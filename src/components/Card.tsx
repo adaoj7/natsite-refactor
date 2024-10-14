@@ -34,7 +34,7 @@ export default function Card({
   return (
     <div className={clsx("card", backgroundColors[bg])}>
       {" "}
-      <div className="card-body w-full">
+      <div className="card-body">
         {title && (
           <h2 className="card-title mb-4 justify-center text-3xl">{title}</h2>
         )}
