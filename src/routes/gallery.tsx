@@ -8,20 +8,8 @@ export function GalleryPage() {
   return (
     <>
       <Spacer />
-      <div className="phone:flex desktop:hidden">
-        <GalleryMobile />
-      </div>
-      <div className="hidden desktop:flex">
-        <GalleryDesktop />
-      </div>
+
+      <Gallery images={images} />
     </>
   );
-}
-
-export function GalleryMobile() {
-  return <Gallery images={images} />;
-}
-
-export function GalleryDesktop() {
-  return <Gallery images={images} />;
 }
