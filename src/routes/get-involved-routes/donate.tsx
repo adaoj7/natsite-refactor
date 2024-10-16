@@ -1,4 +1,4 @@
-﻿interface DonateProps {}
+﻿// interface DonateProps {}
 
 export default function Donate() {
   return (

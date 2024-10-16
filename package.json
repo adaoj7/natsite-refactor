@@ -18,7 +18,8 @@
     "stop": "pm2 delete natsite",
     "seed": "node api/dbscripts/seed.js",
     "sync": "node api/dbscripts/sync.js",
-    "docker": "docker build --pull --rm -f \"Dockerfile\" -t adamj7/natsite-refactor:latest \".\""
+    "docker:build": "docker build --pull --rm -f \"Dockerfile\" -t adamj7/natsite-refactor:latest \".\"",
+    "docker": "npm run build && npm run docker:build"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",

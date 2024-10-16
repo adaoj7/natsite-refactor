@@ -153,8 +153,8 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
       </label>
       <div className="drawer-side">
         <label htmlFor="mobile-drawer" className="drawer-overlay"></label>
-        <ul className="menu min-h-full w-60 bg-secondary">
-          <div className="mt-4 text-white">
+        <ul className="menu min-h-full w-72 bg-secondary">
+          <div className="mt-4 text-lg text-white">
             {allRoutes}
             <li className="">
               {user ? (
