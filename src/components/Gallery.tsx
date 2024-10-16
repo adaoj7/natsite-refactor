@@ -24,7 +24,6 @@ export default function Gallery({ images }: GalleryProps) {
 }
 
 function GalleryMobile({ images }: GalleryProps) {
-  console.log("images", images);
   let slides;
   if (images) {
     slides = images.map((image) => (
@@ -82,7 +81,6 @@ function GalleryMobile({ images }: GalleryProps) {
 }
 
 function GalleryDesktop({ images }: GalleryProps) {
-  console.log("images", images);
   let slides;
   if (images) {
     slides = images.map((image) => (

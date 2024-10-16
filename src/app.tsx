@@ -26,6 +26,7 @@ import ShiftAvailabilities from "./routes/admin-routes/shift-availabilities";
 import DateAndTimeGraph from "./components/DateAndTimes";
 import { useQuery } from "@tanstack/react-query";
 import { Poinsettias } from "./routes/get-involved-routes/poinsettias";
+import Profile from "./components/Profile";
 
 function App() {
   // const isAdmin = false;
@@ -58,7 +59,9 @@ function App() {
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/lightTheWorld" element={<LightTheWorld />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/user" element={data ? <User /> : <Home />} />
+        <Route path="/user" element={data ? <User /> : <Home />}>
+          <Route path="/user/profile" element={<Profile />} />
+        </Route>
         <Route path="/betaPsi" element={isAdmin ? <Admin /> : <Home />}>
           <Route
             path="/betaPsi/shiftAvailabilities"
