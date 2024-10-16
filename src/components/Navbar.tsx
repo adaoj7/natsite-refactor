@@ -66,8 +66,8 @@ export default function Navbar({ routes }: NavbarProps) {
 
   return (
     <>
-      <header className="sticky z-30 flex flex-row w-full" id="navbar">
-        <nav className="desktop:hidden fixed w-full">
+      <header className="sticky z-30 flex w-full flex-row" id="navbar">
+        <nav className="fixed w-full desktop:hidden">
           <AllRoutesMobile
             routes={routes}
             user={dbUser}
@@ -77,7 +77,7 @@ export default function Navbar({ routes }: NavbarProps) {
         <nav
           className={clsx(
             scrollStyling(location),
-            "desktop:flex hidden fixed justify-between w-full font-bold text-white z--30"
+            "fixed z--30 hidden w-full justify-between font-bold text-white desktop:flex"
           )}
         >
           <AllRoutesDesktop
@@ -120,7 +120,7 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
           <li>
             <details open>
               <summary>Get Involved</summary>
-              <ul className="flex flex-col text-white ml-6 border-l border-gray-200">
+              <ul className="ml-6 flex flex-col border-l border-gray-200 text-white">
                 {menuReturn}
               </ul>
             </details>
@@ -139,9 +139,8 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
   });
 
   return (
-    <div className="flex drawer h-24 bg-primary w-full items-center">
-      <img src={MobileLogo} className="h-16 ml-6 invert" />
-
+    <div className="drawer flex h-24 w-full items-center bg-primary">
+      <img src={MobileLogo} className="ml-6 h-16 invert" />
       <input
         id="mobile-drawer"
         type="checkbox"
@@ -149,7 +148,7 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
         checked={isOpen}
         onChange={toggleDrawer}
       />
-      <label htmlFor="mobile-drawer" className="flex justify-end w-full m-4">
+      <label htmlFor="mobile-drawer" className="m-4 flex w-full justify-end">
         <IoMenu className="relative text-white" size={40} />
       </label>
       <div className="drawer-side">
@@ -198,7 +197,7 @@ const AllRoutesDesktop: React.FC<AllRoutesProps> = ({
             to={menuName[0]}
             className={({ isActive }) =>
               clsx(
-                "flex align-middle p-4 whitespace-nowrap",
+                "flex whitespace-nowrap p-4 align-middle",
                 isActive ? "underline" : "hover:underline"
               )
             }
@@ -212,11 +211,11 @@ const AllRoutesDesktop: React.FC<AllRoutesProps> = ({
         <Menu as="div" className="relative" key={index}>
           <MenuButton
             as="div"
-            className="flex p-4 hover:underline whitespace-nowrap hover:cursor-pointer select-none"
+            className="flex select-none whitespace-nowrap p-4 hover:cursor-pointer hover:underline"
           >
             {menuName[1]}
           </MenuButton>
-          <MenuItems className="flex flex-col absolute top-12 p-4 origin-top-right bg-secondary border-primary border-2 rounded-xl">
+          <MenuItems className="absolute top-12 flex origin-top-right flex-col rounded-xl border-2 border-primary bg-secondary p-4">
             {menuReturn}
           </MenuItems>
         </Menu>
@@ -229,7 +228,7 @@ const AllRoutesDesktop: React.FC<AllRoutesProps> = ({
           to={route[0]}
           className={({ isActive }) =>
             clsx(
-              "flex align-middle p-4 whitespace-nowrap",
+              "flex whitespace-nowrap p-4 align-middle",
               isActive ? "underline" : "hover:underline"
             )
           }
@@ -242,8 +241,8 @@ const AllRoutesDesktop: React.FC<AllRoutesProps> = ({
 
   return (
     <>
-      <div className="flex ml-28 m-2 p-3 gap-2 w-full">{allRoutes}</div>
-      <div className="h-auto flex items-center mr-20">
+      <div className="m-2 ml-28 flex w-full gap-2 p-3">{allRoutes}</div>
+      <div className="mr-20 flex h-auto items-center">
         {user ? (
           <NavLink to={"/user"}>Profile</NavLink>
         ) : (

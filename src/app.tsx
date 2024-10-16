@@ -25,6 +25,7 @@ import FormLinks from "./routes/admin-routes/form-links";
 import ShiftAvailabilities from "./routes/admin-routes/shift-availabilities";
 import DateAndTimeGraph from "./components/DateAndTimes";
 import { useQuery } from "@tanstack/react-query";
+import { Poinsettias } from "./routes/get-involved-routes/poinsettias";
 
 function App() {
   // const isAdmin = false;
@@ -50,6 +51,7 @@ function App() {
           <Route path="/getInvolved/setup" element={<Setup />} />
           <Route path="/getInvolved/host" element={<Host />} />
           <Route path="/getInvolved/myShifts" element={<MyShifts />} />
+          <Route path="/getInvolved/poinsettias" element={<Poinsettias />} />
           <Route path="/getInvolved/donate" element={<Donate />} />
         </Route>
         <Route path="/thisYear" element={<ThisYear />} />

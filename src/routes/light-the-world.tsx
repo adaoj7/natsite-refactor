@@ -31,7 +31,7 @@ export default function LightTheWorld() {
     queryKey: ["links"],
     queryFn: async () => {
       const response = await axios.get("/api/links", {
-        params: { linkType: "lightTheWorld" },
+        params: { linkType: "poinsettias" },
       });
       return response.data;
     },

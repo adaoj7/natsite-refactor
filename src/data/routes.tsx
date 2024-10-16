@@ -10,6 +10,7 @@
       ["/getInvolved/setup", "Setup"],
       ["/getInvolved/host", "Host"],
       ["/getInvolved/myShifts", "My Shifts"],
+      ["/getInvolved/poinsettias", "Poinsettias"],
       ["/getInvolved/donate", "Donate"],
     ],
   ],

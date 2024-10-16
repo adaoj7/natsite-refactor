@@ -88,7 +88,7 @@ function MobileHome() {
                 <span className="hover:no-underline">-</span>
                 <NavLink
                   to="/about"
-                  className="card-actions items-end hover:underline"
+                  className="card-actions items-end underline"
                 >
                   About Us
                 </NavLink>
