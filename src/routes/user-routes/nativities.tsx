@@ -1,21 +1,21 @@
 ﻿import React from "react";
 
-interface MusicProps {}
+interface NativitiesProps {}
 
-export default function Music() {
+export default function Nativities() {
   return (
     <>
       <div className="flex desktop:hidden">
-        <MusicMobile />
+        <NativitiesMobile />
       </div>
       <div className="mobile:hidden desktop:flex">
-        <MusicDesktop />
+        <NativitiesDesktop />
       </div>
     </>
   );
 }
 
-export function MusicMobile() {
+export function NativitiesMobile() {
   return (
     <>
       <div>Hello There</div>
@@ -23,7 +23,7 @@ export function MusicMobile() {
   );
 }
 
-export function MusicDesktop() {
+export function NativitiesDesktop() {
   return (
     <>
       <div>Hello There</div>

@@ -27,6 +27,8 @@ import DateAndTimeGraph from "./components/DateAndTimes";
 import { useQuery } from "@tanstack/react-query";
 import { Poinsettias } from "./routes/get-involved-routes/poinsettias";
 import Profile from "./components/Profile";
+import Music from "./routes/get-involved-routes/music";
+import Nativities from "./routes/user-routes/nativities";
 
 function App() {
   // const isAdmin = false;
@@ -52,6 +54,7 @@ function App() {
           <Route path="/getInvolved/setup" element={<Setup />} />
           <Route path="/getInvolved/host" element={<Host />} />
           <Route path="/getInvolved/myShifts" element={<MyShifts />} />
+          <Route path="/getInvolved/music" element={<Music />} />
           <Route path="/getInvolved/poinsettias" element={<Poinsettias />} />
           <Route path="/getInvolved/FTN" element={<Donate />} />
         </Route>
@@ -61,6 +64,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/user" element={data ? <User /> : <Home />}>
           <Route path="/user/profile" element={<Profile />} />
+          <Route path="/user/nativities" element={<Nativities />} />
         </Route>
         <Route path="/betaPsi" element={isAdmin ? <Admin /> : <Home />}>
           <Route
