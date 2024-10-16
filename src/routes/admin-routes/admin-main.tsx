@@ -43,7 +43,7 @@ const AdminMobileNavbar: React.FC<AdminProps> = () => {
           to={route[0]}
           className={({ isActive }) =>
             clsx(
-              "text-white flex align-middle p-4 whitespace-nowrap",
+              "flex whitespace-nowrap p-4 align-middle text-white",
               isActive ? "underline" : "hover:underline"
             )
           }
@@ -58,7 +58,7 @@ const AdminMobileNavbar: React.FC<AdminProps> = () => {
     <header className="sticky z-20">
       <nav className="fixed w-full">
         <Spacer />
-        <div className="drawer w-full bg-secondary place-content-center">
+        <div className="drawer w-full place-content-center bg-secondary">
           <input
             id="my-drawer"
             type="checkbox"
@@ -70,14 +70,14 @@ const AdminMobileNavbar: React.FC<AdminProps> = () => {
           {isOpen ? (
             <label
               htmlFor="my-drawer"
-              className="flex justify-center w-40 my-1"
+              className="my-1 flex w-40 justify-center"
             >
               <IoChevronUp className="relative text-white" size={30} />
             </label>
           ) : (
             <label
               htmlFor="my-drawer"
-              className="flex justify-center w-40 my-1"
+              className="my-1 flex w-40 justify-center"
             >
               <IoChevronDown className="relative text-white" size={30} />
             </label>
@@ -88,7 +88,7 @@ const AdminMobileNavbar: React.FC<AdminProps> = () => {
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className="menu bg-secondary text-white min-h-full w-80 pl-8 p-4">
+            <ul className="menu min-h-full w-80 bg-secondary p-4 pl-8 text-lg text-white">
               <Spacer />
               {adminOptions}
             </ul>
@@ -108,7 +108,7 @@ const AdminDesktop: React.FC<AdminProps> = () => {
           to={route[0]}
           className={({ isActive }) =>
             clsx(
-              "text-black flex align-middle p-4 whitespace-nowrap",
+              "flex whitespace-nowrap p-4 align-middle text-black",
               isActive ? "underline" : "hover:underline"
             )
           }
@@ -123,7 +123,7 @@ const AdminDesktop: React.FC<AdminProps> = () => {
     <>
       <Spacer />
       <Flex className="min-h-[calc(100vh-176px)]">
-        <div className="flex flex-col gap-4 border-r-2 border-primary  px-4">
+        <div className="flex flex-col gap-4 border-r-2 border-primary px-4">
           {adminOptions}
         </div>
         <div className="flex w-full">
