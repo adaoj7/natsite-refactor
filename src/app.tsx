@@ -52,24 +52,24 @@ function App() {
           <Route path="/getInvolved/host" element={<Host />} />
           <Route path="/getInvolved/myShifts" element={<MyShifts />} />
           <Route path="/getInvolved/poinsettias" element={<Poinsettias />} />
-          <Route path="/getInvolved/donate" element={<Donate />} />
+          <Route path="/getInvolved/FTN" element={<Donate />} />
         </Route>
         <Route path="/thisYear" element={<ThisYear />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/lightTheWorld" element={<LightTheWorld />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/user" element={data ? <User /> : <Home />} />
-        <Route path="/betaAndPsi" element={isAdmin ? <Admin /> : <Home />}>
+        <Route path="/betaPsi" element={isAdmin ? <Admin /> : <Home />}>
           <Route
-            path="/betaAndPsi/shiftAvailabilities"
+            path="/betaPsi/shiftAvailabilities"
             element={isAdmin ? <ShiftAvailabilities /> : <Home />}
           />
           <Route
-            path="/betaAndPsi/shiftLookup"
+            path="/betaPsi/shiftLookup"
             element={isAdmin ? <ShiftLookup /> : <Home />}
           />
           <Route
-            path="/betaAndPsi/formLinks"
+            path="/betaPsi/formLinks"
             element={isAdmin ? <FormLinks /> : <Home />}
           />
         </Route>

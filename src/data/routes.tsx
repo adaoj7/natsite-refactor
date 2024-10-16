@@ -11,7 +11,7 @@
       ["/getInvolved/host", "Host"],
       ["/getInvolved/myShifts", "My Shifts"],
       ["/getInvolved/poinsettias", "Poinsettias"],
-      ["/getInvolved/donate", "Donate"],
+      ["/getInvolved/FTN", "Friends of the Nativity"],
     ],
   ],
   ["/gallery", "Gallery"],
@@ -20,7 +20,7 @@
 ];
 
 export const adminRoutes = [
-  ["/betaAndPsi/shiftAvailabilities", "Shift Availabilities"],
-  ["/betaAndPsi/shiftLookup", "Shift Lookup"],
-  ["/betaAndPsi/formLinks", "Form Links"],
+  ["/betaPsi/shiftAvailabilities", "Shift Availabilities"],
+  ["/betaPsi/shiftLookup", "Shift Lookup"],
+  ["/betaPsi/formLinks", "Form Links"],
 ];

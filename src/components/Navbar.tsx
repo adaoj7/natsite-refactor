@@ -183,7 +183,16 @@ const AllRoutesDesktop: React.FC<AllRoutesProps> = ({
       const menuReturn = menu.map((menuItem: MenuItem, index) => {
         return (
           <MenuItem key={index}>
-            <NavLink to={menuItem[0]} key={menuItem[0]}>
+            <NavLink
+              to={menuItem[0]}
+              key={menuItem[0]}
+              className={({ isActive }) =>
+                clsx(
+                  "whitespace-nowrap align-middle",
+                  isActive ? "underline" : "hover:underline"
+                )
+              }
+            >
               {menuItem[1]}
             </NavLink>
           </MenuItem>
