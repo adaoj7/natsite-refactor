@@ -54,6 +54,7 @@ function App() {
           <Route path="/getInvolved/setup" element={<Setup />} />
           <Route path="/getInvolved/host" element={<Host />} />
           <Route path="/getInvolved/myShifts" element={<MyShifts />} />
+          <Route path="/getInvolved/nativities" element={<Nativities />} />
           <Route path="/getInvolved/music" element={<Music />} />
           <Route path="/getInvolved/poinsettias" element={<Poinsettias />} />
           <Route path="/getInvolved/FTN" element={<Donate />} />
@@ -64,7 +65,6 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/user" element={data ? <User /> : <Home />}>
           <Route path="/user/profile" element={<Profile />} />
-          <Route path="/user/nativities" element={<Nativities />} />
         </Route>
         <Route path="/betaPsi" element={isAdmin ? <Admin /> : <Home />}>
           <Route

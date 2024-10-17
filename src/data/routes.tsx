@@ -10,6 +10,7 @@
       ["/getInvolved/setup", "Setup"],
       ["/getInvolved/host", "Host"],
       ["/getInvolved/myShifts", "My Shifts"],
+      ["/getInvolved/nativities", "Register Nativities"],
       ["/getInvolved/music", "Music"],
       ["/getInvolved/poinsettias", "Poinsettias"],
       ["/getInvolved/FTN", "Friends of the Nativity"],
@@ -28,5 +29,5 @@ export const adminRoutes = [
 
 export const userRoutes = [
   ["/user/profile", "Profile"],
-  ["/user/nativities", "Nativities"],
+  ["/getInvolved/nativities", "Register Nativities"],
 ];
