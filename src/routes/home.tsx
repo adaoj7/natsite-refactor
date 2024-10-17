@@ -110,7 +110,7 @@ function MobileHome() {
               </ul>
               <span>
                 For more information on how to become a{" "}
-                <NavLink to="/getInvolved/donate" className="hover:underline">
+                <NavLink to="/getInvolved/FTN" className="hover:underline">
                   Friend of the Nativity{" "}
                 </NavLink>
               </span>
@@ -257,7 +257,7 @@ function DesktopHome() {
               </ul>
               <span>
                 For more information on how to become a{" "}
-                <NavLink to="/getInvolved/donate" className="underline">
+                <NavLink to="/getInvolved/FTN" className="underline">
                   Friend of the Nativity{" "}
                 </NavLink>
               </span>

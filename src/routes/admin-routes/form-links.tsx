@@ -41,6 +41,7 @@ const FormLinks: React.FC = () => {
 
   return (
     <div className="mx-auto">
+      {/* I need to change these components a bit so that they have an edit state so that people are less likely to change them on accident */}
       <div className="desktop:hidden">
         <FormLinksMobile
           formLinks={formLinks}
@@ -89,7 +90,7 @@ const FormLinksMobile: React.FC<FormLinksProps> = ({
           <div className="card">
             <div className="card-body w-full">
               <h1 className="card-title text-3xl">Form Links</h1>
-              <div className="card-actions flex flex-col gap-4 ">
+              <div className="card-actions flex flex-col gap-4">
                 {formLinks?.map((link) => (
                   <div key={link.linkType}>
                     <label htmlFor={link.linkType}>
@@ -101,7 +102,7 @@ const FormLinksMobile: React.FC<FormLinksProps> = ({
                       name={link.linkType}
                       value={values[link.linkType]}
                       component="input"
-                      className="border-[1px] border-gray-300 rounded-md w-full"
+                      className="w-full rounded-md border-[1px] border-gray-300"
                     />
                   </div>
                 ))}
@@ -147,7 +148,7 @@ const FormLinksDesktop: React.FC<FormLinksProps> = ({
           <div className="card w-[450px]">
             <div className="card-body w-full">
               <h1 className="card-title text-3xl">Form Links</h1>
-              <div className="card-actions flex flex-col gap-4 ">
+              <div className="card-actions flex flex-col gap-4">
                 {formLinks?.map((link) => (
                   <div key={link.linkType}>
                     <label htmlFor={link.linkType}>
@@ -159,7 +160,7 @@ const FormLinksDesktop: React.FC<FormLinksProps> = ({
                       name={link.linkType}
                       value={values[link.linkType]}
                       component="input"
-                      className="border-[1px] border-gray-300 rounded-md w-full"
+                      className="w-full rounded-md border-[1px] border-gray-300"
                     />
                   </div>
                 ))}
