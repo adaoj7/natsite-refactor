@@ -16,8 +16,17 @@ export default function Host() {
   }
 
   return (
-    <div className="mx-auto phone:my-4 desktop:my-12">
-      <Shifts shiftType="host" />
+    <div className="mx-auto phone:my-4">
+      <div className="card-body items-center">
+        <h2 className="card-title text-2xl">Host</h2>
+        <div className="mb-4 max-w-[700px]">
+          We are looking for volunteers to help with hosting and tours during
+          the festival. Feel free to sign up for as many shifts as you would
+          like. When showing up to host, please arrive 15 minutes early to sign
+          in. We also ask that you wear business casual attire.
+        </div>
+        <Shifts shiftType="host" />
+      </div>
     </div>
   );
 }

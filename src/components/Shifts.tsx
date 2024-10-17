@@ -107,7 +107,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
           isLoadingUserShifts={isLoadingUserShifts}
         />
       </div>
-      <div className="desktop:block hidden">
+      <div className="hidden desktop:flex">
         <DesktopShifts
           userId={userId}
           capShiftType={capShiftType}
@@ -124,7 +124,6 @@ export default function Shifts({ shiftType }: ShiftOptions) {
 
 const PhoneShifts = ({
   userId,
-  capShiftType,
   shiftType,
   shiftData,
   userShifts,
@@ -132,7 +131,7 @@ const PhoneShifts = ({
   isLoadingUserShifts,
 }: ShiftsProps) => {
   return (
-    <div className="flex card bg-secondary max-w-full flex-grow m-4">
+    <div className="card m-4 flex max-w-full flex-grow bg-secondary">
       <Formik
         initialValues={{ checked: [] } as initialValues}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -148,10 +147,7 @@ const PhoneShifts = ({
       >
         {({ handleSubmit }) => (
           <Form onSubmit={handleSubmit} className="card-body">
-            <h2 className="card-header text-xl font-semibold flex justify-center">
-              {capShiftType}
-            </h2>
-            <p className="flex justify-center min-h-8">
+            <p className="flex min-h-8 justify-center">
               Please use this form to sign up for {shiftType} shifts during the
               festival.
             </p>{" "}
@@ -159,11 +155,11 @@ const PhoneShifts = ({
             <ul
               role="group"
               aria-labelledby="checkbox-group"
-              className="flex flex-wrap gap-4 flex-grow md:justify-around"
+              className="md:justify-around flex flex-grow flex-wrap gap-4"
             >
               <Dates days={shiftData.data} userShifts={userShifts} />
             </ul>
-            <div className="flex justify-center mt-8">
+            <div className="mt-8 flex justify-center">
               <Button
                 name="Submit"
                 type="submit"
@@ -179,7 +175,6 @@ const PhoneShifts = ({
 
 const DesktopShifts = ({
   userId,
-  capShiftType,
   shiftType,
   shiftData,
   userShifts,
@@ -187,7 +182,7 @@ const DesktopShifts = ({
   isLoadingUserShifts,
 }: ShiftsProps) => {
   return (
-    <div className="flex card bg-secondary max-w-full flex-grow mx-auto">
+    <div className="card mx-auto flex bg-secondary">
       <Formik
         initialValues={{ checked: [] } as initialValues}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -203,10 +198,7 @@ const DesktopShifts = ({
       >
         {({ handleSubmit }) => (
           <Form onSubmit={handleSubmit} className="card-body">
-            <h2 className="card-header text-xl font-semibold flex justify-center">
-              {capShiftType}
-            </h2>
-            <p className="flex justify-center min-h-8">
+            <p className="flex min-h-8 justify-center">
               Please use this form to sign up for {shiftType} shifts during the
               festival.
             </p>{" "}
@@ -214,11 +206,11 @@ const DesktopShifts = ({
             <ul
               role="group"
               aria-labelledby="checkbox-group"
-              className="flex flex-wrap gap-4 flex-grow md:justify-around"
+              className="flex flex-grow flex-wrap gap-4 desktop:justify-around"
             >
               <Dates days={shiftData.data} userShifts={userShifts} />
             </ul>
-            <div className="flex justify-center mt-8">
+            <div className="mt-8 flex justify-center">
               <Button
                 name="Submit"
                 type="submit"
@@ -237,7 +229,10 @@ function Dates({ days, userShifts }: { days: Day[]; userShifts: any }) {
     <>
       {days?.map((day) => {
         return (
-          <div key={day.date} className="text-lg font-semibold mx-2">
+          <div
+            key={day.date}
+            className="mx-2 text-lg font-semibold desktop:w-[180px]"
+          >
             <div className="my-1">
               {day.dayOfWeek}, {day.date}
             </div>
@@ -261,12 +256,12 @@ function Shift({ day, userShifts }: { day: Day; userShifts: UserShifts }) {
       return (
         <div key={shift.timeRange} className="">
           <input type="hidden" />
-          <label className="flex font-normal select-none items-center">
+          <label className="flex select-none items-center font-normal">
             <Field
               type="checkbox"
               name="checked"
               value={shift.shiftId.toString()}
-              className="mr-2 checkbox size-4 checkbox-sm rounded-md bg-white checkbox-primary"
+              className="checkbox-primary checkbox checkbox-sm mr-2 size-4 rounded-md bg-white"
             />
             {shift.timeRange}
           </label>

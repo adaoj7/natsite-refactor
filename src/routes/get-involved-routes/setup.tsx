@@ -17,8 +17,17 @@ export default function Setup() {
   }
 
   return (
-    <div className="mx-auto phone:my-4 desktop:my-12">
-      <Shifts shiftType="setup" />
+    <div className="mx-auto phone:my-4">
+      <div className="card-body items-center">
+        <h2 className="card-title text-2xl">Setup</h2>
+        <div className="mb-4 max-w-[700px]">
+          We are looking for volunteers to help with set up, tear down, and
+          decoration. Feel free to sign up for as many shifts as you would like.
+          When showing up to host, please arrive 15 minutes early to sign in. We
+          also ask that you wear business casual attire.
+        </div>
+        <Shifts shiftType="setup" />
+      </div>
     </div>
   );
 }

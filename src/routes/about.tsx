@@ -27,20 +27,21 @@ function AboutMobile() {
             The Peoria Area Community Festival of Nativities began in 2016 as an
             attempt to gather those with a love of Christ across denominations
             during the Christmas holiday. Originally spearheaded by the Church
-            of Jesus Christ of Latter-day Saints and the Sisters of St. Francis
-            of the Immaculate Conception the festival has expanded to include a
-            multitude of congregations, showcasing over 1000 nativities and
-            engaging hundreds of volunteers.
+            of Jesus Christ of Latter-day Saints, the Sisters of St. Francis of
+            the Immaculate Conception, friends from St. Vincent de Paul Catholic
+            Church, and All Saints Greek Orthodox Church the festival has
+            expanded to include a multitude of congregations, showcasing over
+            1000 nativities and engaging hundreds of volunteers.
           </p>
           <p className="py-4">
-            We invite community members in the Peoria, Illinois area to join us
-            in celebrating the birth of Jesus Christ by viewing nativity
-            displays from around the world and enjoying musical performances
-            from local talent. Members from different churches have come
-            together to create this unique and complimentary interfaith nativity
-            exhibit with one simple hope in mind: to provide a peaceful place
-            for individuals and families to reflect upon Christ's sacred birth
-            as they usher in the Christmas season.
+            Free to the public, we invite everyone to join us in celebrating the
+            birth of Jesus Christ by viewing nativity displays from around the
+            world and enjoying musical performances from local talent. Members
+            from different churches in the Central Illinois Area and beyond have
+            come together to create this unique and complimentary interfaith
+            ecumenical nativity exhibit with one simple hope in mind: to provide
+            a peaceful place for individuals and families to reflect upon
+            Christ's sacred birth as they usher in the Christmas season.
           </p>
           <p className="">
             The nativity scene has been around since 1223, when St. Francis of
@@ -73,20 +74,23 @@ function AboutDesktop() {
               The Peoria Area Community Festival of Nativities began in 2016 as
               an attempt to gather those with a love of Christ across
               denominations during the Christmas holiday. Originally spearheaded
-              by the Church of Jesus Christ of Latter-day Saints and the Sisters
-              of St. Francis of the Immaculate Conception the festival has
-              expanded to include a multitude of congregations, showcasing over
-              1000 nativities and engaging hundreds of volunteers.
+              by the Church of Jesus Christ of Latter-day Saints, the Sisters of
+              St. Francis of the Immaculate Conception, friends from St. Vincent
+              de Paul Catholic Church, and All Saints Greek Orthodox Church the
+              festival has expanded to include a multitude of congregations,
+              showcasing over 1000 nativities and engaging hundreds of
+              volunteers.
             </p>
             <p className="py-2">
-              We invite community members in the Peoria, Illinois area to join
-              us in celebrating the birth of Jesus Christ by viewing nativity
-              displays from around the world and enjoying musical performances
-              from local talent. Members from different churches have come
-              together to create this unique and complimentary interfaith
-              nativity exhibit with one simple hope in mind: to provide a
-              peaceful place for individuals and families to reflect upon
-              Christ's sacred birth as they usher in the Christmas season.
+              Free to the public, we invite everyone to join us in celebrating
+              the birth of Jesus Christ by viewing nativity displays from around
+              the world and enjoying musical performances from local talent.
+              Members from different churches in the Central Illinois Area and
+              beyond have come together to create this unique and complimentary
+              interfaith ecumenical nativity exhibit with one simple hope in
+              mind: to provide a peaceful place for individuals and families to
+              reflect upon Christ's sacred birth as they usher in the Christmas
+              season.
             </p>
             <p className="py-2">
               The nativity scene has been around since 1223, when St. Francis of

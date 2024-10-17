@@ -80,9 +80,10 @@ function MobileHome() {
               <div className="">
                 The Peoria Area Community Festival of Nativities was started in
                 2016 by members of the Church of Jesus Christ of Latter-day
-                Saints and the Sisters of St. Francis of Immaculate Conception.
-                Since then the festival has continued to grow and invite
-                individuals and families to "Come and See."
+                Saints, the Sisters of St. Francis of the Immaculate Conception,
+                friends from St. Vincent de Paul Catholic Church, and All Saints
+                Greek Orthodox Church. Since then the festival has continued to
+                grow and invite individuals and families to "Come and See."
               </div>
               <div className="card-actions flex flex-row">
                 <span className="hover:no-underline">-</span>
@@ -184,9 +185,10 @@ function DesktopHome() {
               <div className="mt-8">
                 The Peoria Area Community Festival of Nativities was started in
                 2016 by members of the Church of Jesus Christ of Latter-day
-                Saints and the Sisters of St. Francis of Immaculate Conception.
-                Since then the festival has continued to grow and invite
-                individuals and families to "Come and See."
+                Saints, the Sisters of St. Francis of the Immaculate Conception,
+                friends from St. Vincent de Paul Catholic Church, and All Saints
+                Greek Orthodox Church. Since then the festival has continued to
+                grow and invite individuals and families to "Come and See."
               </div>
               <div className="card-actions flex flex-row">
                 <span className="hover:no-underline">-</span>
@@ -263,11 +265,7 @@ function DesktopHome() {
           </div>
         </section>
 
-        <section className="w-screen">
-          <Gallery images={images} />
-        </section>
-
-        <section className="mx-8 mb-16 flex justify-between gap-8">
+        <section className="mx-8 flex justify-between gap-8">
           <div className="card basis-2/3 rounded-3xl bg-secondary">
             <div className="card-body">
               <div>
@@ -325,6 +323,11 @@ function DesktopHome() {
               </span>
             </div>
           </div>
+        </section>
+
+        <section className="mb-16 w-screen">
+          {/* Change to testimonials */}
+          <Gallery images={images} />
         </section>
       </div>
     </>
