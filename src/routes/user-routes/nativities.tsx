@@ -1,8 +1,8 @@
 ﻿import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+// import React from "react";
 
-interface NativitiesProps {}
+// interface NativitiesProps {}
 
 export default function Nativities() {
   const { data: siteLink, isLoading } = useQuery({

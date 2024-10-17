@@ -1,6 +1,6 @@
-﻿import React from "react";
+﻿// import React from "react";
 
-interface MusicProps {}
+// interface MusicProps {}
 
 export default function Music() {
   return (

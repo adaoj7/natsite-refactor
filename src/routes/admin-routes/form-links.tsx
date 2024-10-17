@@ -150,7 +150,7 @@ const FormLinksDesktop: React.FC<FormLinksProps> = ({
               <h1 className="card-title text-3xl">Form Links</h1>
               <div className="card-actions flex flex-col gap-4">
                 {formLinks?.map((link) => (
-                  <div key={link.linkType}>
+                  <div key={link.linkType} className="flex w-full flex-col">
                     <label htmlFor={link.linkType}>
                       {link.linkName} Form Link
                     </label>
@@ -160,7 +160,7 @@ const FormLinksDesktop: React.FC<FormLinksProps> = ({
                       name={link.linkType}
                       value={values[link.linkType]}
                       component="input"
-                      className="w-full rounded-md border-[1px] border-gray-300"
+                      className="rounded-md border-[1px] border-gray-300"
                     />
                   </div>
                 ))}
