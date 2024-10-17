@@ -27,6 +27,26 @@ const AdminMobile: React.FC<AdminProps> = () => {
       <AdminMobileNavbar />
       <Spacer size="md" />
       <Outlet />
+      {location.pathname === "/betaPsi" && (
+        <div className="card mx-auto max-w-[700px]">
+          <div className="card-body">
+            <h2 className="card-title text-2xl">Admin Page</h2>
+            <div className="flex flex-col gap-4">
+              <div className="">
+                Admins will be able to view shift availabilities and the number
+                of signups for the different congregations as well as be able to
+                search specific dates and times and contact those who have
+                signed up.
+              </div>
+              <div>
+                Admins also have the ability to change the links to the
+                different forms such as music signups and poinsettia
+                sponsorships.
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
@@ -126,35 +146,23 @@ const AdminDesktop: React.FC<AdminProps> = () => {
         <div className="flex flex-col gap-4 border-r-2 border-primary px-4">
           {adminOptions}
         </div>
-        <div className="flex w-full">
+        <div className="mx-auto flex w-full">
           <Outlet />
-          {location.pathname === "/betaAndPsi" && (
-            <div className="flex flex-col gap-4">
-              <div className="card">
-                <div className="card-body">
-                  <h2 className="card-title">Shift Lookup</h2>
+          {location.pathname === "/betaPsi" && (
+            <div className="card mx-auto max-w-[700px]">
+              <div className="card-body">
+                <h2 className="card-title text-2xl">Admin Page</h2>
+                <div className="flex flex-col gap-4">
                   <div className="">
-                    Shift lookup will allow you to search for those who have
-                    signed up for shifts and to email them all as a group
+                    Admins will be able to view shift availabilities and the
+                    number of signups for the different congregations as well as
+                    be able to search specific dates and times and contact those
+                    who have signed up.
                   </div>
-                  <div className="card-actions justify-center">
-                    <NavLink to="/betaAndPsi/shiftLookup" className="btn">
-                      Shift Lookup
-                    </NavLink>
-                  </div>
-                </div>
-              </div>
-              <div className="card">
-                <div className="card-body">
-                  <h2 className="card-title">Form Links</h2>
-                  <div className="">
-                    Form links will allow you to edit the links for the forms
-                    that are sent out to the public.
-                  </div>
-                  <div className="card-actions justify-center">
-                    <NavLink to="/betaAndPsi/formLinks" className="btn">
-                      Form Links
-                    </NavLink>
+                  <div>
+                    Admins also have the ability to change the links to the
+                    different forms such as music signups and poinsettia
+                    sponsorships.
                   </div>
                 </div>
               </div>
