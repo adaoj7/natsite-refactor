@@ -17,7 +17,7 @@ export default function Host() {
 
   return (
     <div className="mx-auto phone:my-4">
-      <div className="card-body items-center">
+      <div className="card-body items-center text-xl">
         <h2 className="card-title text-2xl">Host</h2>
         <div className="mb-4 max-w-[700px]">
           We are looking for volunteers to help with hosting and tours during

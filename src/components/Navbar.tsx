@@ -118,7 +118,7 @@ const AllRoutesMobile: React.FC<AllRoutesProps> = ({
       return (
         <div key={menu[0]}>
           <li>
-            <details open>
+            <details>
               <summary>Get Involved</summary>
               <ul className="ml-6 flex flex-col border-l border-gray-200 text-white">
                 {menuReturn}

@@ -18,7 +18,7 @@ export default function Setup() {
 
   return (
     <div className="mx-auto phone:my-4">
-      <div className="card-body items-center">
+      <div className="card-body items-center text-xl">
         <h2 className="card-title text-2xl">Setup</h2>
         <div className="mb-4 max-w-[700px]">
           We are looking for volunteers to help with set up, tear down, and
