@@ -27,7 +27,7 @@ const AdminMobile: React.FC<AdminProps> = () => {
       <AdminMobileNavbar />
       <Spacer size="md" />
       <Outlet />
-      {location.pathname === "/betaPsi" && (
+      {location.pathname.toLowerCase() === "/betapsi" && (
         <div className="card mx-auto max-w-[700px]">
           <div className="card-body">
             <h2 className="card-title text-2xl">Admin Page</h2>
@@ -148,7 +148,7 @@ const AdminDesktop: React.FC<AdminProps> = () => {
         </div>
         <div className="mx-auto flex w-full">
           <Outlet />
-          {location.pathname === "/betaPsi" && (
+          {location.pathname.toLowerCase() === "/betapsi" && (
             <div className="card mx-auto max-w-[700px]">
               <div className="card-body">
                 <h2 className="card-title text-2xl">Admin Page</h2>

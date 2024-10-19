@@ -34,7 +34,7 @@ export default function User() {
         </nav>
         <div className="mx-auto block w-full">
           <Outlet />
-          {location.pathname === "/user" && <Profile />}
+          {location.pathname.toLowerCase() === "/user" && <Profile />}
         </div>
       </Flex>
     </>

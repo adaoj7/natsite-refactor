@@ -20,7 +20,7 @@ export default function GetInvolved() {
           to={route[0]}
           className={({ isActive }) =>
             clsx(
-              "text-black flex align-middle p-4 whitespace-nowrap overflow-auto",
+              "flex overflow-auto whitespace-nowrap p-4 align-middle text-black",
               isActive ? "underline" : "hover:underline"
             )
           }
@@ -35,12 +35,14 @@ export default function GetInvolved() {
     <>
       <Spacer />
       <Flex className="min-h-[calc(100vh-342px)]">
-        <nav className="hidden desktop:flex flex-col gap-4 border-r-2 border-primary px-4">
+        <nav className="hidden flex-col gap-4 border-r-2 border-primary px-4 desktop:flex">
           {getInvolvedRoutes}
         </nav>
         <div className="flex w-full">
           <Outlet />
-          {location.pathname === "/getInvolved" && <DateAndTimeGraph />}
+          {location.pathname.toLowerCase() === "/getinvolved" && (
+            <DateAndTimeGraph />
+          )}
         </div>
       </Flex>
     </>

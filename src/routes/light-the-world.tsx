@@ -43,7 +43,7 @@ export default function LightTheWorld() {
 
   return (
     <>
-      {location.pathname === "/lightTheWorld" ? (
+      {location.pathname.toLowerCase() === "/lighttheworld" ? (
         <>
           <Spacer />
           <div className="flex-col overflow-x-hidden phone:flex desktop:hidden">
