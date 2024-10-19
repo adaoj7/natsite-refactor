@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import Gallery from "../components/Gallery";
-import { images } from "../data/images";
+import { testimonials } from "../data/testimonials";
 
 export default function Home() {
   const { isAuthenticated, user } = useAuth0();
@@ -327,7 +327,7 @@ function DesktopHome() {
 
         <section className="mb-16 w-screen">
           {/* Change to testimonials */}
-          <Gallery images={images} />
+          <Gallery type="testimonials" testimonials={testimonials} />
         </section>
       </div>
     </>

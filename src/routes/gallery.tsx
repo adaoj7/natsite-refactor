@@ -8,8 +8,12 @@ export function GalleryPage() {
   return (
     <>
       <Spacer />
-
-      <Gallery images={images} />
+      <div className="card">
+        <div className="card-body">
+          <div className="card-title justify-center text-2xl">Gallery</div>
+          <Gallery images={images} type="images" />
+        </div>
+      </div>
     </>
   );
 }
