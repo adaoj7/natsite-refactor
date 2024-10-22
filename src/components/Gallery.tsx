@@ -94,32 +94,27 @@ function GalleryMobile({
   } as React.CSSProperties;
 
   return (
-    <div className="card">
-      <div className="card-body">
-        <div className="card-title my-2 justify-center text-2xl">Gallery</div>
-        <Swiper
-          style={customStyles}
-          modules={[Pagination, A11y, Navigation, Autoplay]}
-          navigation={{
-            enabled: true,
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-            disabledClass: "swiper-button-disabled",
-          }}
-          spaceBetween={10}
-          slidesPerView={1}
-          pagination={{
-            clickable: true,
-            bulletClass: "swiper-pagination-bullet",
-            bulletActiveClass: "swiper-pagination-bullet-active",
-          }}
-          className="mySwiper"
-          autoplay={autoplayConfig}
-        >
-          {slides}
-        </Swiper>
-      </div>
-    </div>
+    <Swiper
+      style={customStyles}
+      modules={[Pagination, A11y, Navigation, Autoplay]}
+      navigation={{
+        enabled: true,
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+        disabledClass: "swiper-button-disabled",
+      }}
+      spaceBetween={10}
+      slidesPerView={1}
+      pagination={{
+        clickable: true,
+        bulletClass: "swiper-pagination-bullet",
+        bulletActiveClass: "swiper-pagination-bullet-active",
+      }}
+      className="mySwiper"
+      autoplay={autoplayConfig}
+    >
+      {slides}
+    </Swiper>
   );
 }
 
@@ -168,37 +163,35 @@ function GalleryDesktop({
   } as React.CSSProperties;
 
   return (
-    <div className="">
-      <div className="relative w-full">
-        <div className="swiper-button-next swiper-button right-44 top-[45%] text-secondary">
-          <IoIosArrowForward size={50} />
-        </div>
-        <div className="swiper-button-prev swiper-button left-44 top-[45%] text-secondary">
-          <IoIosArrowBack size={50} />
-        </div>
-        <div>
-          <Swiper
-            style={customStyles}
-            modules={[Pagination, A11y, Navigation, Autoplay]}
-            navigation={{
-              enabled: true,
-              nextEl: ".swiper-button-next",
-              prevEl: ".swiper-button-prev",
-              disabledClass: "swiper-button-disabled",
-            }}
-            spaceBetween={10}
-            slidesPerView={1}
-            pagination={{
-              clickable: true,
-              bulletClass: "swiper-pagination-bullet",
-              bulletActiveClass: "swiper-pagination-bullet-active",
-            }}
-            className="mySwiper"
-            autoplay={autoplayConfig}
-          >
-            {slides}
-          </Swiper>
-        </div>
+    <div className="relative w-full">
+      <div className="swiper-button-next swiper-button right-44 top-[45%] text-secondary">
+        <IoIosArrowForward size={50} />
+      </div>
+      <div className="swiper-button-prev swiper-button left-44 top-[45%] text-secondary">
+        <IoIosArrowBack size={50} />
+      </div>
+      <div>
+        <Swiper
+          style={customStyles}
+          modules={[Pagination, A11y, Navigation, Autoplay]}
+          navigation={{
+            enabled: true,
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+            disabledClass: "swiper-button-disabled",
+          }}
+          spaceBetween={10}
+          slidesPerView={1}
+          pagination={{
+            clickable: true,
+            bulletClass: "swiper-pagination-bullet",
+            bulletActiveClass: "swiper-pagination-bullet-active",
+          }}
+          className="mySwiper"
+          autoplay={autoplayConfig}
+        >
+          {slides}
+        </Swiper>
       </div>
     </div>
   );
