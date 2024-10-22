@@ -33,25 +33,18 @@ type ShiftLookupForm = {
   data: string;
 };
 
+type ShiftFormProps = {
+  volunteersAvail: any[];
+  setVolunteersAvail: (volunteersAvail: any[]) => void;
+  showResults: boolean;
+  setShowResults: (showResults: boolean) => void;
+  data: any;
+  isLoading: boolean;
+};
+
 export const ShiftLookup = () => {
-  return (
-    <div className="mx-auto">
-      <div className="desktop:hidden">
-        <ShiftFormMobile />
-      </div>
-      <div className="hidden desktop:block w-[650px]">
-        <ShiftFormDesktop />
-      </div>
-    </div>
-  );
-};
-
-const ShiftFormMobile: React.FC = () => {
-  return <div>Hello There</div>;
-};
-
-const ShiftFormDesktop: React.FC = () => {
   const [volunteersAvail, setVolunteersAvail] = useState<any[]>([]);
+  const [showResults, setShowResults] = useState(false);
   const getShifts = async () => {
     const res = await axios.get("/api/adminQuery");
     return res.data[0];
@@ -60,8 +53,44 @@ const ShiftFormDesktop: React.FC = () => {
     queryKey: ["shifts"],
     queryFn: () => getShifts(),
   });
+
+  return (
+    <div className="mx-auto">
+      <div className="desktop:hidden">
+        <ShiftFormMobile
+          volunteersAvail={volunteersAvail}
+          setVolunteersAvail={setVolunteersAvail}
+          showResults={showResults}
+          setShowResults={setShowResults}
+          data={data}
+          isLoading={isLoading}
+        />
+      </div>
+      <div className="hidden w-[650px] desktop:block">
+        <ShiftFormDesktop
+          volunteersAvail={volunteersAvail}
+          setVolunteersAvail={setVolunteersAvail}
+          showResults={showResults}
+          setShowResults={setShowResults}
+          data={data}
+          isLoading={isLoading}
+        />
+      </div>
+    </div>
+  );
+};
+
+const ShiftFormMobile: React.FC<ShiftFormProps> = ({
+  volunteersAvail,
+  setVolunteersAvail,
+  showResults,
+  setShowResults,
+  data,
+  isLoading,
+}) => {
   if (isLoading)
-    return <div className="flex justify-center mt-8">Loading...</div>;
+    return <div className="mt-8 flex justify-center">Loading...</div>;
+
   return (
     <div className="ml-auto">
       <Formik<ShiftLookupForm>
@@ -76,14 +105,21 @@ const ShiftFormDesktop: React.FC = () => {
               date: values.date,
               time: values.time,
             };
-            const { data } = await axios.post("/api/adminQuery", bodyObj);
-            if (!data.error) {
-              setVolunteersAvail(data);
-            } else {
-              console.log(data.error);
+            try {
+              const { data } = await axios.post("/api/adminQuery", bodyObj);
+              if (data) {
+                setVolunteersAvail(data);
+                setShowResults(true);
+              } else {
+                console.log("No data returned");
+                setShowResults(false);
+              }
+            } catch (err) {
+              console.log(err);
             }
           };
-          sendQuery();
+          setShowResults(false);
+          await sendQuery();
         }}
       >
         {({ values }) => (
@@ -94,8 +130,8 @@ const ShiftFormDesktop: React.FC = () => {
                 <DateOptions dates={data.days} />
                 <ShiftOptions formValues={values} data={data.days} />
               </div>
-              <div className="flex justify-center mt-4">
-                <button type="submit" className="btn font-semibold ">
+              <div className="mt-4 flex justify-center">
+                <button type="submit" className="btn font-semibold">
                   Submit
                 </button>
               </div>
@@ -103,7 +139,71 @@ const ShiftFormDesktop: React.FC = () => {
           </Form>
         )}
       </Formik>
-      <QueryResults values={volunteersAvail} />
+      {showResults && <QueryResults values={volunteersAvail} />}
+    </div>
+  );
+};
+
+const ShiftFormDesktop: React.FC<ShiftFormProps> = ({
+  volunteersAvail,
+  setVolunteersAvail,
+  showResults,
+  setShowResults,
+  data,
+  isLoading,
+}) => {
+  if (isLoading)
+    return <div className="mt-8 flex justify-center">Loading...</div>;
+
+  return (
+    <div className="ml-auto">
+      <Formik<ShiftLookupForm>
+        initialValues={{
+          date: "",
+          time: "",
+          data: "",
+        }}
+        onSubmit={async (values) => {
+          const sendQuery = async () => {
+            const bodyObj = {
+              date: values.date,
+              time: values.time,
+            };
+            try {
+              const { data } = await axios.post("/api/adminQuery", bodyObj);
+              if (data) {
+                setVolunteersAvail(data);
+                setShowResults(true);
+              } else {
+                console.log("No data returned");
+                setShowResults(false);
+              }
+            } catch (err) {
+              console.log(err);
+            }
+          };
+          setShowResults(false);
+          await sendQuery();
+        }}
+      >
+        {({ values }) => (
+          <Form className="card">
+            <div className="card-body">
+              <h1 className="card-title text-3xl">Search Shifts</h1>
+              <div className="flex flex-col">
+                <DateOptions dates={data.days} />
+                <ShiftOptions formValues={values} data={data.days} />
+              </div>
+              <div className="mt-4 flex justify-center">
+                <button type="submit" className="btn font-semibold">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </Form>
+        )}
+      </Formik>
+      {showResults && <QueryResults values={volunteersAvail} />}
     </div>
   );
 };
@@ -123,7 +223,7 @@ const DateOptions: React.FC<DateOptionProps> = ({ dates }) => {
     <Field
       name="date"
       component="select"
-      className="border-[1px] border-gray-300 rounded-md mb-4"
+      className="mb-4 rounded-md border-[1px] border-gray-300"
     >
       <option key="random">Select a Date</option>
       {dateMap}
@@ -147,7 +247,7 @@ const ShiftOptions: React.FC<ShiftOptionProps> = ({ formValues, data }) => {
       <Field
         name="time"
         component="select"
-        className="border-[1px] border-gray-300 rounded-md w-full"
+        className="w-full rounded-md border-[1px] border-gray-300"
       >
         <option key="random">Select a Time</option>
         {times}
@@ -159,25 +259,33 @@ const ShiftOptions: React.FC<ShiftOptionProps> = ({ formValues, data }) => {
 const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
   const { volunteersAvail } = values;
   let emailString = "";
-  const emailList = volunteersAvail
+  volunteersAvail
     ?.map((ele: any) => {
-      return (emailString += `${ele.email},`);
+      emailString += `${ele.email},`;
     })
     .slice(0, -1);
 
+  console.log("emailList", emailString);
+
   const volunteerList = volunteersAvail?.map((ele: any, i: any) => {
     return (
-      <div key={i} className="grid grid-cols-3 my-2">
-        <div className="flex justify-start">{ele.name}</div>
-        <div className="flex justify-start">{ele.email}</div>
-        <div className="flex justify-end">{ele.phone}</div>
+      <div key={i} className="my-2 grid phone:grid-cols-1 desktop:grid-cols-3">
+        <div className="flex phone:justify-start phone:font-semibold desktop:justify-start desktop:font-normal">
+          {ele.name}
+        </div>
+        <div className="flex phone:justify-start desktop:justify-start">
+          {ele.email}
+        </div>
+        <div className="flex phone:justify-start desktop:justify-end">
+          {ele.phone}
+        </div>
       </div>
     );
   });
 
   return (
     <>
-      {volunteerList && (
+      {volunteerList?.length > 0 ? (
         <div className="card">
           <div className="card-body">
             <div>
@@ -185,12 +293,12 @@ const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
                 <div className="card-title">Volunteers</div>
                 <div className="">{volunteerList}</div>
               </div>
-              <div className="flex justify-center mt-6 card-actions">
+              <div className="card-actions mt-6 flex justify-center">
                 <button
                   className="btn"
                   onClick={() =>
                     //@ts-expect-error window is not defined
-                    (window.location = `mailto:?cc=${emailList}`)
+                    (window.location = `mailto:?cc=${emailString}`)
                   }
                 >
                   Email This List
@@ -198,6 +306,10 @@ const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
               </div>
             </div>
           </div>
+        </div>
+      ) : (
+        <div className="card">
+          <div className="card-body">No volunteers found</div>
         </div>
       )}
     </>

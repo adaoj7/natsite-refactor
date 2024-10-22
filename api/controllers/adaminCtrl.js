@@ -38,6 +38,10 @@ export default {
   getShiftsForAdmin: async (req, res) => {
     try {
       const { date, time } = req.body;
+      if (!date || !time) {
+        res.status(400).json({ error: "Date and time are required" });
+        return;
+      }
       // console.log(checked)
       const { dateId } = await Day.findOne({ where: { date: date } });
       const { shiftId } = await Shift.findOne({
