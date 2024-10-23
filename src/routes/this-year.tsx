@@ -72,7 +72,7 @@ function ThisYearMobile() {
 function ThisYearDesktop() {
   return (
     <div className="w-full">
-      <div className="card mx-12 my-4 justify-center text-xl">
+      <section className="card mx-12 my-4 justify-center text-xl">
         <div className="card-body">
           <div className="card-title justify-center text-2xl">This Year</div>
           <div className="card-title justify-center font-Dancing text-6xl">
@@ -82,8 +82,9 @@ function ThisYearDesktop() {
             <img src={Flyer} className="size-1/3" />
           </div>
         </div>
-      </div>
-      <div className="card my-8 rounded-none bg-secondary">
+      </section>
+
+      <section className="card my-8 rounded-none bg-secondary">
         <div className="card-body">
           <div className="card-title mb-4 justify-center">Download links:</div>
           <div className="flex w-full justify-center gap-12">
@@ -110,7 +111,32 @@ function ThisYearDesktop() {
             </a>
           </div>
         </div>
-      </div>
+      </section>
+
+      <section className="card mx-12 my-4 justify-center text-xl">
+        <div className="card-body">
+          <div className="card-title justify-center text-2xl">New In 2024</div>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2 text-center">
+              <div className="font-semibold italic">
+                This year we will be featuring the Historic Cathedral Nativity
+                Scene from St. Mary's Cathedral in Peoria.
+              </div>
+              <div className="px-12">
+                We are very grateful to Most Reverend Bishop Louis Tylka for
+                loaning this magnificent nativity scene to be displayed at the
+                Community Festival of Nativities for the second year. Created by
+                Sebastian Osterrieder in 1930, this 50-piece nativity was
+                obtained by Bishop Joseph Schlarman of the Catholic Diocese of
+                Peoria when he traveled to Munich in 1931. This nativity scene
+                has been displayed at St. Mary’s Cathedral every year since
+                then. We are thrilled to have this very beautiful creation on
+                display at the festival this year.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
