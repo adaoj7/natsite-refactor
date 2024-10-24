@@ -1,8 +1,8 @@
 ﻿import Spacer from "../components/Spacer";
 import Flyer from "../assets/site-images/this-year/2024 Festival Handout 5.5 x 8.jpg";
-import img4x6 from "../assets/site-images/this-year/2024 Festival Invitation horizontal.jpg";
-import imgHalfSheet from "../assets/site-images/this-year/2024 Festival Handout 5.5 x 8.jpg";
-import imgPoster from "../assets/site-images/this-year/2024 Festival Poster 8.5 x 11.jpg";
+import Img4x6PDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Invitation horizontal.pdf";
+import ImgHalfSheetPDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Handout 5.5 x 8.pdf";
+import ImgPosterPDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Poster 8.5 x 11.pdf";
 
 export default function ThisYear() {
   return (
@@ -41,22 +41,22 @@ function ThisYearMobile() {
             </div>
             <div className="flex w-full flex-col items-center gap-8">
               <a
-                href={img4x6}
-                download={"2024 Festival Invitation horizontal.jpg"}
+                href={Img4x6PDF}
+                download={"2024 Festival Invitation horizontal.pdf"}
                 className="btn w-48"
               >
                 Printable Invite 4x6
               </a>
               <a
-                href={imgHalfSheet}
-                download={"2024 Festival Handout 5.5 x 8.jpg"}
+                href={ImgHalfSheetPDF}
+                download={"2024 Festival Handout 5.5 x 8.pdf"}
                 className="btn w-48"
               >
                 Printable Half Sheet
               </a>
               <a
-                href={imgPoster}
-                download={"2024 Festival Poster 8.5 x 11.jpg"}
+                href={ImgPosterPDF}
+                download={"2024 Festival Poster 8.5 x 11.pdf"}
                 className="btn w-48"
               >
                 Printable Poster
@@ -89,22 +89,22 @@ function ThisYearDesktop() {
           <div className="card-title mb-4 justify-center">Download links:</div>
           <div className="flex w-full justify-center gap-12">
             <a
-              href={img4x6}
-              download={"2024 Festival Invitation horizontal.jpg"}
+              href={Img4x6PDF}
+              download={"2024 Festival Invitation horizontal.pdf"}
               className="btn w-48"
             >
               Printable Invite 4x6
             </a>
             <a
-              href={imgHalfSheet}
-              download={"2024 Festival Handout 5.5 x 8.jpg"}
+              href={ImgHalfSheetPDF}
+              download={"2024 Festival Handout 5.5 x 8.pdf"}
               className="btn w-48"
             >
               Printable Half Sheet
             </a>
             <a
-              href={imgPoster}
-              download={"2024 Festival Poster 8.5 x 11.jpg"}
+              href={ImgPosterPDF}
+              download={"2024 Festival Poster 8.5 x 11.pdf"}
               className="btn w-48"
             >
               Printable Poster
