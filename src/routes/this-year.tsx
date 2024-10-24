@@ -3,6 +3,7 @@ import Flyer from "../assets/site-images/this-year/2024 Festival Handout 5.5 x 8
 import Img4x6PDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Invitation horizontal.pdf";
 import ImgHalfSheetPDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Handout 5.5 x 8.pdf";
 import ImgPosterPDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Poster 8.5 x 11.pdf";
+import SpanishPDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Handout Spanish.pdf";
 
 export default function ThisYear() {
   return (
@@ -61,6 +62,13 @@ function ThisYearMobile() {
               >
                 Printable Poster
               </a>
+              <a
+                href={SpanishPDF}
+                download={"2024 Festival Handout Spanish.pdf"}
+                className="btn w-48"
+              >
+                Spanish Version
+              </a>
             </div>
           </div>
         </div>
@@ -108,6 +116,13 @@ function ThisYearDesktop() {
               className="btn w-48"
             >
               Printable Poster
+            </a>
+            <a
+              href={SpanishPDF}
+              download={"2024 Festival Handout Spanish.pdf"}
+              className="btn w-48"
+            >
+              Spanish Version
             </a>
           </div>
         </div>
