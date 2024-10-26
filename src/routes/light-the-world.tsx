@@ -78,7 +78,7 @@ function LTWMobile({ link, isLoading }: LTWProps) {
               contribution through selfless acts of service that changes lives.
             </p>
             <div className="flex flex-col justify-center">
-              <p className="mb-4">
+              <p className="mb-4 text-center">
                 To nominate an individual or organization please click here
               </p>
               {isLoading || !link ? (
