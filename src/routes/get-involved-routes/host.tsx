@@ -1,4 +1,5 @@
-﻿import Shifts from "../../components/Shifts";
+﻿import { NavLink } from "react-router-dom";
+import Shifts from "../../components/Shifts";
 import { useSelector } from "react-redux";
 
 export default function Host() {
@@ -10,7 +11,11 @@ export default function Host() {
   } else if (!churchId) {
     return (
       <div className="mx-auto mt-8">
-        Please complete your profile to view this page.
+        Please complete your{" "}
+        <NavLink to="/user" className="italic hover:underline">
+          profile
+        </NavLink>{" "}
+        to view this page.
       </div>
     );
   }
