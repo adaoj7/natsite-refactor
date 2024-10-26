@@ -482,11 +482,11 @@ function LTWDesktop({ link, isLoading }: LTWProps) {
     <>
       <div className="card flex-col justify-center">
         <div className="card-body">
-          <h1 className="card-title my-4 justify-center text-2xl">
+          <h1 className="card-title justify-center text-2xl">
             Light the World Award
           </h1>
           <div className="flex flex-col px-40">
-            <p className="mb-6 flex justify-center text-center text-xl">
+            <p className="my-8 flex justify-center text-center text-2xl">
               The “Light the World” award is given to a group or individuals to
               recognize their exemplary Christ-like service, sacrifice, and
               ministry in order to alleviate real struggles by reaching out to

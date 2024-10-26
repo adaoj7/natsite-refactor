@@ -1,9 +1,14 @@
 ﻿import Spacer from "../components/Spacer";
-import Flyer from "../assets/site-images/this-year/2024 Festival Handout 5.5 x 8.jpg";
+import Flyer from "../assets/site-images/this-year/2024/Pictures/2024 Festival Handout 5.5 x 8.jpg";
 import Img4x6PDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Invitation horizontal.pdf";
 import ImgHalfSheetPDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Handout 5.5 x 8.pdf";
 import ImgPosterPDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Poster 8.5 x 11.pdf";
 import SpanishPDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Handout Spanish.pdf";
+import Osterrieder from "../assets/site-images/this-year/2024/Pictures/Osterrieder.jpeg";
+import WoodenNativity from "../assets/site-images/this-year/2024/Pictures/WoodenNativity.jpg";
+import Fontanini from "../assets/site-images/this-year/2024/Pictures/Fontanini.jpg";
+import Image from "../components/Image";
+import { SpacerBar } from "../components/SpacerBar";
 
 export default function ThisYear() {
   return (
@@ -80,14 +85,20 @@ function ThisYearMobile() {
 function ThisYearDesktop() {
   return (
     <div className="w-full">
-      <section className="card mx-12 my-4 justify-center text-xl">
+      <section className="card mx-12 justify-center text-xl">
         <div className="card-body">
           <div className="card-title justify-center text-2xl">This Year</div>
           <div className="card-title justify-center font-Dancing text-6xl">
             All is Bright
           </div>
           <div className="mt-4 flex justify-center">
-            <img src={Flyer} className="size-1/3" />
+            <Image
+              src={Flyer}
+              alt={"2024 Festival Handout 5.5 x 8"}
+              type={"vertical"}
+              size={"md"}
+              direction={"center"}
+            />
           </div>
         </div>
       </section>
@@ -128,16 +139,16 @@ function ThisYearDesktop() {
         </div>
       </section>
 
-      <section className="card mx-12 my-4 justify-center text-xl">
+      <section className="card mx-12 mt-4 justify-center text-xl">
         <div className="card-body">
           <div className="card-title justify-center text-2xl">New In 2024</div>
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2 text-center">
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 text-center">
               <div className="font-semibold italic">
                 This year we will be featuring the Historic Cathedral Nativity
                 Scene from St. Mary's Cathedral in Peoria.
               </div>
-              <div className="px-12">
+              <div className="px-20">
                 We are very grateful to Most Reverend Bishop Louis Tylka for
                 loaning this magnificent nativity scene to be displayed at the
                 Community Festival of Nativities for the second year. Created by
@@ -148,8 +159,59 @@ function ThisYearDesktop() {
                 then. We are thrilled to have this very beautiful creation on
                 display at the festival this year.
               </div>
+              <Image
+                src={Osterrieder}
+                alt={"Historic Cathedral Nativity Scene"}
+                type={"vertical"}
+                size={"sm"}
+                direction={"center"}
+              />
             </div>
           </div>
+        </div>
+      </section>
+
+      <SpacerBar size="lg" />
+
+      <section className="card mx-12 my-4 justify-center text-xl">
+        <div className="card-body gap-8 px-20">
+          <div className="card-title justify-center text-2xl">
+            Additional Displays
+          </div>
+          <div className="text-center">
+            We are pleased to display the handwork of Pekin artisan, Vic
+            McDonald. Well known in the Central Illinois Woodworker’s Club, Vic
+            has made beautiful nativity scenes out of various kinds of wood. For
+            his hand painted ceramic sets, he has created lighted stables. He is
+            also pleased to display a hand-carved Olive wood nativity that he
+            carried on his lap on the trip home from the Holy Land.
+          </div>
+          <Image
+            src={WoodenNativity}
+            alt={"Vic McDonald"}
+            type={"vertical"}
+            size={"lg"}
+            direction={"center"}
+          />
+          <div className="text-center">
+            We are happy to share the international nativity collection of
+            Father Ronald Margherio from St. Bede Academy in Peru, Illinois.
+            Many of his precious scenes were obtained on his travels and many
+            were gifts from dear friends.{" "}
+          </div>
+          <div className="text-center">
+            Diana Lage's Fontanini Collection will be back again to delight
+            everyone. Her display of over 3,000 pieces will include scenes that
+            focus on the women of the gospels in addition to the nativity and
+            life of Jesus Christ.
+          </div>
+          <Image
+            src={Fontanini}
+            alt={"Fontanini Collection"}
+            type={"vertical"}
+            size={"xl"}
+            direction={"center"}
+          />
         </div>
       </section>
     </div>

@@ -64,7 +64,7 @@ function AboutMobile() {
 function AboutDesktop() {
   return (
     <>
-      <div className="card mx-12 my-4 flex flex-col items-center justify-center text-xl">
+      <div className="card mx-12 flex flex-col items-center justify-center text-xl">
         <div className="card-body">
           <h1 className="card-title flex justify-center text-2xl">
             About Us and Our Mission
