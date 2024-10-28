@@ -1,6 +1,6 @@
 ﻿import Spacer from "../components/Spacer";
 import Flyer from "../assets/site-images/this-year/2024/Pictures/2024 Festival Handout 5.5 x 8.jpg";
-import Img4x6PDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Invitation horizontal.pdf";
+import Img4x6 from "../assets/site-images/this-year/2024/Pictures/2024 Festival Invitation horizontal.jpg";
 import ImgHalfSheetPDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Handout 5.5 x 8.pdf";
 import ImgPosterPDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Poster 8.5 x 11.pdf";
 import SpanishPDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Handout Spanish.pdf";
@@ -17,7 +17,6 @@ export default function ThisYear() {
       <div className="phone:flex desktop:hidden">
         <ThisYearMobile />
       </div>
-      {/* Maybe change the breakpoint */}
       <div className="hidden desktop:flex">
         <ThisYearDesktop />
       </div>
@@ -45,11 +44,11 @@ function ThisYearMobile() {
           <div className="card-title mb-4 justify-center">Download links:</div>
           <div className="flex w-full flex-col items-center gap-8">
             <a
-              href={Img4x6PDF}
-              download={"2024 Festival Invitation horizontal.pdf"}
+              href={Img4x6}
+              download={"2024 Festival Invitation horizontal.jpg"}
               className="btn w-48"
             >
-              Printable Invite 4x6
+              Printable 4x6
             </a>
             <a
               href={ImgHalfSheetPDF}
@@ -181,11 +180,11 @@ function ThisYearDesktop() {
           <div className="card-title mb-4 justify-center">Download links:</div>
           <div className="flex w-full justify-center gap-12">
             <a
-              href={Img4x6PDF}
-              download={"2024 Festival Invitation horizontal.pdf"}
+              href={Img4x6}
+              download={"2024 Festival Invitation horizontal.jpg"}
               className="btn w-48"
             >
-              Printable Invite 4x6
+              Printable 4x6
             </a>
             <a
               href={ImgHalfSheetPDF}
@@ -212,15 +211,13 @@ function ThisYearDesktop() {
         </div>
       </section>
 
-      <section className="card mx-12 mt-4 justify-center text-xl">
+      <section className="card mb-12 mt-4 justify-center text-xl">
         <div className="card-body">
-          <div className="card-title justify-center text-2xl">New In 2024</div>
+          <div className="card-title mb-4 justify-center text-2xl">
+            Highlights
+          </div>
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-8 text-center">
-              <div className="font-semibold italic">
-                This year we will be featuring the Historic Cathedral Nativity
-                Scene from St. Mary's Cathedral in Peoria.
-              </div>
               <div className="px-20">
                 We are very grateful to Most Reverend Bishop Louis Tylka for
                 loaning this magnificent nativity scene to be displayed at the
@@ -240,51 +237,43 @@ function ThisYearDesktop() {
                 direction={"center"}
               />
             </div>
-          </div>
-        </div>
-      </section>
 
-      <SpacerBar size="lg" />
-
-      <section className="card mx-12 my-4 justify-center text-xl">
-        <div className="card-body gap-8 px-20">
-          <div className="card-title justify-center text-2xl">
-            Additional Displays
+            <div className="text-center">
+              We are pleased to display the handwork of Pekin artisan, Vic
+              McDonald. Well known in the Central Illinois Woodworker’s Club,
+              Vic has made beautiful nativity scenes out of various kinds of
+              wood. For his hand painted ceramic sets, he has created lighted
+              stables. He is also pleased to display a hand-carved Olive wood
+              nativity that he carried on his lap on the trip home from the Holy
+              Land.
+            </div>
+            <Image
+              src={WoodenNativity}
+              alt={"Vic McDonald"}
+              type={"vertical"}
+              size={"lg"}
+              direction={"center"}
+            />
+            <div className="text-center">
+              We are happy to share the international nativity collection of
+              Father Ronald Margherio from St. Bede Academy in Peru, Illinois.
+              Many of his precious scenes were obtained on his travels and many
+              were gifts from dear friends.{" "}
+            </div>
+            <div className="text-center">
+              Diana Lage's Fontanini Collection will be back again to delight
+              everyone. Her display of over 3,000 pieces will include scenes
+              that focus on the women of the gospels in addition to the nativity
+              and life of Jesus Christ.
+            </div>
+            <Image
+              src={Fontanini}
+              alt={"Fontanini Collection"}
+              type={"vertical"}
+              size={"xl"}
+              direction={"center"}
+            />
           </div>
-          <div className="text-center">
-            We are pleased to display the handwork of Pekin artisan, Vic
-            McDonald. Well known in the Central Illinois Woodworker’s Club, Vic
-            has made beautiful nativity scenes out of various kinds of wood. For
-            his hand painted ceramic sets, he has created lighted stables. He is
-            also pleased to display a hand-carved Olive wood nativity that he
-            carried on his lap on the trip home from the Holy Land.
-          </div>
-          <Image
-            src={WoodenNativity}
-            alt={"Vic McDonald"}
-            type={"vertical"}
-            size={"lg"}
-            direction={"center"}
-          />
-          <div className="text-center">
-            We are happy to share the international nativity collection of
-            Father Ronald Margherio from St. Bede Academy in Peru, Illinois.
-            Many of his precious scenes were obtained on his travels and many
-            were gifts from dear friends.{" "}
-          </div>
-          <div className="text-center">
-            Diana Lage's Fontanini Collection will be back again to delight
-            everyone. Her display of over 3,000 pieces will include scenes that
-            focus on the women of the gospels in addition to the nativity and
-            life of Jesus Christ.
-          </div>
-          <Image
-            src={Fontanini}
-            alt={"Fontanini Collection"}
-            type={"vertical"}
-            size={"xl"}
-            direction={"center"}
-          />
         </div>
       </section>
     </div>

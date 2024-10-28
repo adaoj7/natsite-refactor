@@ -10,7 +10,7 @@ import img2016 from "../assets/site-images/light-the-world/LTW2016.jpg";
 
 import Card from "../components/Card";
 import Spacer from "../components/Spacer";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { SpacerBar } from "../components/SpacerBar";
@@ -31,7 +31,7 @@ export default function LightTheWorld() {
     queryKey: ["links"],
     queryFn: async () => {
       const response = await axios.get("/api/links", {
-        params: { linkType: "poinsettias" },
+        params: { linkType: "lightTheWorld" },
       });
       return response.data;
     },
@@ -84,10 +84,11 @@ function LTWMobile({ link, isLoading }: LTWProps) {
               {isLoading || !link ? (
                 <div className="btn btn-disabled">Nominate</div>
               ) : (
-                <NavLink to={link.link} className="btn">
-                  Nominate
-                </NavLink>
+                <div className="btn btn-disabled">Nominate</div>
               )}
+            </div>
+            <div className="flex justify-center italic">
+              Nominations are closed for 2024.
             </div>
           </div>
         </div>
@@ -502,10 +503,11 @@ function LTWDesktop({ link, isLoading }: LTWProps) {
               {isLoading || !link ? (
                 <div className="btn btn-disabled">Nominate</div>
               ) : (
-                <Link to={link.link} className="btn">
-                  Nominate
-                </Link>
+                <div className="btn btn-disabled">Nominate</div>
               )}
+            </div>
+            <div className="flex justify-center italic">
+              Nominations are closed for 2024.
             </div>
           </div>
         </div>

@@ -18,7 +18,7 @@ export function Poinsettias() {
     queryKey: ["links"],
     queryFn: async () => {
       const response = await axios.get("/api/links", {
-        params: { linkType: "lightTheWorld" },
+        params: { linkType: "poinsettias" },
       });
       return response.data;
     },
@@ -67,7 +67,8 @@ export function PoinsettiasMobile({ form, isLoading }: PoinsettiasProps) {
             </div>
             <div>
               <span className="font-semibold">
-                Please remember to choose friends, not a business.
+                When paying with Venmo or PayPal, please remember to choose
+                "friends," not a business.
               </span>
             </div>
           </div>
@@ -131,7 +132,8 @@ export function PoinsettiasDesktop({ form, isLoading }: PoinsettiasProps) {
               </div>
               <div>
                 <span className="font-semibold">
-                  Please remember to choose friends, not a business.
+                  When paying with Venmo or PayPal, please remember to choose
+                  "friends," not a business.
                 </span>
               </div>
             </div>
