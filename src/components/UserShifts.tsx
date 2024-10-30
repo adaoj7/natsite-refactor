@@ -92,7 +92,10 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
                 shift;
 
               return (
-                <li className="w-44" key={availabilityId}>
+                <li
+                  className="w-full px-12 text-xl desktop:w-44 desktop:px-0 desktop:text-base"
+                  key={availabilityId}
+                >
                   <div className="flex flex-col [&>*]:mb-2">
                     <div className="whitespace-nowrap">
                       <span>Shift type: </span>
