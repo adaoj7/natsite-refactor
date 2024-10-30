@@ -23,7 +23,7 @@ export default function MyShifts() {
   }
 
   return (
-    <div className="mx-auto">
+    <div className="w-full">
       <UserShifts />
     </div>
   );

@@ -54,7 +54,7 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
 
   if (data.data.length === 0) {
     return (
-      <div className="card">
+      <div className="card mx-auto w-[450px]">
         <div className="card-body text-center">
           <h1 className="card-title">No Shifts</h1>
           If you would like to sign up for shifts please head to:
@@ -70,7 +70,65 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
     );
   }
 
-  const userShifts = data.data.map((shift: Shift) => {
+  let typeIds: number[] = [];
+
+  typeIds = Array.from(new Set(data.data.map((shift: Shift) => shift.typeId)));
+  console.log("typeIds", typeIds);
+
+  const userShifts: React.ReactNode[] = [];
+
+  typeIds.forEach((typeId) => {
+    userShifts.push(
+      <div className="flex flex-col gap-4">
+        <div key={typeId}>
+          <h2 className="text-2xl font-bold">
+            {typeId === 1 ? "Setup" : "Host"}
+          </h2>
+        </div>
+        <div className="flex flex-row flex-wrap gap-4">
+          {data.data
+            .filter((shift: Shift) => shift.typeId === typeId)
+            .map((shift: Shift) => {
+              const { date, timeRange, typeId, availabilityId, shiftId } =
+                shift;
+
+              return (
+                <li className="w-44" key={availabilityId}>
+                  <div className="flex flex-col [&>*]:mb-2">
+                    <div className="whitespace-nowrap">
+                      <span>Shift type: </span>
+                      <span className="font-semibold">
+                        {typeId === 1 ? "Setup" : "Host"}
+                      </span>
+                    </div>
+                    <div className="whitespace-nowrap">
+                      <span>Date: </span>
+                      <span className="whitespace-nowrap font-semibold">
+                        {date}
+                      </span>
+                    </div>
+                    <div className="whitespace-nowrap">
+                      <span>Time: </span>
+                      <span className="whitespace-nowrap font-semibold">
+                        {timeRange}
+                      </span>
+                    </div>
+                    <button
+                      className="btn flex"
+                      onClick={() => mutateAsync({ availabilityId, shiftId })}
+                    >
+                      Remove Shift
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
+        </div>
+      </div>
+    );
+  });
+
+  data.data.filter((shift: Shift) => {
     const { date, timeRange, typeId, availabilityId, shiftId } = shift;
 
     return (
@@ -103,7 +161,7 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
 
   return (
     <div className="card">
-      <ul className="card-body list-none flex-row flex-wrap">{userShifts}</ul>
+      <ul className="card-body list-none flex-col flex-wrap">{userShifts}</ul>
     </div>
   );
 };

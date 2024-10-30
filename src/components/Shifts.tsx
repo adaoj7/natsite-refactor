@@ -47,6 +47,7 @@ interface ShiftsProps {
   userShifts: any;
   mutateAsync: any;
   isLoadingUserShifts: boolean;
+  isPendingSubmit: boolean;
 }
 
 export default function Shifts({ shiftType }: ShiftOptions) {
@@ -83,7 +84,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
     },
   });
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending: isPendingSubmit } = useMutation({
     mutationFn: (data: initialValues) => {
       return axios.post("/api/volunteer", data);
     },
@@ -106,6 +107,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
           userShifts={userShifts}
           mutateAsync={mutateAsync}
           isLoadingUserShifts={isLoadingUserShifts}
+          isPendingSubmit={isPendingSubmit}
         />
       </div>
       <div className="hidden desktop:flex">
@@ -117,6 +119,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
           userShifts={userShifts}
           mutateAsync={mutateAsync}
           isLoadingUserShifts={isLoadingUserShifts}
+          isPendingSubmit={isPendingSubmit}
         />
       </div>
     </>
@@ -130,6 +133,7 @@ const PhoneShifts = ({
   userShifts,
   mutateAsync,
   isLoadingUserShifts,
+  isPendingSubmit,
 }: ShiftsProps) => {
   return (
     <>
@@ -145,12 +149,15 @@ const PhoneShifts = ({
             async function handleSubmit() {
               const response = await mutateAsync(bodyObj);
               setSubmitting(false);
-              if (response.status === 200) {
+              if (response.status !== 200) {
                 (
-                  document.getElementById("my_modal_1") as HTMLDialogElement
+                  document.getElementById("my_modal_3") as HTMLDialogElement
                 ).showModal();
               }
             }
+            (
+              document.getElementById("my_modal_1") as HTMLDialogElement
+            ).showModal();
             handleSubmit();
             // @ts-expect-error - props don't match
             resetForm({ checked: [] });
@@ -187,15 +194,34 @@ const PhoneShifts = ({
             Thank you for signing up as a volunteer for {shiftType} shifts
             during the festival.
           </p>
-          <NavLink
-            to="/getInvolved/myShifts"
-            className="btn btn-primary w-full"
-          >
-            Click here to see your shifts
-          </NavLink>
+          {isPendingSubmit ? (
+            <div className="btn btn-disabled btn-primary w-full">
+              Submitting...
+            </div>
+          ) : (
+            <NavLink
+              to="/getInvolved/myShifts"
+              className="btn btn-primary w-full"
+            >
+              Click here to see your shifts
+            </NavLink>
+          )}
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box">
+          <p>
+            There was an error submitting your shifts. Please refresh the page
+            and try again.
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
               <button className="btn">Close</button>
             </form>
           </div>
@@ -212,6 +238,7 @@ const DesktopShifts = ({
   userShifts,
   mutateAsync,
   isLoadingUserShifts,
+  isPendingSubmit,
 }: ShiftsProps) => {
   return (
     <>
@@ -227,12 +254,15 @@ const DesktopShifts = ({
             async function handleSubmit() {
               const response = await mutateAsync(bodyObj);
               setSubmitting(false);
-              if (response.status === 200) {
+              if (response.status !== 200) {
                 (
-                  document.getElementById("my_modal_2") as HTMLDialogElement
+                  document.getElementById("my_modal_4") as HTMLDialogElement
                 ).showModal();
               }
             }
+            (
+              document.getElementById("my_modal_2") as HTMLDialogElement
+            ).showModal();
             handleSubmit();
 
             // @ts-expect-error - props don't match
@@ -270,15 +300,34 @@ const DesktopShifts = ({
             Thank you for signing up as a volunteer for {shiftType} shifts
             during the festival.
           </p>
-          <NavLink
-            to="/getInvolved/myShifts"
-            className="btn btn-primary w-full"
-          >
-            Click here to see your shifts
-          </NavLink>
+          {isPendingSubmit ? (
+            <div className="btn btn-disabled btn-primary w-full">
+              Submitting...
+            </div>
+          ) : (
+            <NavLink
+              to="/getInvolved/myShifts"
+              className="btn btn-primary w-full"
+            >
+              Click here to see your shifts
+            </NavLink>
+          )}
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+      <dialog id="my_modal_4" className="modal">
+        <div className="modal-box">
+          <p>
+            There was an error submitting your shifts. Please refresh the page
+            and try again.
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
               <button className="btn">Close</button>
             </form>
           </div>
