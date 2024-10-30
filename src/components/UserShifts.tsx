@@ -70,10 +70,9 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
     );
   }
 
-  let typeIds: number[] = [];
-
-  typeIds = Array.from(new Set(data.data.map((shift: Shift) => shift.typeId)));
-  console.log("typeIds", typeIds);
+  const typeIds: number[] = Array.from(
+    new Set(data.data.map((shift: Shift) => shift.typeId))
+  );
 
   const userShifts: React.ReactNode[] = [];
 
