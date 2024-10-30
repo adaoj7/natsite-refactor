@@ -29,6 +29,7 @@ import { Poinsettias } from "./routes/get-involved-routes/poinsettias";
 import Profile from "./components/Profile";
 import Music from "./routes/get-involved-routes/music";
 import Nativities from "./routes/user-routes/nativities";
+import SuperUser from "./routes/superuser";
 
 function App() {
   // const isAdmin = false;
@@ -81,6 +82,10 @@ function App() {
             element={isAdmin ? <FormLinks /> : <Home />}
           />
         </Route>
+        <Route
+          path="/strikerRoutes"
+          element={isAdmin ? <SuperUser /> : <Home />}
+        />
       </Route>
     )
   );
