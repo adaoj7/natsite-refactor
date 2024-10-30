@@ -80,7 +80,7 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
     userShifts.push(
       <div className="flex flex-col gap-4">
         <div key={typeId}>
-          <h2 className="text-2xl font-bold">
+          <h2 className="px-4 text-2xl font-bold desktop:px-0">
             {typeId === 1 ? "Setup" : "Host"}
           </h2>
         </div>
