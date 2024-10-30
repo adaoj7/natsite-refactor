@@ -51,7 +51,7 @@ function ContactMobile() {
                 `https://www.google.com/maps/place/The+Community+Festival+of+Nativities/@40.7352662,-89.6539589,15.5z/data=!4m6!3m5!1s0x880a5c39a382250d:0x6fcfa24cada00e1b!8m2!3d40.732102!4d-89.651485!16s%2Fg%2F11f63xgxt0?entry=ttu`
               )
             }
-            className="btn flex justify-center whitespace-nowrap font-bold text-black shadow-sm"
+            className="btn flex justify-center whitespace-nowrap font-bold shadow-sm"
             title="Address in Google Maps"
           >
             3700 West Reservoir Boulevard

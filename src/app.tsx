@@ -60,6 +60,7 @@ function App() {
           <Route path="/getInvolved/FTN" element={<Donate />} />
         </Route>
         <Route path="/thisYear" element={<ThisYear />} />
+        <Route path="/this-year" element={<ThisYear />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/lightTheWorld" element={<LightTheWorld />} />
         <Route path="/contact" element={<Contact />} />

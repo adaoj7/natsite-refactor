@@ -50,7 +50,9 @@ function AboutMobile() {
             living scene was soon recreated in other Catholic countries in the
             form of three dimensional figurines, also known as a crèche, with
             Mary and the Christ child at the center, often surrounded by Joseph,
-            shepherds
+            shepherds, wise men, angels, and animals. The crèche gained
+            popularity and has spread across cultural and political boundaries
+            to become a traditional Christian symbol of Christ's birth.
           </p>
           <div className="mt-8 flex align-middle">
             <img src={AboutImage} className="h-full w-full" />
