@@ -7,8 +7,10 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { helperFunctions } from "../helper-functions/helper-functions";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 interface ShiftOptions {
   shiftType: "setup" | "host";
+  people: number;
 }
 interface Day {
   date: string;
@@ -51,6 +53,35 @@ interface ShiftsProps {
 }
 
 export default function Shifts({ shiftType }: ShiftOptions) {
+  const [people, setPeople] = useState<number | null>(null);
+
+  return (
+    <>
+      <select
+        name="people"
+        id="people"
+        onChange={(e) => {
+          if (e.target.value !== "How many people are you signing up?") {
+            setPeople(parseInt(e.target.value));
+          } else {
+            setPeople(null);
+          }
+        }}
+        className="w-[400px] rounded-md border-[1px] border-gray-300"
+      >
+        <option value="How many people are you signing up?">
+          How many people are you signing up?
+        </option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      {people && <Signup shiftType={shiftType} people={people} />}
+    </>
+  );
+}
+
+function Signup({ shiftType, people }: ShiftOptions) {
   const userId = useSelector((state: any) => state.userId);
   const { capitalizeFirstLetter } = helperFunctions;
 
@@ -137,7 +168,7 @@ const PhoneShifts = ({
 }: ShiftsProps) => {
   return (
     <>
-      <div className="card m-4 flex max-w-full flex-grow bg-secondary">
+      <div className="card m-4 flex max-w-full flex-grow">
         <Formik
           initialValues={{ checked: [] } as initialValues}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -181,7 +212,7 @@ const PhoneShifts = ({
                 <Button
                   name="Submit"
                   type="submit"
-                  className="md:w-96 btn-primary"
+                  className="md:w-96 btn-secondary"
                 />
               </div>
             </Form>
@@ -241,8 +272,8 @@ const DesktopShifts = ({
   isPendingSubmit,
 }: ShiftsProps) => {
   return (
-    <>
-      <div className="card mx-auto flex bg-secondary">
+    <div className="flex flex-col">
+      <div className="card mx-auto flex">
         <Formik
           initialValues={{ checked: [] } as initialValues}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -287,7 +318,7 @@ const DesktopShifts = ({
                 <Button
                   name="Submit"
                   type="submit"
-                  className="md:w-96 btn-primary"
+                  className="md:w-96 btn-secondary"
                 />
               </div>
             </Form>
@@ -333,7 +364,7 @@ const DesktopShifts = ({
           </div>
         </div>
       </dialog>
-    </>
+    </div>
   );
 };
 
