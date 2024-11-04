@@ -243,6 +243,7 @@ const DesktopShifts = ({
   isPendingSubmit,
 }: ShiftsProps) => {
   const [nextChecked, setNextChecked] = useState<string[]>([]);
+  const [initialSelect, setInitialSelect] = useState<boolean>(true);
 
   return (
     <div className="flex flex-col">
@@ -274,7 +275,7 @@ const DesktopShifts = ({
             resetForm({ checked: [] });
           }}
         >
-          {({ handleSubmit }) => (
+          {({ handleSubmit, values }) => (
             <Form onSubmit={handleSubmit} className="card-body pt-0">
               <p className="flex min-h-8 justify-center">
                 Please use this form to sign up for {shiftType} shifts during
@@ -286,15 +287,42 @@ const DesktopShifts = ({
                 aria-labelledby="checkbox-group"
                 className="flex flex-grow flex-wrap gap-4 desktop:justify-around"
               >
-                <Dates days={shiftData.data} userShifts={userShifts} />
+                {initialSelect && (
+                  <>
+                    <Dates days={shiftData.data} userShifts={userShifts} />
+                    <div className="mt-8 flex justify-center">
+                      <Button
+                        name="Next"
+                        type="button"
+                        onClick={() => {
+                          setInitialSelect(false);
+                          setNextChecked(values.checked);
+                        }}
+                        className="md:w-96 btn-secondary"
+                      />
+                    </div>
+                  </>
+                )}
+                {!initialSelect && (
+                  <div>
+                    <p>Please confirm your selections:</p>
+                    <Confirm nextChecked={nextChecked} />
+                    <div className="mt-8 flex justify-center gap-4">
+                      <Button
+                        name="Back"
+                        type="button"
+                        onClick={() => setInitialSelect(true)}
+                        className="md:w-96 btn-secondary"
+                      />
+                      <Button
+                        name="Submit"
+                        type="submit"
+                        className="md:w-96 btn-secondary"
+                      />
+                    </div>
+                  </div>
+                )}
               </ul>
-              <div className="mt-8 flex justify-center">
-                <Button
-                  name="Submit"
-                  type="submit"
-                  className="md:w-96 btn-secondary"
-                />
-              </div>
             </Form>
           )}
         </Formik>
@@ -388,4 +416,15 @@ function Shift({ day, userShifts }: { day: Day; userShifts: UserShifts }) {
     }
   });
   return <>{shifts}</>;
+}
+
+function Confirm({ nextChecked }: { nextChecked: string[] }) {
+  console.log(nextChecked);
+  return (
+    <div>
+      {nextChecked.map((shift) => (
+        <li>{shift}</li>
+      ))}
+    </div>
+  );
 }
