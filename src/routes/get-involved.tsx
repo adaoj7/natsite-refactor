@@ -40,7 +40,8 @@ export default function GetInvolved() {
         </nav>
         <div className="flex w-full">
           <Outlet />
-          {location.pathname.toLowerCase() === "/getinvolved" && (
+          {(location.pathname.toLowerCase() === "/getinvolved" ||
+            location.pathname.toLowerCase() === "/get-involved") && (
             <DateAndTimeGraph />
           )}
         </div>

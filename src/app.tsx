@@ -47,6 +47,7 @@ function App() {
       <Route path="/" element={<Root />} errorElement={<ErrorPage />}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/get-involved" element={<GetInvolved />} />
         <Route path="/getInvolved" element={<GetInvolved />}>
           <Route
             path="/getInvolved/availabilities"
