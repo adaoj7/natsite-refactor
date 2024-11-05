@@ -8,6 +8,7 @@
   SiteLinks,
   Church,
 } from "../dbscripts/model.js";
+import { inspect } from "util";
 
 export default {
   setupShifts: async (req, res) => {
@@ -142,6 +143,60 @@ export default {
       res.sendStatus(404);
     }
   },
+
+  selectedShifts: async (req, res) => {
+    try {
+      const { shiftIds } = req.query;
+      console.log("shiftIds", shiftIds);
+      const shifts = await Promise.all(
+        shiftIds.map(async (shiftId) => {
+          const shift = await Shift.findOne({
+            where: { shiftId: shiftId },
+            include: [
+              {
+                model: Day,
+              },
+            ],
+          });
+          return shift;
+        })
+      );
+
+      const filteredShifts = shifts.map((shift) => {
+        const shiftObj = {};
+        shiftObj.shiftId = shift.shiftId;
+        shiftObj.timeRange = shift.timeRange;
+        shiftObj.day = shift.day.date;
+        shiftObj.dayOfWeek = shift.day.dayOfWeek;
+        shiftObj.dateId = shift.dateId;
+        shiftObj.typeId = shift.typeId;
+        shiftObj.isFull = shift.isFull;
+        return shiftObj;
+      });
+
+      const daysMap = {};
+
+      filteredShifts.forEach((shift) => {
+        if (!daysMap[shift.day]) {
+          daysMap[shift.day] = {
+            day: shift.day,
+            dayOfWeek: shift.dayOfWeek,
+            shifts: [],
+          };
+        }
+        daysMap[shift.day].shifts.push(shift);
+      });
+
+      const days = Object.values(daysMap);
+
+      // console.log(inspect(days, { depth: Infinity }));
+      res.json(days);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(404);
+    }
+  },
+
   volunteer: async (req, res) => {
     try {
       const { userId, checked } = req.body;
@@ -175,6 +230,7 @@ export default {
       res.sendStatus(500);
     }
   },
+
   deleteShift: async (req, res) => {
     const { availabilityId, shiftId } = req.body;
 
@@ -197,6 +253,7 @@ export default {
 
     console.log("availability destroyed");
   },
+
   churches: async (req, res) => {
     try {
       const churches = await Church.findAll();

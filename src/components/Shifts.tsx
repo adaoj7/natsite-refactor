@@ -7,7 +7,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { helperFunctions } from "../helper-functions/helper-functions";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 interface ShiftOptions {
   shiftType: "setup" | "host";
 }
@@ -242,7 +242,7 @@ const DesktopShifts = ({
   isPendingSubmit,
 }: ShiftsProps) => {
   const [nextChecked, setNextChecked] = useState<string[]>([]);
-  const [initialSelect, setInitialSelect] = useState<boolean>(true);
+  const [initialSelect, setInitialSelect] = useState<boolean>(false);
 
   return (
     <div className="flex flex-col">
@@ -285,7 +285,7 @@ const DesktopShifts = ({
                 aria-labelledby="checkbox-group"
                 className="flex flex-grow flex-wrap gap-4 desktop:justify-around"
               >
-                {initialSelect && (
+                {!initialSelect ? (
                   <>
                     <Dates days={shiftData.data} userShifts={userShifts} />
                     <div className="mt-8 flex justify-center">
@@ -293,15 +293,14 @@ const DesktopShifts = ({
                         name="Next"
                         type="button"
                         onClick={() => {
-                          setInitialSelect(false);
+                          setInitialSelect(!initialSelect);
                           setNextChecked(values.checked);
                         }}
                         className="md:w-96 btn-secondary"
                       />
                     </div>
                   </>
-                )}
-                {!initialSelect && (
+                ) : (
                   <div>
                     <p>Please confirm your selections:</p>
                     <Confirm nextChecked={nextChecked} />
@@ -309,7 +308,7 @@ const DesktopShifts = ({
                       <Button
                         name="Back"
                         type="button"
-                        onClick={() => setInitialSelect(true)}
+                        onClick={() => setInitialSelect(!initialSelect)}
                         className="md:w-96 btn-secondary"
                       />
                       <Button
@@ -417,11 +416,37 @@ function Shift({ day, userShifts }: { day: Day; userShifts: UserShifts }) {
 }
 
 function Confirm({ nextChecked }: { nextChecked: string[] }) {
-  console.log(nextChecked);
+  const nextCheckedIds = nextChecked
+    .map((shift) => parseInt(shift))
+    .sort((a, b) => a - b);
+  const nextCheckedIdsString = nextCheckedIds.join(",");
+  console.log(nextCheckedIdsString);
+
+  const { data, isPending } = useQuery({
+    queryKey: ["selectedShifts", nextCheckedIdsString],
+    queryFn: async () => {
+      const response = await axios.get("/api/selectedShifts", {
+        params: { shiftIds: nextCheckedIds },
+      });
+      return response;
+    },
+  });
+
+  console.log(data?.data);
+
+  if (isPending) return <p>Loading...</p>;
+
   return (
-    <div>
-      {nextChecked.map((shift) => (
-        <li>{shift}</li>
+    <div className="flex flex-wrap gap-12">
+      {data?.data.map((shift: any) => (
+        <li key={shift.day}>
+          <h1 className="font-semibold">{shift.day}</h1>
+          <ul className="flex flex-col gap-2">
+            {shift.shifts.map((shift: any) => (
+              <li key={shift.timeRange}>{shift.timeRange}</li>
+            ))}
+          </ul>
+        </li>
       ))}
     </div>
   );
