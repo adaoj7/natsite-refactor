@@ -7,7 +7,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { helperFunctions } from "../helper-functions/helper-functions";
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { z } from "zod";
 interface ShiftOptions {
   shiftType: "setup" | "host";
 }
@@ -24,8 +25,14 @@ interface Shift {
   shiftId: number;
 }
 
-interface initialValues {
+type initialValues = {
   checked: string[];
+  finalChecked: valuesAndAmount[];
+};
+
+interface valuesAndAmount {
+  shiftId: number;
+  amount: number;
 }
 
 interface UserShift {
@@ -97,6 +104,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
 
   if (isPendingShifts || isPendingUserShifts) return <p>Loading...</p>;
   if (errorShifts || errorUserShifts) return <p>Error</p>;
+
   return (
     <>
       <div className="desktop:hidden">
@@ -244,11 +252,33 @@ const DesktopShifts = ({
   const [nextChecked, setNextChecked] = useState<string[]>([]);
   const [initialSelect, setInitialSelect] = useState<boolean>(false);
 
+  const shiftValidationSchema = z.object({
+    checked: z
+      .array(z.string())
+      .min(1, { message: "Please select at least one shift" }),
+  });
+
   return (
     <div className="flex flex-col">
       <div className="card mx-auto flex">
         <Formik
-          initialValues={{ checked: [] } as initialValues}
+          initialValues={
+            {
+              checked: [],
+              finalChecked: [],
+            } as initialValues
+          }
+          validate={(values) => {
+            try {
+              shiftValidationSchema.parse(values);
+              return {};
+            } catch (error) {
+              if (error instanceof z.ZodError) {
+                return { checked: error.errors[0].message };
+              }
+              return {};
+            }
+          }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             const bodyObj = {
               userId,
@@ -264,16 +294,17 @@ const DesktopShifts = ({
                 ).showModal();
               }
             }
+            console.log("values", values);
             (
               document.getElementById("my_modal_2") as HTMLDialogElement
             ).showModal();
-            handleSubmit();
+            // handleSubmit();
 
             // @ts-expect-error - props don't match
             resetForm({ checked: [] });
           }}
         >
-          {({ handleSubmit, values }) => (
+          {({ handleSubmit, values, errors }) => (
             <Form onSubmit={handleSubmit} className="card-body pt-0">
               <p className="flex min-h-8 justify-center">
                 Please use this form to sign up for {shiftType} shifts during
@@ -288,16 +319,29 @@ const DesktopShifts = ({
                 {!initialSelect ? (
                   <>
                     <Dates days={shiftData.data} userShifts={userShifts} />
-                    <div className="mt-8 flex justify-center">
-                      <Button
-                        name="Next"
-                        type="button"
-                        onClick={() => {
-                          setInitialSelect(!initialSelect);
-                          setNextChecked(values.checked);
-                        }}
-                        className="md:w-96 btn-secondary"
-                      />
+                    <div>
+                      {errors.checked ? (
+                        <p className="text-red-500">{errors.checked}</p>
+                      ) : (
+                        <p className="text-white">Easter Egg</p>
+                      )}
+                      <div className="mt-4 flex justify-center">
+                        <Button
+                          name="Next"
+                          type="button"
+                          onClick={() => {
+                            if (values.checked.length === 0) {
+                              errors.checked =
+                                "Please select at least one shift";
+                              return;
+                            }
+                            console.log("pendingValues", values.checked);
+                            setNextChecked(values.checked);
+                            setInitialSelect(!initialSelect);
+                          }}
+                          className="md:w-96 btn-secondary"
+                        />
+                      </div>
                     </div>
                   </>
                 ) : (
@@ -416,12 +460,14 @@ function Shift({ day, userShifts }: { day: Day; userShifts: UserShifts }) {
 }
 
 function Confirm({ nextChecked }: { nextChecked: string[] }) {
+  const [finalChecked, setFinalChecked] = useState<valuesAndAmount[]>([]);
+
   const nextCheckedIds = nextChecked
     .map((shift) => parseInt(shift))
     .sort((a, b) => a - b);
   const nextCheckedIdsString = nextCheckedIds.join(",");
-  console.log(nextCheckedIdsString);
 
+  //modify this query so that it also send back the total availabilty for each shift to then filter the options
   const { data, isPending } = useQuery({
     queryKey: ["selectedShifts", nextCheckedIdsString],
     queryFn: async () => {
@@ -443,7 +489,21 @@ function Confirm({ nextChecked }: { nextChecked: string[] }) {
           <h1 className="font-semibold">{shift.day}</h1>
           <ul className="flex flex-col gap-2">
             {shift.shifts.map((shift: any) => (
-              <li key={shift.timeRange}>{shift.timeRange}</li>
+              <div key={shift.timeRange}>
+                <input type="hidden" />
+                <label className="flex select-none items-center font-normal">
+                  <Field
+                    component="select"
+                    name="finalChecked"
+                    className="w-full rounded-md border-[1px] border-gray-300"
+                  >
+                    <option value={[shift.shiftId, 1]}>1</option>
+                    <option value={[shift.shiftId, 2]}>2</option>
+                    <option value={[shift.shiftId, 3]}>3</option>
+                  </Field>
+                  <div>{shift.timeRange}</div>
+                </label>
+              </div>
             ))}
           </ul>
         </li>
