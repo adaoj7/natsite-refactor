@@ -27,7 +27,7 @@ interface Shift {
 
 type initialValues = {
   checked: string[];
-  finalChecked: valuesAndAmount[];
+  // finalChecked: valuesAndAmount[];
 };
 
 interface valuesAndAmount {
@@ -148,7 +148,7 @@ const PhoneShifts = ({
     <>
       <div className="card m-4 flex max-w-full flex-grow">
         <Formik
-          initialValues={{ checked: [] } as initialValues}
+          initialValues={{ checked: [], finalChecked: [] } as initialValues}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             const bodyObj = {
               userId,
@@ -265,7 +265,7 @@ const DesktopShifts = ({
           initialValues={
             {
               checked: [],
-              finalChecked: [],
+              // finalChecked: [],
             } as initialValues
           }
           validate={(values) => {
@@ -280,6 +280,11 @@ const DesktopShifts = ({
             }
           }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
+            const finalChecked = Object.entries(values).filter(([key, value]) =>
+              key.startsWith("finalChecked-")
+            );
+            console.log("finalChecked", finalChecked);
+
             const bodyObj = {
               userId,
               checked: values.checked,
@@ -304,7 +309,7 @@ const DesktopShifts = ({
             resetForm({ checked: [] });
           }}
         >
-          {({ handleSubmit, values, errors }) => (
+          {({ handleSubmit, values, errors, resetForm }) => (
             <Form onSubmit={handleSubmit} className="card-body pt-0">
               <p className="flex min-h-8 justify-center">
                 Please use this form to sign up for {shiftType} shifts during
@@ -346,13 +351,19 @@ const DesktopShifts = ({
                   </>
                 ) : (
                   <div>
-                    <p>Please confirm your selections:</p>
+                    <p className="mb-4 px-12">
+                      Please use the dropdown to select how many people you
+                      would like to sign up for your selections:
+                    </p>
                     <Confirm nextChecked={nextChecked} />
                     <div className="mt-8 flex justify-center gap-4">
                       <Button
                         name="Back"
                         type="button"
-                        onClick={() => setInitialSelect(!initialSelect)}
+                        onClick={() => {
+                          setInitialSelect(!initialSelect);
+                          // resetForm();
+                        }}
                         className="md:w-96 btn-secondary"
                       />
                       <Button
@@ -483,7 +494,7 @@ function Confirm({ nextChecked }: { nextChecked: string[] }) {
   if (isPending) return <p>Loading...</p>;
 
   return (
-    <div className="flex flex-wrap gap-12">
+    <div className="flex flex-wrap justify-center gap-12 px-12">
       {data?.data.map((shift: any) => (
         <li key={shift.day}>
           <h1 className="font-semibold">{shift.day}</h1>
@@ -491,17 +502,18 @@ function Confirm({ nextChecked }: { nextChecked: string[] }) {
             {shift.shifts.map((shift: any) => (
               <div key={shift.timeRange}>
                 <input type="hidden" />
-                <label className="flex select-none items-center font-normal">
+                <label className="flex select-none items-center gap-4 font-normal">
+                  <div>{shift.timeRange}</div>
                   <Field
                     component="select"
-                    name="finalChecked"
-                    className="w-full rounded-md border-[1px] border-gray-300"
+                    name={`finalChecked-${shift.shiftId}`}
+                    className="rounded-md border-[1px] border-gray-300"
                   >
+                    <option value="null">Select</option>
                     <option value={[shift.shiftId, 1]}>1</option>
                     <option value={[shift.shiftId, 2]}>2</option>
                     <option value={[shift.shiftId, 3]}>3</option>
                   </Field>
-                  <div>{shift.timeRange}</div>
                 </label>
               </div>
             ))}
