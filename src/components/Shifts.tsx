@@ -27,7 +27,6 @@ interface Shift {
 
 type initialValues = {
   checked: string[];
-  // finalChecked: valuesAndAmount[];
 };
 
 interface valuesAndAmount {
@@ -266,7 +265,6 @@ const DesktopShifts = ({
           initialValues={
             {
               checked: [],
-              // finalChecked: [],
             } as initialValues
           }
           validate={(values) => {
@@ -284,11 +282,15 @@ const DesktopShifts = ({
             const finalChecked = Object.entries(values).filter(([key, value]) =>
               key.startsWith("finalChecked-")
             );
-            console.log("finalChecked", finalChecked);
+            const finalCheckedArray = finalChecked.map(([key, value]) =>
+              String(value).split(" ")
+            );
+            console.log("finalChecked", finalCheckedArray);
 
             const bodyObj = {
               userId,
               checked: values.checked,
+              finalChecked,
               shiftType,
             };
 
@@ -301,7 +303,6 @@ const DesktopShifts = ({
                 ).showModal();
               }
             }
-            console.log("values", values);
             (
               document.getElementById("my_modal_2") as HTMLDialogElement
             ).showModal();
@@ -491,8 +492,6 @@ function Confirm({ nextChecked }: { nextChecked: string[] }) {
     },
   });
 
-  console.log(data?.data);
-
   if (isPending) return <p>Loading...</p>;
 
   return (
@@ -512,9 +511,9 @@ function Confirm({ nextChecked }: { nextChecked: string[] }) {
                     className="rounded-md border-[1px] border-gray-300"
                   >
                     <option value="null">Select</option>
-                    <option value={[shift.shiftId, 1]}>1</option>
-                    <option value={[shift.shiftId, 2]}>2</option>
-                    <option value={[shift.shiftId, 3]}>3</option>
+                    <option value={[`${shift.shiftId} 1`]}>1</option>
+                    <option value={[`${shift.shiftId} 2`]}>2</option>
+                    <option value={[`${shift.shiftId} 3`]}>3</option>
                   </Field>
                 </label>
               </div>

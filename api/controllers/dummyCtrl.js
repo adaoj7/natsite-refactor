@@ -4,6 +4,7 @@ export default {
   dummyVolunteer: async (req, res) => {
     try {
       const { userId, checked } = req.body;
+      console.log("body", req.body);
       for (const shiftId of checked) {
         const newVolunteerShifts = await DummyAvailability.create({
           userId,
