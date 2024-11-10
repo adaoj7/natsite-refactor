@@ -23,10 +23,20 @@ type AllRoutesProps = {
 type MenuItem = Array<string>;
 
 export default function Navbar({ routes }: NavbarProps) {
+  const location = useLocation();
+  const scrollPosition = useScrollPosition();
+  const isScrolled = scrollPosition > 0;
+  const dispatch = useDispatch();
+
   const { loginWithRedirect, user } = useAuth0();
   async function handleLogin() {
     try {
-      loginWithRedirect();
+      loginWithRedirect({
+        appState: { returnTo: location.pathname },
+        authorizationParams: {
+          redirect_uri: window.location.origin,
+        },
+      });
       await axios.post("/api/login", user).then((res) => {
         if (res.data) {
           dispatch({ type: "LOGIN", payload: res.data });
@@ -36,11 +46,6 @@ export default function Navbar({ routes }: NavbarProps) {
       console.error(error);
     }
   }
-
-  const location = useLocation();
-  const scrollPosition = useScrollPosition();
-  const isScrolled = scrollPosition > 0;
-  const dispatch = useDispatch();
 
   const { data: dbUser } = useQuery({
     queryKey: ["user"],
