@@ -3,32 +3,50 @@
 export default {
   dummyVolunteer: async (req, res) => {
     try {
-      const { userId, checked } = req.body;
+      const { userId, checked, finalChecked, shiftType } = req.body;
       console.log("body", req.body);
-      for (const shiftId of checked) {
-        const newVolunteerShifts = await DummyAvailability.create({
-          userId,
-          shiftId,
-        });
-      }
-      for (const shiftId of checked) {
-        console.log(
-          (await DummyAvailability.count({
-            where: { shiftId: shiftId },
-          })) >= 15
-        );
-        if (
-          (await DummyAvailability.count({
-            where: { shiftId: shiftId },
-          })) >= 15
-        ) {
-          const shift = await Shift.findByPk(shiftId);
-          if (!shift) {
-            return res.sendStatus(404);
-          }
-          await shift.update({ isFull: true });
+      for (const array of finalChecked) {
+        const shiftId = array[0];
+        const signups = array[1];
+        for (let i = 0; i < signups; i++) {
+          await DummyAvailability.create({
+            userId: userId,
+            shiftId: shiftId,
+          });
         }
       }
+
+      if (shiftType === "setup") {
+        for (const array of checked) {
+          const shiftId = array[0];
+          if (
+            (await DummyAvailability.count({
+              where: { shiftId: shiftId },
+            })) >= 50
+          ) {
+            const shift = await Shift.findByPk(shiftId);
+            if (!shift) {
+              return res.sendStatus(404);
+            }
+            await shift.update({ isFull: true });
+          }
+        }
+      } else if (shiftType === "host") {
+        for (const shiftId of checked) {
+          if (
+            (await DummyAvailability.count({
+              where: { shiftId: shiftId },
+            })) >= 15
+          ) {
+            const shift = await Shift.findByPk(shiftId);
+            if (!shift) {
+              return res.sendStatus(404);
+            }
+            await shift.update({ isFull: true });
+          }
+        }
+      }
+
       res.sendStatus(200);
     } catch (theseHands) {
       console.log(theseHands);

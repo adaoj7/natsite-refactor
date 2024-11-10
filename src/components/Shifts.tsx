@@ -287,9 +287,10 @@ const DesktopShifts = ({
             console.log("finalChecked", finalCheckedArray);
 
             const bodyObj = {
+              shiftType,
               userId,
               checked: values.checked,
-              finalChecked,
+              finalChecked: finalCheckedArray,
             };
 
             async function handleSubmit() {
@@ -301,10 +302,10 @@ const DesktopShifts = ({
                 ).showModal();
               }
             }
-            (
-              document.getElementById("my_modal_2") as HTMLDialogElement
-            ).showModal();
-            // handleSubmit();
+            // (
+            //   document.getElementById("my_modal_2") as HTMLDialogElement
+            // ).showModal();
+            handleSubmit();
 
             // @ts-expect-error - props don't match
             resetForm({ checked: [] });
@@ -330,9 +331,13 @@ const DesktopShifts = ({
                     <div className="flex flex-col">
                       <div>
                         {errors.checked ? (
-                          <p className="text-red-500">{errors.checked}</p>
+                          <p className="mt-4 flex justify-center text-red-500">
+                            {errors.checked}
+                          </p>
                         ) : (
-                          <p className="select-none text-white">Easter Egg</p>
+                          <p className="mt-4 select-none text-white">
+                            Easter Egg
+                          </p>
                         )}
                         <div className="mt-4 flex justify-center">
                           <Button
@@ -355,11 +360,11 @@ const DesktopShifts = ({
                     </div>
                   </div>
                 ) : (
-                  <div className="">
-                    <div className="mb-4">
-                      <p className="mb-2">
+                  <div>
+                    <div className="mb-8">
+                      <p>
                         Please use the dropdown to select how many people you
-                        would like to sign up for your selections.{" "}
+                        would like to sign up for each shift.{" "}
                         <span className="italic">
                           If you have more than 10 people to sign up for any 1
                           shift please reach out to us at
@@ -443,7 +448,7 @@ function Dates({ days, userShifts }: { days: Day[]; userShifts: any }) {
             key={day.date}
             className="mx-2 text-lg font-semibold desktop:w-[180px]"
           >
-            <div className="my-1">
+            <div className="">
               {day.dayOfWeek}, {day.date}
             </div>
             <div className="">
