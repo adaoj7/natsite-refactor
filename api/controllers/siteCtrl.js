@@ -8,7 +8,6 @@
   SiteLinks,
   Church,
 } from "../dbscripts/model.js";
-import { inspect } from "util";
 
 export default {
   setupShifts: async (req, res) => {
@@ -161,14 +160,12 @@ export default {
           return shift;
         })
       );
-      // get availability count for each shift
 
       const availabilityCountMap = await Promise.all(
         shiftIds.map(async (shiftId) => {
           const shift = await Shift.findOne({
             where: { shiftId: shiftId },
           });
-          console.log("shift", shift);
           const shiftType = shift.typeId;
           if (shiftType === 1) {
             return {
@@ -191,8 +188,6 @@ export default {
           }
         })
       );
-
-      console.log("availabilityCountMap", availabilityCountMap);
 
       const filteredShifts = shifts.map((shift) => {
         const availabilityCount = availabilityCountMap.filter(
@@ -225,8 +220,6 @@ export default {
       });
 
       const days = Object.values(daysMap);
-
-      // console.log(inspect(days, { depth: Infinity }));
       res.json(days);
     } catch (error) {
       console.log(error);
