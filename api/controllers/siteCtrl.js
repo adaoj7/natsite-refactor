@@ -161,9 +161,46 @@ export default {
           return shift;
         })
       );
+      // get availability count for each shift
+
+      const availabilityCountMap = await Promise.all(
+        shiftIds.map(async (shiftId) => {
+          const shift = await Shift.findOne({
+            where: { shiftId: shiftId },
+          });
+          console.log("shift", shift);
+          const shiftType = shift.typeId;
+          if (shiftType === 1) {
+            return {
+              shiftId: shiftId,
+              availabilityCount:
+                50 -
+                (await Availability.count({
+                  where: { shiftId: shiftId },
+                })),
+            };
+          } else if (shiftType === 2) {
+            return {
+              shiftId: shiftId,
+              availabilityCount:
+                15 -
+                (await Availability.count({
+                  where: { shiftId: shiftId },
+                })),
+            };
+          }
+        })
+      );
+
+      console.log("availabilityCountMap", availabilityCountMap);
 
       const filteredShifts = shifts.map((shift) => {
+        const availabilityCount = availabilityCountMap.filter(
+          (count) => parseInt(count.shiftId) === shift.shiftId
+        )[0].availabilityCount;
+
         const shiftObj = {};
+        shiftObj.availabilityCount = availabilityCount;
         shiftObj.shiftId = shift.shiftId;
         shiftObj.timeRange = shift.timeRange;
         shiftObj.day = shift.day.date;
@@ -285,6 +322,7 @@ export default {
       res.sendStatus(500);
     }
   },
+
   updateFormLinks: async (req, res) => {
     try {
       console.log("req.body", req.body);

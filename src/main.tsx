@@ -13,6 +13,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     domain="dev-ppwy2ztmkc8qhczn.us.auth0.com"
     clientId="2E49IGFsP0ZYrxrlTWZNB3RU3maxsCTW"
     authorizationParams={{ redirect_uri: window.location.origin }}
+    onRedirectCallback={(appState) => {
+      if (appState?.returnTo) {
+        window.location.href = appState.returnTo;
+      }
+    }}
   >
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>

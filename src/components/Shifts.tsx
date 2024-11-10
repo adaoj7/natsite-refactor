@@ -145,7 +145,7 @@ const PhoneShifts = ({
 }: ShiftsProps) => {
   return (
     <>
-      <div className="card m-4 flex max-w-full flex-grow">
+      <div className="card m-4 flex flex-grow">
         <Formik
           initialValues={{ checked: [], finalChecked: [] } as initialValues}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -259,7 +259,7 @@ const DesktopShifts = ({
 
   return (
     <div className="flex flex-col">
-      <div className="card mx-auto flex">
+      <div className="card flex">
         <Formik
           initialValues={
             {
@@ -311,11 +311,7 @@ const DesktopShifts = ({
           }}
         >
           {({ handleSubmit, values, errors, resetForm }) => (
-            <Form onSubmit={handleSubmit} className="card-body pt-0">
-              <p className="flex min-h-8 justify-center">
-                Please use this form to sign up for {shiftType} shifts during
-                the festival.
-              </p>{" "}
+            <Form onSubmit={handleSubmit} className="pt-0">
               {isLoadingUserShifts ?? <p>Loading...</p>}
               <ul
                 role="group"
@@ -323,39 +319,54 @@ const DesktopShifts = ({
                 className="flex flex-grow flex-wrap gap-4 desktop:justify-around"
               >
                 {!initialSelect ? (
-                  <>
-                    <Dates days={shiftData.data} userShifts={userShifts} />
-                    <div>
-                      {errors.checked ? (
-                        <p className="text-red-500">{errors.checked}</p>
-                      ) : (
-                        <p className="text-white">Easter Egg</p>
-                      )}
-                      <div className="mt-4 flex justify-center">
-                        <Button
-                          name="Next"
-                          type="button"
-                          onClick={() => {
-                            if (values.checked.length === 0) {
-                              errors.checked =
-                                "Please select at least one shift";
-                              return;
-                            }
-                            console.log("pendingValues", values.checked);
-                            setNextChecked(values.checked);
-                            setInitialSelect(!initialSelect);
-                          }}
-                          className="md:w-96 btn-secondary"
-                        />
+                  <div className="flex flex-col">
+                    <p className="mb-4 flex min-h-8 justify-center">
+                      Please use this form to sign up for {shiftType} shifts
+                      during the festival.
+                    </p>{" "}
+                    <div className="flex flex-row">
+                      <Dates days={shiftData.data} userShifts={userShifts} />
+                    </div>
+                    <div className="flex flex-col">
+                      <div>
+                        {errors.checked ? (
+                          <p className="text-red-500">{errors.checked}</p>
+                        ) : (
+                          <p className="select-none text-white">Easter Egg</p>
+                        )}
+                        <div className="mt-4 flex justify-center">
+                          <Button
+                            name="Next"
+                            type="button"
+                            onClick={() => {
+                              if (values.checked.length === 0) {
+                                errors.checked =
+                                  "Please select at least one shift";
+                                return;
+                              }
+                              console.log("pendingValues", values.checked);
+                              setNextChecked(values.checked);
+                              setInitialSelect(!initialSelect);
+                            }}
+                            className="md:w-96 btn-secondary"
+                          />
+                        </div>
                       </div>
                     </div>
-                  </>
+                  </div>
                 ) : (
-                  <div>
-                    <p className="mb-4 px-12">
-                      Please use the dropdown to select how many people you
-                      would like to sign up for your selections:
-                    </p>
+                  <div className="">
+                    <div className="mb-4">
+                      <p className="mb-2">
+                        Please use the dropdown to select how many people you
+                        would like to sign up for your selections.{" "}
+                        <span className="italic">
+                          If you have more than 10 people to sign up for any 1
+                          shift please reach out to us at
+                          peorianativities@gmail.com
+                        </span>
+                      </p>
+                    </div>
                     <Confirm nextChecked={nextChecked} />
                     <div className="mt-8 flex justify-center gap-4">
                       <Button
@@ -492,26 +503,83 @@ function Confirm({ nextChecked }: { nextChecked: string[] }) {
 
   if (isPending) return <p>Loading...</p>;
 
+  function options(shift: any) {
+    const optionsArray = [];
+    if (shift.availabilityCount > 10) {
+      for (let i = 0; i < 10; i++) {
+        optionsArray.push(
+          <option value={[`${shift.shiftId} ${i + 1}`]} key={i + 1}>
+            {i + 1}
+          </option>
+        );
+      }
+    } else {
+      for (let i = 0; i < shift.availabilityCount; i++) {
+        optionsArray.push(
+          <option
+            value={[`${shift.shiftId} ${i + 1}`]}
+            key={(i + 1).toString()}
+          >
+            {i + 1}
+          </option>
+        );
+      }
+    }
+    return optionsArray;
+  }
+
+  if (data?.data.length === 1) {
+    return (
+      <ul className="flex w-full justify-center">
+        {data?.data.map((shift: any) => (
+          <li key={shift.day} className="w-[298px]">
+            <h1 className="font-semibold">{shift.day}</h1>
+            <ul>
+              {shift.shifts.map((shift: any) => (
+                <div key={shift.timeRange}>
+                  <input type="hidden" />
+                  <label className="mt-2 flex justify-between">
+                    <div>{shift.timeRange}</div>
+                    <Field
+                      component="select"
+                      name={`finalChecked-${shift.shiftId}`}
+                      className="rounded-md border-[1px] border-gray-300"
+                    >
+                      <option value="null" key={shift.shiftId}>
+                        Select
+                      </option>
+                      {shift.availabilityCount > 0 && options(shift)}
+                    </Field>
+                  </label>
+                </div>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
   return (
-    <div className="flex flex-wrap justify-center gap-12 px-12">
+    <ul className="grid grid-cols-2 gap-12 px-24">
       {data?.data.map((shift: any) => (
-        <li key={shift.day}>
+        <li key={shift.day} className="">
           <h1 className="font-semibold">{shift.day}</h1>
-          <ul className="flex flex-col gap-2">
+          <ul>
             {shift.shifts.map((shift: any) => (
               <div key={shift.timeRange}>
                 <input type="hidden" />
-                <label className="flex select-none items-center gap-4 font-normal">
+                <label className="mt-2 flex justify-between">
                   <div>{shift.timeRange}</div>
                   <Field
                     component="select"
                     name={`finalChecked-${shift.shiftId}`}
                     className="rounded-md border-[1px] border-gray-300"
                   >
-                    <option value="null">Select</option>
-                    <option value={[`${shift.shiftId} 1`]}>1</option>
-                    <option value={[`${shift.shiftId} 2`]}>2</option>
-                    <option value={[`${shift.shiftId} 3`]}>3</option>
+                    <option value="null" key={shift.shiftId}>
+                      Select
+                    </option>
+                    {shift.availabilityCount > 0 && options(shift)}
                   </Field>
                 </label>
               </div>
@@ -519,6 +587,6 @@ function Confirm({ nextChecked }: { nextChecked: string[] }) {
           </ul>
         </li>
       ))}
-    </div>
+    </ul>
   );
 }
