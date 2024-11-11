@@ -14,7 +14,7 @@ interface Shift {
   shiftId: number;
 }
 
-const UserShifts: React.FC<UserShiftsProps> = () => {
+export default function UserShifts() {
   const userId = useSelector((state: any) => state.userId);
 
   const {
@@ -89,13 +89,37 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
           </h2>
         </div>
         <div className="flex flex-row flex-wrap gap-4">
-          {data.data
-            .filter((shift: Shift) => shift.typeId === typeId)
-            .map((shift: Shift) => {
-              const { date, timeRange, typeId, availabilityId, shiftId } =
-                shift;
+          {Array.from(
+            new Map(
+              data.data
+                .filter((shift: Shift) => shift.typeId === typeId)
+                .map((shift: Shift) => [shift.shiftId, shift])
+            ).values()
+          ).map((shift: unknown) => {
+            const { date, timeRange, typeId, availabilityId, shiftId } =
+              shift as Shift;
+            const duplicateCount = data.data.filter(
+              (s: Shift) => s.shiftId === shiftId
+            ).length;
 
-              return (
+            const signups = data.data
+              .filter(
+                (shift: Shift) =>
+                  shift.typeId === typeId &&
+                  shift.shiftId === shiftId &&
+                  duplicateCount > 1
+              )
+              .map((shift: Shift) => {
+                return (
+                  <div>
+                    <div>{shift.date}</div>
+                    <div>{shift.timeRange}</div>
+                  </div>
+                );
+              });
+
+            return (
+              <>
                 <li
                   className="w-full px-12 text-xl desktop:w-44 desktop:px-0 desktop:text-base"
                   key={availabilityId}
@@ -119,59 +143,72 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
                         {timeRange}
                       </span>
                     </div>
-                    <button
-                      className="btn flex"
-                      onClick={() =>
-                        mutateAsync({ availabilityId, shiftId, typeId })
-                      }
-                    >
-                      Remove Shift
-                    </button>
+                    <div>
+                      <span>Signups: </span>
+                      <span className="whitespace-nowrap font-semibold">
+                        {duplicateCount}
+                      </span>
+                    </div>
+                    {duplicateCount <= 1 ? (
+                      <button
+                        className="btn flex"
+                        onClick={() =>
+                          mutateAsync({ availabilityId, shiftId, typeId })
+                        }
+                      >
+                        Remove Shift
+                      </button>
+                    ) : (
+                      <button
+                        className="btn flex"
+                        onClick={() =>
+                          (
+                            document.getElementById(
+                              `user_shifts_modal_${shiftId}`
+                            ) as HTMLDialogElement
+                          ).showModal()
+                        }
+                      >
+                        View Signups
+                      </button>
+                    )}
                   </div>
                 </li>
-              );
-            })}
+                <dialog id={`user_shifts_modal_${shiftId}`} className="modal">
+                  <div className="modal-box">
+                    <div>{signups}</div>
+                    <div className="modal-action">
+                      <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn">Close</button>
+                      </form>
+                    </div>
+                  </div>
+                </dialog>
+              </>
+            );
+          })}
         </div>
       </div>
     );
   });
 
-  data.data.filter((shift: Shift) => {
-    const { date, timeRange, typeId, availabilityId, shiftId } = shift;
-
-    return (
-      <li className="" key={availabilityId}>
-        <div className="flex flex-col [&>*]:mb-2">
-          <div className="whitespace-nowrap">
-            <span>Shift type: </span>
-            <span className="font-semibold">
-              {typeId === 1 ? "Setup" : "Host"}
-            </span>
-          </div>
-          <div className="whitespace-nowrap">
-            <span>Date: </span>
-            <span className="whitespace-nowrap font-semibold">{date}</span>
-          </div>
-          <div className="whitespace-nowrap">
-            <span>Time: </span>
-            <span className="whitespace-nowrap font-semibold">{timeRange}</span>
-          </div>
-          <button
-            className="btn flex"
-            onClick={() => mutateAsync({ availabilityId, shiftId, typeId })}
-          >
-            Remove Shift
-          </button>
-        </div>
-      </li>
-    );
-  });
-
   return (
-    <div className="card">
-      <ul className="card-body list-none flex-col flex-wrap">{userShifts}</ul>
-    </div>
+    <>
+      <div className="card">
+        <ul className="card-body list-none flex-col flex-wrap">{userShifts}</ul>
+      </div>
+      <dialog id="user_shifts_modal" className="modal">
+        <div className="modal-box">
+          <div>in here will be the shifts that the user has signed up for</div>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+    </>
   );
-};
-
-export default UserShifts;
+}

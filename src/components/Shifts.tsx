@@ -303,9 +303,9 @@ const DesktopShifts = ({
                 ).showModal();
               }
             }
-            // (
-            //   document.getElementById("my_modal_2") as HTMLDialogElement
-            // ).showModal();
+            (
+              document.getElementById("my_modal_2") as HTMLDialogElement
+            ).showModal();
             handleSubmit();
 
             // @ts-expect-error - props don't match

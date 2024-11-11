@@ -72,6 +72,8 @@ export default {
         ],
       });
 
+      console.log("shifts", shifts);
+
       const reducerFn = (acc, curr, index) => {
         let shiftArr = acc;
         shiftArr.push([curr.availabilityId, curr.shift]);

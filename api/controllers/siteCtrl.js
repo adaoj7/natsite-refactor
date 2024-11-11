@@ -146,7 +146,6 @@ export default {
   selectedShifts: async (req, res) => {
     try {
       const { shiftIds } = req.query;
-      console.log("shiftIds", shiftIds);
       const shifts = await Promise.all(
         shiftIds.map(async (shiftId) => {
           const shift = await Shift.findOne({
@@ -323,7 +322,6 @@ export default {
             return link;
           }
         });
-        console.log("filteredLink", filteredLink[0]);
         res.json(filteredLink[0]);
       } else {
         res.json(link.sort((a, b) => a.linkType.length - b.linkType.length));
@@ -336,7 +334,6 @@ export default {
 
   updateFormLinks: async (req, res) => {
     try {
-      console.log("req.body", req.body);
       const links = await SiteLinks.findAll();
       links
         .sort((a, b) => a.linkType.length - b.linkType.length)
