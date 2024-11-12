@@ -148,10 +148,7 @@ const DateAndTimeGraphDesktop: React.FC = () => {
 
         if (shift.isFull) {
           return (
-            <div
-              className="flex flex-row justify-between gap-2"
-              key={shift.timeRange}
-            >
+            <div className="flex w-20 flex-col" key={shift.timeRange}>
               <div>{shift.timeRange}</div>
               <div>Shift Full</div>
             </div>

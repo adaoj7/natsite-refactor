@@ -144,29 +144,41 @@ export default {
   },
   volunteer: async (req, res) => {
     try {
-      const { userId, checked } = req.body;
+      const { userId, checked, shiftType } = req.body;
       for (const shiftId of checked) {
         const newVolunteerShifts = await Availability.create({
           userId,
           shiftId,
         });
       }
-      for (const shiftId of checked) {
-        console.log(
-          (await Availability.count({
-            where: { shiftId: shiftId },
-          })) >= 15
-        );
-        if (
-          (await Availability.count({
-            where: { shiftId: shiftId },
-          })) >= 15
-        ) {
-          const shift = await Shift.findByPk(shiftId);
-          if (!shift) {
-            return res.sendStatus(404);
+      if (shiftType === "setup") {
+        for (const array of checked) {
+          const shiftId = array[0];
+          if (
+            (await Availability.count({
+              where: { shiftId: shiftId },
+            })) >= 50
+          ) {
+            const shift = await Shift.findByPk(shiftId);
+            if (!shift) {
+              return res.sendStatus(404);
+            }
+            await shift.update({ isFull: true });
           }
-          await shift.update({ isFull: true });
+        }
+      } else if (shiftType === "host") {
+        for (const shiftId of checked) {
+          if (
+            (await Availability.count({
+              where: { shiftId: shiftId },
+            })) >= 15
+          ) {
+            const shift = await Shift.findByPk(shiftId);
+            if (!shift) {
+              return res.sendStatus(404);
+            }
+            await shift.update({ isFull: true });
+          }
         }
       }
       res.sendStatus(200);

@@ -93,7 +93,12 @@ export default {
       shiftAvailabilities.forEach((shift) => {
         const shiftType = shift.shift_type.shiftType;
         const date = shift.day.date;
-        const availabilities = 15 - shift.availabilities.length;
+        let availabilities;
+        if (shiftType === "host") {
+          availabilities = 15 - shift.availabilities.length;
+        } else {
+          availabilities = 50 - shift.availabilities.length;
+        }
 
         if (!shiftTypesMap[shiftType]) {
           shiftTypesMap[shiftType] = [];

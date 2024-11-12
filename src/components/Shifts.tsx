@@ -144,6 +144,7 @@ const PhoneShifts = ({
             const bodyObj = {
               userId,
               checked: values.checked,
+              shiftType,
             };
 
             async function handleSubmit() {
@@ -249,6 +250,7 @@ const DesktopShifts = ({
             const bodyObj = {
               userId,
               checked: values.checked,
+              shiftType,
             };
 
             async function handleSubmit() {
