@@ -96,7 +96,7 @@ export default {
         let availabilities;
         if (shiftType === "host") {
           availabilities = 15 - shift.availabilities.length;
-        } else {
+        } else if (shiftType === "setup") {
           availabilities = 50 - shift.availabilities.length;
         }
 
