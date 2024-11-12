@@ -33,7 +33,11 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
   });
 
   const { mutateAsync } = useMutation({
-    mutationFn: (data: { shiftId: number; availabilityId: number }) => {
+    mutationFn: (data: {
+      shiftId: number;
+      availabilityId: number;
+      typeId: number;
+    }) => {
       return axios.delete("/api/deleteShift", {
         data,
       });
@@ -117,7 +121,9 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
                     </div>
                     <button
                       className="btn flex"
-                      onClick={() => mutateAsync({ availabilityId, shiftId })}
+                      onClick={() =>
+                        mutateAsync({ availabilityId, shiftId, typeId })
+                      }
                     >
                       Remove Shift
                     </button>
@@ -152,7 +158,7 @@ const UserShifts: React.FC<UserShiftsProps> = () => {
           </div>
           <button
             className="btn flex"
-            onClick={() => mutateAsync({ availabilityId, shiftId })}
+            onClick={() => mutateAsync({ availabilityId, shiftId, typeId })}
           >
             Remove Shift
           </button>

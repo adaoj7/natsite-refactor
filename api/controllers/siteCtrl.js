@@ -188,7 +188,7 @@ export default {
     }
   },
   deleteShift: async (req, res) => {
-    const { availabilityId, shiftId } = req.body;
+    const { availabilityId, shiftId, typeId } = req.body;
 
     try {
       await Availability.destroy({
@@ -201,10 +201,16 @@ export default {
       console.log(err);
     }
 
-    if ((await Availability.count({ where: { shiftId: shiftId } })) <= 15) {
-      const shift = await Shift.findByPk(shiftId);
-      await shift.update({ isFull: false });
-      console.log(shift);
+    if (typeId === 1) {
+      if ((await Availability.count({ where: { shiftId: shiftId } })) <= 50) {
+        const shift = await Shift.findByPk(shiftId);
+        await shift.update({ isFull: false });
+      }
+    } else if (typeId === 2) {
+      if ((await Availability.count({ where: { shiftId: shiftId } })) <= 15) {
+        const shift = await Shift.findByPk(shiftId);
+        await shift.update({ isFull: false });
+      }
     }
 
     console.log("availability destroyed");
