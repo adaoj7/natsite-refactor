@@ -107,16 +107,34 @@ export default function UserShifts() {
                 (shift: Shift) =>
                   shift.typeId === typeId &&
                   shift.shiftId === shiftId &&
-                  duplicateCount > 1
+                  duplicateCount >= 1
               )
               .map((shift: Shift) => {
                 return (
-                  <div>
-                    <div>{shift.date}</div>
-                    <div>{shift.timeRange}</div>
+                  <div className="my-2 flex flex-row items-center justify-center gap-8">
+                    <div className="text-xl font-semibold">{shift.date}</div>
+                    <div className="text-xl">{shift.timeRange}</div>
+                    <button
+                      className="btn"
+                      onClick={() => {
+                        mutateAsync({ availabilityId, shiftId, typeId });
+                      }}
+                    >
+                      Remove Shift
+                    </button>
                   </div>
                 );
               });
+
+            if (signups.length <= 1) {
+              (
+                document.getElementById(
+                  `user_shifts_modal_${shiftId}`
+                ) as HTMLDialogElement
+              )
+                ?.closest("dialog")
+                ?.close();
+            }
 
             return (
               <>
@@ -160,31 +178,35 @@ export default function UserShifts() {
                       </button>
                     ) : (
                       <button
-                        className="btn flex"
-                        onClick={() =>
-                          (
-                            document.getElementById(
-                              `user_shifts_modal_${shiftId}`
-                            ) as HTMLDialogElement
-                          ).showModal()
-                        }
+                        className="btn btn-primary flex"
+                        onClick={() => {
+                          if (shiftId) {
+                            (
+                              document.getElementById(
+                                `user_shifts_modal_${shiftId}`
+                              ) as HTMLDialogElement
+                            ).showModal();
+                          }
+                        }}
                       >
                         View Signups
                       </button>
                     )}
                   </div>
                 </li>
-                <dialog id={`user_shifts_modal_${shiftId}`} className="modal">
-                  <div className="modal-box">
-                    <div>{signups}</div>
-                    <div className="modal-action">
-                      <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
-                        <button className="btn">Close</button>
-                      </form>
+                {duplicateCount >= 1 && (
+                  <dialog id={`user_shifts_modal_${shiftId}`} className="modal">
+                    <div className="modal-box">
+                      <div>{signups}</div>
+                      <div className="modal-action">
+                        <form method="dialog">
+                          {/* if there is a button in form, it will close the modal */}
+                          <button className="btn">Close</button>
+                        </form>
+                      </div>
                     </div>
-                  </div>
-                </dialog>
+                  </dialog>
+                )}
               </>
             );
           })}

@@ -301,6 +301,8 @@ const DesktopShifts = ({
                 (
                   document.getElementById("my_modal_4") as HTMLDialogElement
                 ).showModal();
+              } else {
+                setInitialSelect(!initialSelect);
               }
             }
             (
@@ -308,8 +310,7 @@ const DesktopShifts = ({
             ).showModal();
             handleSubmit();
 
-            // @ts-expect-error - props don't match
-            resetForm({ checked: [] });
+            resetForm();
           }}
         >
           {({ handleSubmit, values, errors, resetForm }) => (
@@ -468,22 +469,22 @@ function Shift({ day, userShifts }: { day: Day; userShifts: UserShifts }) {
   );
 
   const shifts = day.shifts.map((shift) => {
-    if (!userShiftsArray.includes(shift.shiftId)) {
-      return (
-        <div key={shift.timeRange} className="">
-          <input type="hidden" />
-          <label className="flex select-none items-center font-normal">
-            <Field
-              type="checkbox"
-              name="checked"
-              value={shift.shiftId.toString()}
-              className="checkbox-primary checkbox checkbox-sm mr-2 size-4 rounded-md bg-white"
-            />
-            {shift.timeRange}
-          </label>
-        </div>
-      );
-    }
+    // if (!userShiftsArray.includes(shift.shiftId)) {
+    return (
+      <div key={shift.timeRange} className="">
+        <input type="hidden" />
+        <label className="flex select-none items-center font-normal">
+          <Field
+            type="checkbox"
+            name="checked"
+            value={shift.shiftId.toString()}
+            className="checkbox-primary checkbox checkbox-sm mr-2 size-4 rounded-md bg-white"
+          />
+          {shift.timeRange}
+        </label>
+      </div>
+    );
+    // }
   });
   return <>{shifts}</>;
 }
