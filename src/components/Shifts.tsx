@@ -207,14 +207,14 @@ const PhoneShifts = ({
               setSubmitting(false);
               if (response.status !== 200) {
                 (
-                  document.getElementById("my_modal_4") as HTMLDialogElement
+                  document.getElementById("my_modal_3") as HTMLDialogElement
                 ).showModal();
               } else {
                 setInitialSelect(!initialSelect);
               }
             }
             (
-              document.getElementById("my_modal_2") as HTMLDialogElement
+              document.getElementById("my_modal_1") as HTMLDialogElement
             ).showModal();
             handleSubmit();
 
@@ -289,7 +289,6 @@ const PhoneShifts = ({
                         type="button"
                         onClick={() => {
                           setInitialSelect(!initialSelect);
-                          // resetForm();
                         }}
                         className="md:w-96 btn-secondary"
                       />
@@ -326,7 +325,6 @@ const PhoneShifts = ({
           )}
           <div className="modal-action">
             <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
               <button className="btn">Close</button>
             </form>
           </div>
@@ -484,7 +482,6 @@ const DesktopShifts = ({
                         type="button"
                         onClick={() => {
                           setInitialSelect(!initialSelect);
-                          // resetForm();
                         }}
                         className="md:w-96 btn-secondary"
                       />
@@ -521,7 +518,6 @@ const DesktopShifts = ({
           )}
           <div className="modal-action">
             <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
               <button className="btn">Close</button>
             </form>
           </div>
@@ -601,7 +597,6 @@ function Confirm({ nextChecked }: { nextChecked: string[] }) {
     .sort((a, b) => a - b);
   const nextCheckedIdsString = nextCheckedIds.join(",");
 
-  //modify this query so that it also send back the total availabilty for each shift to then filter the options
   const { data, isPending } = useQuery({
     queryKey: ["selectedShifts", nextCheckedIdsString],
     queryFn: async () => {

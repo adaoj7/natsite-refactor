@@ -260,10 +260,8 @@ export default function UserShifts() {
   });
 
   return (
-    <>
-      <div className="card">
-        <ul className="card-body list-none flex-col flex-wrap">{userShifts}</ul>
-      </div>
-    </>
+    <div className="card">
+      <ul className="card-body list-none flex-col flex-wrap">{userShifts}</ul>
+    </div>
   );
 }
