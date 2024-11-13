@@ -10,7 +10,7 @@ interface AdminProps {
   location: Location;
 }
 
-const Admin: React.FC<AdminProps> = () => {
+export default function Admin() {
   const location = useLocation();
   return (
     <>
@@ -22,7 +22,7 @@ const Admin: React.FC<AdminProps> = () => {
       </nav>
     </>
   );
-};
+}
 
 const AdminMobile: React.FC<AdminProps> = ({ location }) => {
   return (
@@ -175,5 +175,3 @@ const AdminDesktop: React.FC<AdminProps> = ({ location }) => {
     </>
   );
 };
-
-export default Admin;
