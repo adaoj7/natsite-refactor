@@ -1,6 +1,6 @@
 ﻿import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
@@ -16,6 +16,9 @@ interface Shift {
 
 export default function UserShifts() {
   const userId = useSelector((state: any) => state.userId);
+  const [isShiftId, setIsShiftId] = useState<number | null>(null);
+  const [isSignupCount, setIsSignupCount] = useState<number | null>(null);
+  const [signupCount, setSignupCount] = useState<number[]>([]);
 
   const {
     isError: errorUserShifts,
@@ -35,7 +38,7 @@ export default function UserShifts() {
   const { mutateAsync } = useMutation({
     mutationFn: (data: {
       shiftId: number;
-      availabilityId: number;
+      availabilityId: number[];
       typeId: number;
     }) => {
       return axios.delete("/api/deleteShift", {
@@ -43,7 +46,13 @@ export default function UserShifts() {
       });
     },
     onSettled: () => {
+      console.log("onSettled");
       refetchUserShifts();
+      (
+        document.querySelector(
+          `dialog[id="user_shifts_modal_${isShiftId}"]`
+        ) as HTMLDialogElement
+      )?.close();
     },
   });
 
@@ -102,39 +111,26 @@ export default function UserShifts() {
               (s: Shift) => s.shiftId === shiftId
             ).length;
 
-            const signups = data.data
-              .filter(
-                (shift: Shift) =>
-                  shift.typeId === typeId &&
-                  shift.shiftId === shiftId &&
-                  duplicateCount >= 1
-              )
-              .map((shift: Shift) => {
-                return (
-                  <div className="my-2 flex flex-row items-center justify-center gap-8">
-                    <div className="text-xl font-semibold">{shift.date}</div>
-                    <div className="text-xl">{shift.timeRange}</div>
-                    <button
-                      className="btn"
-                      onClick={() => {
-                        mutateAsync({ availabilityId, shiftId, typeId });
-                      }}
-                    >
-                      Remove Shift
-                    </button>
-                  </div>
-                );
-              });
+            const filteredSignups = data.data.filter(
+              (shift: Shift) =>
+                shift.typeId === typeId &&
+                shift.shiftId === shiftId &&
+                duplicateCount >= 1
+            );
+            const signupsDelete: number[] = [];
 
-            if (signups.length <= 1) {
-              (
-                document.getElementById(
-                  `user_shifts_modal_${shiftId}`
-                ) as HTMLDialogElement
-              )
-                ?.closest("dialog")
-                ?.close();
-            }
+            // if (signups.length <= 1) {
+            //   (
+            //     document.getElementById(
+            //       `user_shifts_modal_${shiftId}`
+            //     ) as HTMLDialogElement
+            //   )
+            //     ?.closest("dialog")
+            //     ?.close();
+            // }
+
+            const availabilityIds: number[] = [];
+            availabilityIds.push(availabilityId);
 
             return (
               <>
@@ -171,7 +167,11 @@ export default function UserShifts() {
                       <button
                         className="btn flex"
                         onClick={() =>
-                          mutateAsync({ availabilityId, shiftId, typeId })
+                          mutateAsync({
+                            availabilityId: availabilityIds,
+                            shiftId,
+                            typeId,
+                          })
                         }
                       >
                         Remove Shift
@@ -197,7 +197,50 @@ export default function UserShifts() {
                 {duplicateCount >= 1 && (
                   <dialog id={`user_shifts_modal_${shiftId}`} className="modal">
                     <div className="modal-box">
-                      <div>{signups}</div>
+                      <h3 className="flex justify-center text-2xl font-bold">
+                        {typeId === 1 ? "Setup" : "Host"} on {date}
+                      </h3>
+                      <div className="my-4 flex justify-center text-lg">
+                        Select how many shifts you would like to delete
+                      </div>
+                      <div className="my-2 flex flex-row items-center justify-center gap-4">
+                        <select
+                          name="signupCount"
+                          onChange={(e) =>
+                            setSignupCount(
+                              e.target.value.split(",").map(Number)
+                            )
+                          }
+                          id="signupCount"
+                          className="rounded-md border-[1px] border-gray-300"
+                        >
+                          <option value={0}>Please Select</option>
+                          {filteredSignups.map(
+                            (shift: Shift, index: number) => {
+                              signupsDelete.push(shift.availabilityId);
+                              return (
+                                <option value={signupsDelete.toString()}>
+                                  {index + 1}
+                                </option>
+                              );
+                            }
+                          )}
+                        </select>
+                        <button
+                          className="btn"
+                          onClick={() => {
+                            setIsSignupCount(filteredSignups.length);
+                            setIsShiftId(shiftId);
+                            mutateAsync({
+                              availabilityId: signupCount,
+                              shiftId,
+                              typeId,
+                            });
+                          }}
+                        >
+                          Remove Shift
+                        </button>
+                      </div>
                       <div className="modal-action">
                         <form method="dialog">
                           {/* if there is a button in form, it will close the modal */}
