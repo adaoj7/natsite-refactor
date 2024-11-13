@@ -39,7 +39,6 @@ export default {
   getShiftsForAdmin: async (req, res) => {
     try {
       const { date, time } = req.body;
-      // console.log(checked)
       const { dateId } = await Day.findOne({ where: { date: date } });
       const { shiftId } = await Shift.findOne({
         where: { timeRange: time, dateId: dateId },

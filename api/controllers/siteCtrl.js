@@ -4,7 +4,6 @@
   Day,
   Year,
   Availability,
-  User,
   SiteLinks,
   Church,
 } from "../dbscripts/model.js";
@@ -116,7 +115,7 @@ export default {
         ],
       });
 
-      const reducerFn = (acc, curr, index) => {
+      const reducerFn = (acc, curr) => {
         let shiftArr = acc;
         shiftArr.push([curr.availabilityId, curr.shift]);
         return shiftArr;
@@ -130,10 +129,15 @@ export default {
           shiftId: shiftObj.shiftId,
           timeRange: shiftObj.timeRange,
           date: shiftObj.day.date,
+          dayOfWeek: shiftObj.day.dayOfWeek,
           dateId: shiftObj.dateId,
           typeId: shiftObj.typeId,
           isFull: shiftObj.isFull,
         };
+      });
+
+      userShifts.sort((a, b) => {
+        return a.shiftId - b.shiftId;
       });
 
       res.json(userShifts);
@@ -228,13 +232,19 @@ export default {
 
   volunteer: async (req, res) => {
     try {
-      const { userId, checked, shiftType } = req.body;
-      for (const shiftId of checked) {
-        const newVolunteerShifts = await Availability.create({
-          userId,
-          shiftId,
-        });
+      const { userId, checked, finalChecked, shiftType } = req.body;
+      console.log("body", req.body);
+      for (const array of finalChecked) {
+        const shiftId = array[0];
+        const signups = array[1];
+        for (let i = 0; i < signups; i++) {
+          await Availability.create({
+            userId: userId,
+            shiftId: shiftId,
+          });
+        }
       }
+
       if (shiftType === "setup") {
         for (const array of checked) {
           const shiftId = array[0];
@@ -265,6 +275,7 @@ export default {
           }
         }
       }
+
       res.sendStatus(200);
     } catch (theseHands) {
       console.log(theseHands);
@@ -276,14 +287,17 @@ export default {
     const { availabilityId, shiftId, typeId } = req.body;
 
     try {
-      await Availability.destroy({
-        where: {
-          availabilityId: availabilityId,
-        },
-      });
+      for (const id of availabilityId) {
+        await Availability.destroy({
+          where: {
+            availabilityId: id,
+          },
+        });
+      }
       res.sendStatus(200);
     } catch (err) {
       console.log(err);
+      res.sendStatus(500);
     }
 
     if (typeId === 1) {
