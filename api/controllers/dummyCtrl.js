@@ -1,4 +1,4 @@
-﻿import { DummyAvailability, Shift, Day } from "../dbscripts/model.js";
+﻿import { DummyAvailability, Shift, Day, User } from "../dbscripts/model.js";
 
 export default {
   dummyVolunteer: async (req, res) => {
@@ -74,7 +74,7 @@ export default {
 
       console.log("shifts", shifts);
 
-      const reducerFn = (acc, curr, index) => {
+      const reducerFn = (acc, curr) => {
         let shiftArr = acc;
         shiftArr.push([curr.availabilityId, curr.shift]);
         return shiftArr;
@@ -93,6 +93,10 @@ export default {
           typeId: shiftObj.typeId,
           isFull: shiftObj.isFull,
         };
+      });
+
+      userShifts.sort((a, b) => {
+        return a.shiftId - b.shiftId;
       });
 
       res.json(userShifts);
@@ -135,5 +139,35 @@ export default {
     }
 
     console.log("availability destroyed");
+  },
+
+  dummyGetShiftsForAdmin: async (req, res) => {
+    try {
+      const { date, time } = req.body;
+      // console.log(checked)
+      const { dateId } = await Day.findOne({ where: { date: date } });
+      const { shiftId } = await Shift.findOne({
+        where: { timeRange: time, dateId: dateId },
+      });
+      const volunteersAvail = await User.findAll({
+        include: [
+          {
+            model: DummyAvailability,
+            where: { shiftId: shiftId },
+            include: [
+              {
+                model: Shift,
+              },
+            ],
+          },
+        ],
+      });
+
+      console.log("volunteersAvail", volunteersAvail);
+
+      res.json({ volunteersAvail });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   },
 };

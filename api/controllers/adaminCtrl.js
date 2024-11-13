@@ -35,6 +35,7 @@ export default {
       res.sendStatus(400);
     }
   },
+
   getShiftsForAdmin: async (req, res) => {
     try {
       const { date, time } = req.body;
@@ -62,6 +63,7 @@ export default {
       res.status(500).json({ error: error.message });
     }
   },
+
   shiftAvailabilities: async (req, res) => {
     try {
       const shiftAvailabilities = await Shift.findAll({
@@ -135,6 +137,7 @@ export default {
       res.status(500).send(error);
     }
   },
+
   getAllChurchVolunteers: async (req, res) => {
     try {
       const volunteersWithShifts = await User.findAll({

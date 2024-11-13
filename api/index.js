@@ -50,7 +50,12 @@ const {
   shiftAvailabilities,
   getAllChurchVolunteers,
 } = adminCtrl;
-const { dummyVolunteer, dummyUserShifts, dummyDeleteShift } = dummyCtrl;
+const {
+  dummyVolunteer,
+  dummyUserShifts,
+  dummyDeleteShift,
+  dummyGetShiftsForAdmin,
+} = dummyCtrl;
 // Endpoints created here. At the moment I don't have any so I don't need to set this up. I think I will build out the site pagination and then come back to this.
 
 // Volunteer Form Endpoints
@@ -62,7 +67,6 @@ app.get("/api/links", links);
 app.post("/api/updateFormLinks", updateFormLinks);
 // Admin Endpoints
 app.get("/api/adminQuery", allShifts);
-app.post("/api/adminQuery", getShiftsForAdmin);
 app.get("/api/shiftAvailabilities", shiftAvailabilities);
 app.get("/api/getAllChurchVolunteers", getAllChurchVolunteers);
 // Auth0 Endpoints
@@ -83,6 +87,7 @@ if (isProduction) {
   app.post("/api/volunteer", volunteer);
   app.get("/api/userShifts", userShifts);
   app.delete("/api/deleteShift", deleteShift);
+  app.post("/api/adminQuery", getShiftsForAdmin);
 
   app.listen(PORT, () =>
     console.log(
@@ -95,6 +100,7 @@ if (isProduction) {
   app.post("/api/volunteer", dummyVolunteer);
   app.get("/api/userShifts", dummyUserShifts);
   app.delete("/api/deleteShift", dummyDeleteShift);
+  app.post("/api/adminQuery", dummyGetShiftsForAdmin);
 
   ViteExpress.listen(app, PORT, () =>
     console.log(

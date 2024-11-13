@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-interface UserShiftsProps {}
-
 interface Shift {
   date: string;
   timeRange: string;
@@ -18,7 +16,7 @@ interface Shift {
 export default function UserShifts() {
   const userId = useSelector((state: any) => state.userId);
   const [isShiftId, setIsShiftId] = useState<number | null>(null);
-  const [isSignupCount, setIsSignupCount] = useState<number | null>(null);
+  const [_, setIsSignupCount] = useState<number | null>(null);
   const [signupCount, setSignupCount] = useState<number[]>([]);
 
   const {
@@ -47,7 +45,6 @@ export default function UserShifts() {
       });
     },
     onSettled: () => {
-      console.log("onSettled");
       refetchUserShifts();
       (
         document.querySelector(
@@ -92,8 +89,8 @@ export default function UserShifts() {
 
   typeIds.forEach((typeId) => {
     userShifts.push(
-      <div className="flex flex-col gap-4">
-        <div key={typeId}>
+      <div className="flex flex-col gap-4" key={typeId}>
+        <div>
           <h2 className="px-4 text-2xl font-bold desktop:px-0">
             {typeId === 1 ? "Setup" : "Host"}
           </h2>
@@ -130,73 +127,71 @@ export default function UserShifts() {
             availabilityIds.push(availabilityId);
 
             return (
-              <>
-                <li
-                  className="w-full px-12 text-xl desktop:w-44 desktop:px-0 desktop:text-base"
-                  key={availabilityId}
-                >
-                  <div className="flex flex-col [&>*]:mb-2">
-                    <div className="whitespace-nowrap">
-                      <span>Shift type: </span>
-                      <span className="font-semibold">
-                        {typeId === 1 ? "Setup" : "Host"}
-                      </span>
-                    </div>
-                    <div className="whitespace-nowrap">
-                      <span>Day: </span>
-                      <span className="whitespace-nowrap font-semibold">
-                        {dayOfWeek}
-                      </span>
-                    </div>
-                    <div className="whitespace-nowrap">
-                      <span>Date: </span>
-                      <span className="whitespace-nowrap font-semibold">
-                        {date}
-                      </span>
-                    </div>
-                    <div className="whitespace-nowrap">
-                      <span>Time: </span>
-                      <span className="whitespace-nowrap font-semibold">
-                        {timeRange}
-                      </span>
-                    </div>
-                    <div>
-                      <span>Signups: </span>
-                      <span className="whitespace-nowrap font-semibold">
-                        {duplicateCount}
-                      </span>
-                    </div>
-                    {duplicateCount <= 1 ? (
-                      <button
-                        className="btn flex"
-                        onClick={() =>
-                          mutateAsync({
-                            availabilityId: availabilityIds,
-                            shiftId,
-                            typeId,
-                          })
-                        }
-                      >
-                        Remove Shift
-                      </button>
-                    ) : (
-                      <button
-                        className="btn btn-primary flex"
-                        onClick={() => {
-                          if (shiftId) {
-                            (
-                              document.getElementById(
-                                `user_shifts_modal_${shiftId}`
-                              ) as HTMLDialogElement
-                            ).showModal();
-                          }
-                        }}
-                      >
-                        View Shifts
-                      </button>
-                    )}
+              <li
+                className="w-full px-12 text-xl desktop:w-44 desktop:px-0 desktop:text-base"
+                key={availabilityId}
+              >
+                <div className="flex flex-col [&>*]:mb-2">
+                  <div className="whitespace-nowrap">
+                    <span>Shift type: </span>
+                    <span className="font-semibold">
+                      {typeId === 1 ? "Setup" : "Host"}
+                    </span>
                   </div>
-                </li>
+                  <div className="whitespace-nowrap">
+                    <span>Day: </span>
+                    <span className="whitespace-nowrap font-semibold">
+                      {dayOfWeek}
+                    </span>
+                  </div>
+                  <div className="whitespace-nowrap">
+                    <span>Date: </span>
+                    <span className="whitespace-nowrap font-semibold">
+                      {date}
+                    </span>
+                  </div>
+                  <div className="whitespace-nowrap">
+                    <span>Time: </span>
+                    <span className="whitespace-nowrap font-semibold">
+                      {timeRange}
+                    </span>
+                  </div>
+                  <div>
+                    <span>Signups: </span>
+                    <span className="whitespace-nowrap font-semibold">
+                      {duplicateCount}
+                    </span>
+                  </div>
+                  {duplicateCount <= 1 ? (
+                    <button
+                      className="btn flex"
+                      onClick={() =>
+                        mutateAsync({
+                          availabilityId: availabilityIds,
+                          shiftId,
+                          typeId,
+                        })
+                      }
+                    >
+                      Remove Shift
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-primary flex"
+                      onClick={() => {
+                        if (shiftId) {
+                          (
+                            document.getElementById(
+                              `user_shifts_modal_${shiftId}`
+                            ) as HTMLDialogElement
+                          ).showModal();
+                        }
+                      }}
+                    >
+                      View Shifts
+                    </button>
+                  )}
+                </div>
                 {duplicateCount >= 1 && (
                   <dialog id={`user_shifts_modal_${shiftId}`} className="modal">
                     <div className="modal-box">
@@ -223,7 +218,10 @@ export default function UserShifts() {
                             (shift: Shift, index: number) => {
                               signupsDelete.push(shift.availabilityId);
                               return (
-                                <option value={signupsDelete.toString()}>
+                                <option
+                                  value={signupsDelete.toString()}
+                                  key={index}
+                                >
                                   {index + 1}
                                 </option>
                               );
@@ -247,14 +245,13 @@ export default function UserShifts() {
                       </div>
                       <div className="modal-action">
                         <form method="dialog">
-                          {/* if there is a button in form, it will close the modal */}
                           <button className="btn">Close</button>
                         </form>
                       </div>
                     </div>
                   </dialog>
                 )}
-              </>
+              </li>
             );
           })}
         </div>
@@ -267,17 +264,6 @@ export default function UserShifts() {
       <div className="card">
         <ul className="card-body list-none flex-col flex-wrap">{userShifts}</ul>
       </div>
-      <dialog id="user_shifts_modal" className="modal">
-        <div className="modal-box">
-          <div>in here will be the shifts that the user has signed up for</div>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
-            </form>
-          </div>
-        </div>
-      </dialog>
     </>
   );
 }

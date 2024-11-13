@@ -7,7 +7,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { helperFunctions } from "../helper-functions/helper-functions";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { z } from "zod";
 interface ShiftOptions {
   shiftType: "setup" | "host";
@@ -28,11 +28,6 @@ interface Shift {
 type initialValues = {
   checked: string[];
 };
-
-interface valuesAndAmount {
-  shiftId: number;
-  amount: number;
-}
 
 interface UserShift {
   date: string;
@@ -55,9 +50,23 @@ interface ShiftsProps {
   mutateAsync: any;
   isLoadingUserShifts: boolean;
   isPendingSubmit: boolean;
+  initialSelect: boolean;
+  setInitialSelect: Dispatch<SetStateAction<boolean>>;
+  nextChecked: string[];
+  setNextChecked: Dispatch<SetStateAction<string[]>>;
+  shiftValidationSchema: z.ZodObject<any, any>;
 }
 
 export default function Shifts({ shiftType }: ShiftOptions) {
+  const [nextChecked, setNextChecked] = useState<string[]>([]);
+  const [initialSelect, setInitialSelect] = useState<boolean>(false);
+
+  const shiftValidationSchema = z.object({
+    checked: z
+      .array(z.string())
+      .min(1, { message: "Please select at least one shift" }),
+  });
+
   const userId = useSelector((state: any) => state.userId);
   const { capitalizeFirstLetter } = helperFunctions;
 
@@ -116,6 +125,11 @@ export default function Shifts({ shiftType }: ShiftOptions) {
           mutateAsync={mutateAsync}
           isLoadingUserShifts={isLoadingUserShifts}
           isPendingSubmit={isPendingSubmit}
+          initialSelect={initialSelect}
+          setInitialSelect={setInitialSelect}
+          nextChecked={nextChecked}
+          setNextChecked={setNextChecked}
+          shiftValidationSchema={shiftValidationSchema}
         />
       </div>
       <div className="hidden desktop:flex">
@@ -128,6 +142,11 @@ export default function Shifts({ shiftType }: ShiftOptions) {
           mutateAsync={mutateAsync}
           isLoadingUserShifts={isLoadingUserShifts}
           isPendingSubmit={isPendingSubmit}
+          initialSelect={initialSelect}
+          setInitialSelect={setInitialSelect}
+          nextChecked={nextChecked}
+          setNextChecked={setNextChecked}
+          shiftValidationSchema={shiftValidationSchema}
         />
       </div>
     </>
@@ -142,17 +161,45 @@ const PhoneShifts = ({
   mutateAsync,
   isLoadingUserShifts,
   isPendingSubmit,
+  initialSelect,
+  setInitialSelect,
+  nextChecked,
+  setNextChecked,
+  shiftValidationSchema,
 }: ShiftsProps) => {
   return (
     <>
-      <div className="card m-4 flex flex-grow">
+      <div className="flex flex-grow">
         <Formik
-          initialValues={{ checked: [], finalChecked: [] } as initialValues}
+          initialValues={
+            {
+              checked: [],
+            } as initialValues
+          }
+          validate={(values) => {
+            try {
+              shiftValidationSchema.parse(values);
+              return {};
+            } catch (error) {
+              if (error instanceof z.ZodError) {
+                return { checked: error.errors[0].message };
+              }
+              return {};
+            }
+          }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
+            const finalChecked = Object.entries(values).filter(([key]) =>
+              key.startsWith("finalChecked-")
+            );
+            const finalCheckedArray = finalChecked.map(([_, value]) =>
+              String(value).split(" ")
+            );
+
             const bodyObj = {
+              shiftType,
               userId,
               checked: values.checked,
-              shiftType,
+              finalChecked: finalCheckedArray,
             };
 
             async function handleSubmit() {
@@ -160,39 +207,101 @@ const PhoneShifts = ({
               setSubmitting(false);
               if (response.status !== 200) {
                 (
-                  document.getElementById("my_modal_3") as HTMLDialogElement
+                  document.getElementById("my_modal_4") as HTMLDialogElement
                 ).showModal();
+              } else {
+                setInitialSelect(!initialSelect);
               }
             }
             (
-              document.getElementById("my_modal_1") as HTMLDialogElement
+              document.getElementById("my_modal_2") as HTMLDialogElement
             ).showModal();
             handleSubmit();
-            // @ts-expect-error - props don't match
-            resetForm({ checked: [] });
+
+            resetForm();
           }}
         >
-          {({ handleSubmit }) => (
-            <Form onSubmit={handleSubmit} className="card-body pt-0">
-              <p className="flex min-h-8 justify-center">
-                Please use this form to sign up for {shiftType} shifts during
-                the festival.
-              </p>{" "}
+          {({ handleSubmit, values, errors }) => (
+            <Form onSubmit={handleSubmit} className="pt-0">
               {isLoadingUserShifts ?? <p>Loading...</p>}
               <ul
                 role="group"
                 aria-labelledby="checkbox-group"
                 className="md:justify-around flex flex-grow flex-wrap gap-4"
               >
-                <Dates days={shiftData.data} userShifts={userShifts} />
+                {/* <Dates days={shiftData.data} userShifts={userShifts} /> */}
+                {!initialSelect ? (
+                  <div className="flex flex-col">
+                    <p className="mb-4 flex min-h-8 justify-center">
+                      Please use this form to sign up for {shiftType} shifts
+                      during the festival.
+                    </p>{" "}
+                    <div className="md:justify-around flex flex-grow flex-wrap justify-center gap-4 pt-0">
+                      <Dates days={shiftData.data} userShifts={userShifts} />
+                    </div>
+                    <div className="flex flex-col">
+                      <div>
+                        {errors.checked ? (
+                          <p className="mt-4 flex justify-center text-red-500">
+                            {errors.checked}
+                          </p>
+                        ) : (
+                          <p className="mt-4 select-none text-white">
+                            Easter Egg
+                          </p>
+                        )}
+                        <div className="mt-4 flex justify-center">
+                          <Button
+                            name="Next"
+                            type="button"
+                            onClick={() => {
+                              if (values.checked.length === 0) {
+                                errors.checked =
+                                  "Please select at least one shift";
+                                return;
+                              }
+                              setNextChecked(values.checked);
+                              setInitialSelect(!initialSelect);
+                            }}
+                            className="md:w-96 btn-secondary"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="mb-8">
+                      <p>
+                        Please use the dropdown to select how many people you
+                        would like to sign up for each shift.{" "}
+                        <span className="italic">
+                          If you have more than 10 people to sign up for any 1
+                          shift please reach out to us at
+                          peorianativities@gmail.com
+                        </span>
+                      </p>
+                    </div>
+                    <Confirm nextChecked={nextChecked} />
+                    <div className="mt-8 flex justify-center gap-4">
+                      <Button
+                        name="Back"
+                        type="button"
+                        onClick={() => {
+                          setInitialSelect(!initialSelect);
+                          // resetForm();
+                        }}
+                        className="md:w-96 btn-secondary"
+                      />
+                      <Button
+                        name="Submit"
+                        type="submit"
+                        className="md:w-96 btn-secondary"
+                      />
+                    </div>
+                  </div>
+                )}
               </ul>
-              <div className="mt-8 flex justify-center">
-                <Button
-                  name="Submit"
-                  type="submit"
-                  className="md:w-96 btn-secondary"
-                />
-              </div>
             </Form>
           )}
         </Formik>
@@ -248,16 +357,12 @@ const DesktopShifts = ({
   mutateAsync,
   isLoadingUserShifts,
   isPendingSubmit,
+  initialSelect,
+  setInitialSelect,
+  nextChecked,
+  setNextChecked,
+  shiftValidationSchema,
 }: ShiftsProps) => {
-  const [nextChecked, setNextChecked] = useState<string[]>([]);
-  const [initialSelect, setInitialSelect] = useState<boolean>(false);
-
-  const shiftValidationSchema = z.object({
-    checked: z
-      .array(z.string())
-      .min(1, { message: "Please select at least one shift" }),
-  });
-
   return (
     <div className="flex flex-col">
       <div className="card flex">
@@ -279,13 +384,12 @@ const DesktopShifts = ({
             }
           }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            const finalChecked = Object.entries(values).filter(([key, value]) =>
+            const finalChecked = Object.entries(values).filter(([key]) =>
               key.startsWith("finalChecked-")
             );
-            const finalCheckedArray = finalChecked.map(([key, value]) =>
+            const finalCheckedArray = finalChecked.map(([_, value]) =>
               String(value).split(" ")
             );
-            console.log("finalChecked", finalCheckedArray);
 
             const bodyObj = {
               shiftType,
@@ -313,7 +417,7 @@ const DesktopShifts = ({
             resetForm();
           }}
         >
-          {({ handleSubmit, values, errors, resetForm }) => (
+          {({ handleSubmit, values, errors }) => (
             <Form onSubmit={handleSubmit} className="pt-0">
               {isLoadingUserShifts ?? <p>Loading...</p>}
               <ul
@@ -351,7 +455,6 @@ const DesktopShifts = ({
                                   "Please select at least one shift";
                                 return;
                               }
-                              console.log("pendingValues", values.checked);
                               setNextChecked(values.checked);
                               setInitialSelect(!initialSelect);
                             }}
@@ -468,6 +571,9 @@ function Shift({ day, userShifts }: { day: Day; userShifts: UserShifts }) {
     (shift: UserShift) => shift.shiftId
   );
 
+  // This is just to keep userShiftsArray in the file just in case I need to remove those values from the UI in the future
+  userShiftsArray.sort((a, b) => a - b);
+
   const shifts = day.shifts.map((shift) => {
     // if (!userShiftsArray.includes(shift.shiftId)) {
     return (
@@ -490,8 +596,6 @@ function Shift({ day, userShifts }: { day: Day; userShifts: UserShifts }) {
 }
 
 function Confirm({ nextChecked }: { nextChecked: string[] }) {
-  const [finalChecked, setFinalChecked] = useState<valuesAndAmount[]>([]);
-
   const nextCheckedIds = nextChecked
     .map((shift) => parseInt(shift))
     .sort((a, b) => a - b);
@@ -568,7 +672,7 @@ function Confirm({ nextChecked }: { nextChecked: string[] }) {
   }
 
   return (
-    <ul className="grid grid-cols-2 gap-12 px-24">
+    <ul className="grid gap-12 phone:grid-cols-1 phone:px-10 desktop:grid-cols-2 desktop:px-24">
       {data?.data.map((shift: any) => (
         <li key={shift.day} className="">
           <h1 className="font-semibold">{shift.day}</h1>
