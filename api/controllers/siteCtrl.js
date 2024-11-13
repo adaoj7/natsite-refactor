@@ -4,7 +4,6 @@
   Day,
   Year,
   Availability,
-  User,
   SiteLinks,
   Church,
 } from "../dbscripts/model.js";
@@ -116,7 +115,7 @@ export default {
         ],
       });
 
-      const reducerFn = (acc, curr, index) => {
+      const reducerFn = (acc, curr) => {
         let shiftArr = acc;
         shiftArr.push([curr.availabilityId, curr.shift]);
         return shiftArr;
@@ -130,10 +129,15 @@ export default {
           shiftId: shiftObj.shiftId,
           timeRange: shiftObj.timeRange,
           date: shiftObj.day.date,
+          dayOfWeek: shiftObj.day.dayOfWeek,
           dateId: shiftObj.dateId,
           typeId: shiftObj.typeId,
           isFull: shiftObj.isFull,
         };
+      });
+
+      userShifts.sort((a, b) => {
+        return a.shiftId - b.shiftId;
       });
 
       res.json(userShifts);
@@ -142,15 +146,105 @@ export default {
       res.sendStatus(404);
     }
   },
+
+  selectedShifts: async (req, res) => {
+    try {
+      const { shiftIds } = req.query;
+      const shifts = await Promise.all(
+        shiftIds.map(async (shiftId) => {
+          const shift = await Shift.findOne({
+            where: { shiftId: shiftId },
+            include: [
+              {
+                model: Day,
+              },
+            ],
+          });
+          return shift;
+        })
+      );
+
+      const availabilityCountMap = await Promise.all(
+        shiftIds.map(async (shiftId) => {
+          const shift = await Shift.findOne({
+            where: { shiftId: shiftId },
+          });
+          const shiftType = shift.typeId;
+          if (shiftType === 1) {
+            return {
+              shiftId: shiftId,
+              availabilityCount:
+                50 -
+                (await Availability.count({
+                  where: { shiftId: shiftId },
+                })),
+            };
+          } else if (shiftType === 2) {
+            return {
+              shiftId: shiftId,
+              availabilityCount:
+                15 -
+                (await Availability.count({
+                  where: { shiftId: shiftId },
+                })),
+            };
+          }
+        })
+      );
+
+      const filteredShifts = shifts.map((shift) => {
+        const availabilityCount = availabilityCountMap.filter(
+          (count) => parseInt(count.shiftId) === shift.shiftId
+        )[0].availabilityCount;
+
+        const shiftObj = {};
+        shiftObj.availabilityCount = availabilityCount;
+        shiftObj.shiftId = shift.shiftId;
+        shiftObj.timeRange = shift.timeRange;
+        shiftObj.day = shift.day.date;
+        shiftObj.dayOfWeek = shift.day.dayOfWeek;
+        shiftObj.dateId = shift.dateId;
+        shiftObj.typeId = shift.typeId;
+        shiftObj.isFull = shift.isFull;
+        return shiftObj;
+      });
+
+      const daysMap = {};
+
+      filteredShifts.forEach((shift) => {
+        if (!daysMap[shift.day]) {
+          daysMap[shift.day] = {
+            day: shift.day,
+            dayOfWeek: shift.dayOfWeek,
+            shifts: [],
+          };
+        }
+        daysMap[shift.day].shifts.push(shift);
+      });
+
+      const days = Object.values(daysMap);
+      res.json(days);
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(404);
+    }
+  },
+
   volunteer: async (req, res) => {
     try {
-      const { userId, checked, shiftType } = req.body;
-      for (const shiftId of checked) {
-        const newVolunteerShifts = await Availability.create({
-          userId,
-          shiftId,
-        });
+      const { userId, checked, finalChecked, shiftType } = req.body;
+      console.log("body", req.body);
+      for (const array of finalChecked) {
+        const shiftId = array[0];
+        const signups = array[1];
+        for (let i = 0; i < signups; i++) {
+          await Availability.create({
+            userId: userId,
+            shiftId: shiftId,
+          });
+        }
       }
+
       if (shiftType === "setup") {
         for (const array of checked) {
           const shiftId = array[0];
@@ -181,24 +275,29 @@ export default {
           }
         }
       }
+
       res.sendStatus(200);
     } catch (theseHands) {
       console.log(theseHands);
       res.sendStatus(500);
     }
   },
+
   deleteShift: async (req, res) => {
     const { availabilityId, shiftId, typeId } = req.body;
 
     try {
-      await Availability.destroy({
-        where: {
-          availabilityId: availabilityId,
-        },
-      });
+      for (const id of availabilityId) {
+        await Availability.destroy({
+          where: {
+            availabilityId: id,
+          },
+        });
+      }
       res.sendStatus(200);
     } catch (err) {
       console.log(err);
+      res.sendStatus(500);
     }
 
     if (typeId === 1) {
@@ -215,6 +314,7 @@ export default {
 
     console.log("availability destroyed");
   },
+
   churches: async (req, res) => {
     try {
       const churches = await Church.findAll();
@@ -236,7 +336,6 @@ export default {
             return link;
           }
         });
-        console.log("filteredLink", filteredLink[0]);
         res.json(filteredLink[0]);
       } else {
         res.json(link.sort((a, b) => a.linkType.length - b.linkType.length));
@@ -246,9 +345,9 @@ export default {
       res.sendStatus(500);
     }
   },
+
   updateFormLinks: async (req, res) => {
     try {
-      console.log("req.body", req.body);
       const links = await SiteLinks.findAll();
       links
         .sort((a, b) => a.linkType.length - b.linkType.length)

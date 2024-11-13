@@ -6,6 +6,7 @@ type ButtonProps = {
   color?: "primary" | "secondary";
   type: "submit" | "button";
   className?: string;
+  onClick?: () => void;
 };
 
 const Button = ({
@@ -14,6 +15,7 @@ const Button = ({
   color = "primary",
   className,
   type = "submit",
+  onClick,
 }: ButtonProps) => {
   const buttonSizes = {
     small: "w-24 h-10",
@@ -35,6 +37,7 @@ const Button = ({
         className
       )}
       type={type}
+      onClick={onClick}
     >
       <div>{name}</div>
     </button>

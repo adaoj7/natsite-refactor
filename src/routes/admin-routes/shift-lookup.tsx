@@ -66,7 +66,7 @@ export const ShiftLookup = () => {
           isLoading={isLoading}
         />
       </div>
-      <div className="hidden w-[650px] desktop:block">
+      <div className="hidden w-[850px] desktop:block">
         <ShiftFormDesktop
           volunteersAvail={volunteersAvail}
           setVolunteersAvail={setVolunteersAvail}
@@ -187,7 +187,7 @@ const ShiftFormDesktop: React.FC<ShiftFormProps> = ({
         }}
       >
         {({ values }) => (
-          <Form className="card">
+          <Form className="card mx-auto w-[400px]">
             <div className="card-body">
               <h1 className="card-title text-3xl">Search Shifts</h1>
               <div className="flex flex-col">
@@ -268,8 +268,9 @@ const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
   console.log("emailList", emailString);
 
   const volunteerList = volunteersAvail?.map((ele: any, i: any) => {
+    console.log("ele", ele);
     return (
-      <div key={i} className="my-2 grid phone:grid-cols-1 desktop:grid-cols-3">
+      <div key={i} className="my-2 grid phone:grid-cols-1 desktop:grid-cols-4">
         <div className="flex phone:justify-start phone:font-semibold desktop:justify-start desktop:font-normal">
           {ele.name}
         </div>
@@ -278,6 +279,9 @@ const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
         </div>
         <div className="flex phone:justify-start desktop:justify-end">
           {ele.phone}
+        </div>
+        <div className="flex phone:justify-start desktop:justify-end">
+          Signups: {ele.dummy_availabilities.length}
         </div>
       </div>
     );

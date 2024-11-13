@@ -1,27 +1,30 @@
 ﻿import React, { useState } from "react";
 import Spacer from "../../components/Spacer";
 import { adminRoutes } from "../../data/routes";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Location, NavLink, Outlet, useLocation } from "react-router-dom";
 import clsx from "clsx";
 import Flex from "../../components/Flex";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 
-interface AdminProps {}
+interface AdminProps {
+  location: Location;
+}
 
 const Admin: React.FC<AdminProps> = () => {
+  const location = useLocation();
   return (
     <>
       <nav className="desktop:hidden">
-        <AdminMobile />
+        <AdminMobile location={location} />
       </nav>
       <nav className="hidden desktop:block">
-        <AdminDesktop />
+        <AdminDesktop location={location} />
       </nav>
     </>
   );
 };
 
-const AdminMobile: React.FC<AdminProps> = () => {
+const AdminMobile: React.FC<AdminProps> = ({ location }) => {
   return (
     <>
       <AdminMobileNavbar />
@@ -51,7 +54,7 @@ const AdminMobile: React.FC<AdminProps> = () => {
   );
 };
 
-const AdminMobileNavbar: React.FC<AdminProps> = () => {
+function AdminMobileNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
@@ -117,10 +120,9 @@ const AdminMobileNavbar: React.FC<AdminProps> = () => {
       </nav>
     </header>
   );
-};
+}
 
-const AdminDesktop: React.FC<AdminProps> = () => {
-  const location = useLocation();
+const AdminDesktop: React.FC<AdminProps> = ({ location }) => {
   const adminOptions = adminRoutes.map((route) => {
     return (
       <div key={route[0]}>
