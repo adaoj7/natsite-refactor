@@ -12,6 +12,7 @@ interface Shift {
   typeId: number;
   availabilityId: number;
   shiftId: number;
+  dayOfWeek: string;
 }
 
 export default function UserShifts() {
@@ -105,8 +106,14 @@ export default function UserShifts() {
                 .map((shift: Shift) => [shift.shiftId, shift])
             ).values()
           ).map((shift: unknown) => {
-            const { date, timeRange, typeId, availabilityId, shiftId } =
-              shift as Shift;
+            const {
+              date,
+              timeRange,
+              typeId,
+              availabilityId,
+              shiftId,
+              dayOfWeek,
+            } = shift as Shift;
             const duplicateCount = data.data.filter(
               (s: Shift) => s.shiftId === shiftId
             ).length;
@@ -117,18 +124,8 @@ export default function UserShifts() {
                 shift.shiftId === shiftId &&
                 duplicateCount >= 1
             );
+
             const signupsDelete: number[] = [];
-
-            // if (signups.length <= 1) {
-            //   (
-            //     document.getElementById(
-            //       `user_shifts_modal_${shiftId}`
-            //     ) as HTMLDialogElement
-            //   )
-            //     ?.closest("dialog")
-            //     ?.close();
-            // }
-
             const availabilityIds: number[] = [];
             availabilityIds.push(availabilityId);
 
@@ -143,6 +140,12 @@ export default function UserShifts() {
                       <span>Shift type: </span>
                       <span className="font-semibold">
                         {typeId === 1 ? "Setup" : "Host"}
+                      </span>
+                    </div>
+                    <div className="whitespace-nowrap">
+                      <span>Day: </span>
+                      <span className="whitespace-nowrap font-semibold">
+                        {dayOfWeek}
                       </span>
                     </div>
                     <div className="whitespace-nowrap">
@@ -189,7 +192,7 @@ export default function UserShifts() {
                           }
                         }}
                       >
-                        View Signups
+                        View Shifts
                       </button>
                     )}
                   </div>
@@ -197,8 +200,9 @@ export default function UserShifts() {
                 {duplicateCount >= 1 && (
                   <dialog id={`user_shifts_modal_${shiftId}`} className="modal">
                     <div className="modal-box">
-                      <h3 className="flex justify-center text-2xl font-bold">
-                        {typeId === 1 ? "Setup" : "Host"} on {date}
+                      <h3 className="flex justify-center text-center text-2xl font-bold">
+                        {typeId === 1 ? "Setup" : "Host"} from {timeRange} on{" "}
+                        {dayOfWeek} - {date}
                       </h3>
                       <div className="my-4 flex justify-center text-lg">
                         Select how many shifts you would like to delete

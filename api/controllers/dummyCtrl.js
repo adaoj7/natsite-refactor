@@ -88,6 +88,7 @@ export default {
           shiftId: shiftObj.shiftId,
           timeRange: shiftObj.timeRange,
           date: shiftObj.day.date,
+          dayOfWeek: shiftObj.day.dayOfWeek,
           dateId: shiftObj.dateId,
           typeId: shiftObj.typeId,
           isFull: shiftObj.isFull,
