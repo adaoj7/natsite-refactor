@@ -63,7 +63,7 @@ export default function UserShifts() {
     return <div>Error!</div>;
   }
 
-  if (data.data.length === 0) {
+  if (data?.data.length === 0 || !data?.data) {
     return (
       <div className="card mx-auto w-[450px]">
         <div className="card-body text-center">
@@ -82,7 +82,7 @@ export default function UserShifts() {
   }
 
   const typeIds: number[] = Array.from(
-    new Set(data.data.map((shift: Shift) => shift.typeId))
+    new Set(data?.data.map((shift: Shift) => shift.typeId))
   );
 
   const userShifts: React.ReactNode[] = [];

@@ -75,6 +75,11 @@ app.get("/api/user", user);
 app.post("/api/updateUser", updateUser);
 app.delete("/api/logout", logout);
 
+app.post("/api/volunteer", volunteer);
+app.get("/api/userShifts", userShifts);
+app.delete("/api/deleteShift", deleteShift);
+app.post("/api/adminQuery", getShiftsForAdmin);
+
 if (isProduction) {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);

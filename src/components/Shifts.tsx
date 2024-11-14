@@ -563,14 +563,12 @@ function Dates({ days, userShifts }: { days: Day[]; userShifts: any }) {
 }
 
 function Shift({ day, userShifts }: { day: Day; userShifts: UserShifts }) {
-  const userShiftsArray = userShifts.data.map(
-    (shift: UserShift) => shift.shiftId
-  );
-
+  if (!userShifts?.data) {
+    userShifts?.data?.map((shift: UserShift) => shift.shiftId);
+  }
   // This is just to keep userShiftsArray in the file just in case I need to remove those values from the UI in the future
-  userShiftsArray.sort((a, b) => a - b);
 
-  const shifts = day.shifts.map((shift) => {
+  const shifts = day.shifts?.map((shift) => {
     // if (!userShiftsArray.includes(shift.shiftId)) {
     return (
       <div key={shift.timeRange} className="">
@@ -608,6 +606,8 @@ function Confirm({ nextChecked }: { nextChecked: string[] }) {
   });
 
   if (isPending) return <p>Loading...</p>;
+
+  if (!data?.data) return <p>No shifts found</p>;
 
   function options(shift: any) {
     const optionsArray = [];

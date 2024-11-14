@@ -268,6 +268,15 @@ const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
   console.log("emailList", emailString);
 
   const volunteerList = volunteersAvail?.map((ele: any, i: any) => {
+    let availabilities;
+    if (ele.availabilities) {
+      availabilities = ele.availabilities;
+    } else if (ele.dummy_availabilities) {
+      availabilities = ele.dummy_availabilities;
+    } else {
+      console.log("No availabilities found");
+    }
+
     console.log("ele", ele);
     return (
       <div key={i} className="my-2 grid phone:grid-cols-1 desktop:grid-cols-4">
@@ -281,7 +290,10 @@ const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
           {ele.phone}
         </div>
         <div className="flex phone:justify-start desktop:justify-end">
-          Signups: {ele.dummy_availabilities.length}
+          Signups:{" "}
+          {availabilities && availabilities.length
+            ? availabilities.length
+            : "0"}
         </div>
       </div>
     );
