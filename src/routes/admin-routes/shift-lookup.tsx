@@ -277,7 +277,6 @@ const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
       console.log("No availabilities found");
     }
 
-    console.log("ele", ele);
     return (
       <div key={i} className="my-2 grid phone:grid-cols-1 desktop:grid-cols-4">
         <div className="flex phone:justify-start phone:font-semibold desktop:justify-start desktop:font-normal">
