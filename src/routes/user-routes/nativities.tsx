@@ -48,15 +48,12 @@ export function NativitiesMobile({ link, isLoading }: NativitiesProps) {
           <div>
             Fill out this form to have your nativity included in the display for
             the 2024 event. Please register your nativities prior to bringing
-            them to the Festival to expedite the check-in process.
+            them to the drop-off to expedite the check-in process.
           </div>
           <div>
-            If you have previously registered a nativity and would like to lend
-            your nativity again, you should receive an email. If you do not,
-            please contact us at: sharepeorianativities@gmail.com If you have
-            numerous nativities to lend for the event, please contact us at:
-            sharepeorianativities@gmail.com Nativity pickup is Monday December
-            9th
+            This form includes a quick way to re-register past nativities as
+            well as an option to register nativities that will be new to the
+            festival this year.
           </div>
         </div>
         <div className="mt-4 flex justify-center">
@@ -85,12 +82,13 @@ export function NativitiesDesktop({ link, isLoading }: NativitiesProps) {
             them to the Festival to expedite the check-in process.
           </div>
           <div>
-            If you have previously registered a nativity and would like to lend
-            your nativity again, you should receive an email. If you do not,
-            please contact us at: sharepeorianativities@gmail.com If you have
-            numerous nativities to lend for the event, please contact us at:
-            sharepeorianativities@gmail.com Nativity pickup is Monday December
-            9th
+            This form includes a quick way to re-register past nativities as
+            well as an option to register nativities that will be new to the
+            festival this year.
+          </div>
+          <div>
+            If you have any questions, please email us at
+            sharepeorianativities@gmail.com
           </div>
         </div>
         <div className="mt-4 flex justify-center">
@@ -101,6 +99,21 @@ export function NativitiesDesktop({ link, isLoading }: NativitiesProps) {
               Register Nativity
             </Link>
           )}
+        </div>
+        <div className="text-center">
+          <h3 className="text-2xl font-semibold">
+            Drop-off and Pickup Information
+          </h3>
+          <div className="flex flex-col gap-2">
+            <div>Drop-off</div>
+            <div>Monday, December 2---8am-8pm</div>
+            <div>Tuesday, December 3---8am-noon</div>
+          </div>
+          <div>
+            <div>Pickup</div>
+            <div>Monday, December 9---8am-7pm</div>
+          </div>
+          <div>Location: 3700 W Reservoir Blvd, Peoria</div>
         </div>
       </div>
     </div>
