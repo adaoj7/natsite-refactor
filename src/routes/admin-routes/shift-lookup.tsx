@@ -2,6 +2,7 @@
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
+import ChurchLookup from "../../components/ChurchLookup";
 
 interface DateOptionProps {
   dates: Shifts[];
@@ -76,6 +77,7 @@ export const ShiftLookup = () => {
           isLoading={isLoading}
         />
       </div>
+      <ChurchLookup />
     </div>
   );
 };

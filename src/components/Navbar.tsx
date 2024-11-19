@@ -8,7 +8,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useQuery } from "@tanstack/react-query";
 import { IoMenu } from "react-icons/io5";
 import MobileLogo from "../assets/logos/CFN-White-Shadow-01.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type NavbarProps = {
   routes: any;
@@ -28,7 +28,7 @@ export default function Navbar({ routes }: NavbarProps) {
   const isScrolled = scrollPosition > 0;
   const dispatch = useDispatch();
 
-  const { loginWithRedirect, user } = useAuth0();
+  const { loginWithRedirect, user, isAuthenticated } = useAuth0();
   async function handleLogin() {
     try {
       loginWithRedirect({
@@ -37,15 +37,24 @@ export default function Navbar({ routes }: NavbarProps) {
           redirect_uri: window.location.origin,
         },
       });
-      await axios.post("/api/login", user).then((res) => {
-        if (res.data) {
-          dispatch({ type: "LOGIN", payload: res.data });
-        }
-      });
     } catch (error) {
       console.error(error);
     }
   }
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      try {
+        axios.post("/api/login", user).then((res) => {
+          if (res.data) {
+            dispatch({ type: "LOGIN", payload: res.data });
+          }
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, [isAuthenticated, user, dispatch]);
 
   const { data: dbUser } = useQuery({
     queryKey: ["user"],

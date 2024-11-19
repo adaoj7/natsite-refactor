@@ -49,6 +49,7 @@ const {
   getShiftsForAdmin,
   shiftAvailabilities,
   getAllChurchVolunteers,
+  getChurchVolunteers,
 } = adminCtrl;
 const {
   dummyVolunteer,
@@ -69,6 +70,7 @@ app.post("/api/updateFormLinks", updateFormLinks);
 app.get("/api/adminQuery", allShifts);
 app.get("/api/shiftAvailabilities", shiftAvailabilities);
 app.get("/api/getAllChurchVolunteers", getAllChurchVolunteers);
+app.post("/api/getChurchVolunteers", getChurchVolunteers);
 // Auth0 Endpoints
 app.post("/api/login", login);
 app.get("/api/user", user);

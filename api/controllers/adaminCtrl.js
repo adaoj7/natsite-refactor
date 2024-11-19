@@ -189,8 +189,47 @@ export default {
         }
       });
 
-      console.log("churchesWithCounts", churchesWithCounts);
       res.json(churchesWithCounts);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  },
+
+  getChurchVolunteers: async (req, res) => {
+    const { churchId } = req.body;
+    console.log("churchId", churchId);
+    try {
+      const church = await Church.findOne({
+        where: { churchId: churchId },
+        include: [
+          {
+            model: User,
+          },
+        ],
+      });
+      const userList = await Promise.all(
+        church.users.map(async (user) => {
+          const userInfo = await User.findOne({
+            where: { userId: user.userId },
+            include: [
+              {
+                model: Availability,
+              },
+            ],
+          });
+          const availLength = userInfo.availabilities.length;
+
+          const userObject = {
+            userId: user.userId,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            availability: availLength,
+          };
+          return userObject;
+        })
+      );
+      res.json(userList);
     } catch (error) {
       res.status(500).send(error);
     }
