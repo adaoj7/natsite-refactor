@@ -3,6 +3,7 @@ import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
 import ChurchLookup from "../../components/ChurchLookup";
+import { SpacerBar } from "../../components/SpacerBar";
 
 interface DateOptionProps {
   dates: Shifts[];
@@ -56,8 +57,8 @@ export const ShiftLookup = () => {
   });
 
   return (
-    <div className="mx-auto">
-      <div className="desktop:hidden">
+    <div className="w-full">
+      <div className="mx-auto desktop:hidden">
         <ShiftFormMobile
           volunteersAvail={volunteersAvail}
           setVolunteersAvail={setVolunteersAvail}
@@ -67,7 +68,7 @@ export const ShiftLookup = () => {
           isLoading={isLoading}
         />
       </div>
-      <div className="hidden w-[850px] desktop:block">
+      <div className="mx-auto hidden w-[850px] desktop:block">
         <ShiftFormDesktop
           volunteersAvail={volunteersAvail}
           setVolunteersAvail={setVolunteersAvail}
@@ -77,6 +78,7 @@ export const ShiftLookup = () => {
           isLoading={isLoading}
         />
       </div>
+      <SpacerBar className="w-full" size="xs" />
       <ChurchLookup />
     </div>
   );

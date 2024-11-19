@@ -65,7 +65,7 @@ export default function UserShifts() {
 
   if (data?.data.length === 0 || !data?.data) {
     return (
-      <div className="card mx-auto w-[450px]">
+      <div className="card mx-auto phone:w-[350px] desktop:w-[450px]">
         <div className="card-body text-center">
           <h1 className="card-title">No Shifts</h1>
           If you would like to sign up for shifts please head to:

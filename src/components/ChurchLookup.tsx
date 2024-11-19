@@ -33,7 +33,7 @@ export default function ChurchLookup() {
 
   return (
     <>
-      <div className="desktop:hidden">
+      <div className="mx-auto desktop:hidden">
         <ChurchLookupMobile
           churches={churches}
           showResults={showResults}
@@ -43,7 +43,7 @@ export default function ChurchLookup() {
           isLoading={isLoading}
         />
       </div>
-      <div className="hidden w-[850px] desktop:flex">
+      <div className="mx-auto hidden w-[850px] desktop:flex">
         <ChurchLookupDesktop
           churches={churches}
           showResults={showResults}
@@ -66,7 +66,7 @@ export function ChurchLookupMobile({
   isLoading,
 }: ChurchLookupProps) {
   if (isLoading) {
-    return <div className="mt-8 flex justify-center">Loading...</div>;
+    return <div className="mx-auto mt-8 flex justify-center">Loading...</div>;
   }
 
   return (
@@ -121,7 +121,7 @@ export function ChurchLookupDesktop({
   isLoading,
 }: ChurchLookupProps) {
   if (isLoading) {
-    return <div className="mt-8 flex justify-center">Loading...</div>;
+    return <div className="mx-auto mt-8 flex justify-center">Loading...</div>;
   }
 
   return (

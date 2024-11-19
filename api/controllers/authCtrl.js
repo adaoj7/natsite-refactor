@@ -7,49 +7,48 @@ export default {
   // I think I need to add admin linking to the db from auth0
   // I need to see if there is a less round about way of doing what I am doing for auth right now
   login: async (req, res) => {
+    console.log("body", req.body);
     try {
       const { name, email, "https://pc-fn.org/roles": roles } = req.body;
       const isAdmin = roles.includes("Admin");
-      let user = await User.findOrCreate({
+      let [user, created] = await User.findOrCreate({
         where: { email: email },
       });
+
       if (user.isAdmin !== isAdmin) {
-        user = await User.update({
-          name: name,
-          isAdmin: isAdmin,
-        });
+        await user.update({ isAdmin: isAdmin });
       }
 
-      if (!user[0].phone) {
-        user[0].phone = "";
+      if (!user.phone) {
+        user.phone = "";
       }
       let church = {
         churchName: null,
       };
-      if (!user[0].churchId) {
-        user[0].churchId = null;
-      } else if (user[0].churchId) {
+      if (!user.churchId) {
+        user.churchId = null;
+      } else if (user.churchId) {
         church = await Church.findOne({
-          where: { churchId: user[0].churchId },
+          where: { churchId: user.churchId },
         });
       }
-      if (user[0].isAdmin) {
+      if (user.isAdmin) {
         req.session.user = {
-          userId: user[0].userId,
-          name: user[0].name,
-          email: user[0].email,
-          phone: user[0].phone,
-          churchId: user[0].churchId,
+          userId: user.userId,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          churchId: user.churchId,
           churchName: church.churchName,
-          isAdmin: user[0].isAdmin,
+          isAdmin: user.isAdmin,
         };
       } else {
         req.session.user = {
-          userId: user[0].userId,
-          name: user[0].name,
-          email: user[0].email,
-          phone: user[0].phone,
-          churchId: user[0].churchId,
+          userId: user.userId,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          churchId: user.churchId,
           churchName: church.churchName,
         };
       }
