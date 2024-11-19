@@ -11,9 +11,15 @@ export default {
       const { name, email, "https://pc-fn.org/roles": roles } = req.body;
       const isAdmin = roles.includes("Admin");
       let user = await User.findOrCreate({
-        where: { email: email, isAdmin: isAdmin },
+        where: { email: email },
       });
-      console.log("user", user);
+      if (user.isAdmin !== isAdmin) {
+        user = await User.update({
+          name: name,
+          isAdmin: isAdmin,
+        });
+      }
+
       if (!user[0].phone) {
         user[0].phone = "";
       }

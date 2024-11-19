@@ -197,6 +197,10 @@ export default {
 
   getChurchVolunteers: async (req, res) => {
     const { churchId } = req.body;
+    if (!churchId) {
+      res.status(400).send("Church ID is required");
+      return;
+    }
     console.log("churchId", churchId);
     try {
       const church = await Church.findOne({

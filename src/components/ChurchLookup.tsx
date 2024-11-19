@@ -1,8 +1,7 @@
 ﻿import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import clsx from "clsx";
 import { Field, Form, Formik } from "formik";
-import React, { useState } from "react";
+import { useState } from "react";
 
 type ChurchLookupProps = {
   churches: Church[];
@@ -10,6 +9,7 @@ type ChurchLookupProps = {
   setShowResults: (showResults: boolean) => void;
   churchVolunteers: any[];
   setChurchVolunteers: (churchVolunteers: any[]) => void;
+  isLoading: boolean;
 };
 
 interface Church {
@@ -21,7 +21,7 @@ interface Church {
 export default function ChurchLookup() {
   const [churchVolunteers, setChurchVolunteers] = useState<any[]>([]);
   const [showResults, setShowResults] = useState(false);
-  const { data: churches } = useQuery({
+  const { data: churches, isLoading } = useQuery({
     queryKey: ["churches"],
     queryFn: async () => {
       const res = await axios.get("/api/getAllChurchVolunteers");
@@ -33,22 +33,24 @@ export default function ChurchLookup() {
 
   return (
     <>
-      <div className="flex desktop:hidden">
+      <div className="desktop:hidden">
         <ChurchLookupMobile
           churches={churches}
           showResults={showResults}
           setShowResults={setShowResults}
           churchVolunteers={churchVolunteers}
           setChurchVolunteers={setChurchVolunteers}
+          isLoading={isLoading}
         />
       </div>
-      <div className="hidden w-[850px] phone:hidden desktop:flex">
+      <div className="hidden w-[850px] desktop:flex">
         <ChurchLookupDesktop
           churches={churches}
           showResults={showResults}
           setShowResults={setShowResults}
           churchVolunteers={churchVolunteers}
           setChurchVolunteers={setChurchVolunteers}
+          isLoading={isLoading}
         />
       </div>
     </>
@@ -61,11 +63,39 @@ export function ChurchLookupMobile({
   setShowResults,
   churchVolunteers,
   setChurchVolunteers,
+  isLoading,
 }: ChurchLookupProps) {
+  if (isLoading) {
+    return <div className="mt-8 flex justify-center">Loading...</div>;
+  }
+
   return (
-    <div className="mx-auto w-[850px]">
-      <Formik initialValues={{}} onSubmit={() => {}}>
-        <Form className="card mx-auto w-[400px]">
+    <div className="ml-auto">
+      <Formik
+        initialValues={{
+          churchId: "",
+        }}
+        onSubmit={async (values) => {
+          console.log(values);
+          const sendQuery = async () => {
+            const bodyObj = {
+              churchId: values.churchId,
+            };
+            try {
+              const { data } = await axios.post(
+                "/api/getChurchVolunteers",
+                bodyObj
+              );
+              setChurchVolunteers(data);
+              setShowResults(true);
+            } catch (err) {
+              console.log(err);
+            }
+          };
+          sendQuery();
+        }}
+      >
+        <Form className="card">
           <div className="card-body">
             <h1 className="card-title text-3xl">Search Churches</h1>
             <ChurchOptions churches={churches} />
@@ -77,6 +107,7 @@ export function ChurchLookupMobile({
           </div>
         </Form>
       </Formik>
+      {showResults && <QueryResults users={churchVolunteers} />}
     </div>
   );
 }
@@ -87,7 +118,12 @@ export function ChurchLookupDesktop({
   setShowResults,
   churchVolunteers,
   setChurchVolunteers,
+  isLoading,
 }: ChurchLookupProps) {
+  if (isLoading) {
+    return <div className="mt-8 flex justify-center">Loading...</div>;
+  }
+
   return (
     <div className="mx-auto">
       <Formik
@@ -149,8 +185,8 @@ function ChurchOptions({ churches }: { churches: Church[] }) {
 
 function QueryResults({ users }: { users: any[] }) {
   console.log("users", users);
-  if (!users) {
-    return <div>No users found</div>;
+  if (!users || users.length === 0) {
+    return <div className="mb-8 flex justify-center">No users found</div>;
   }
 
   const userArray = users.map((user, i) => {
@@ -173,7 +209,7 @@ function QueryResults({ users }: { users: any[] }) {
   });
 
   return (
-    <div className="card-body">
+    <div className="card-body pt-0">
       <div className="card-title">Volunteers</div>
       <div className="">{userArray}</div>
     </div>

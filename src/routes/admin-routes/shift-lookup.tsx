@@ -90,8 +90,9 @@ const ShiftFormMobile: React.FC<ShiftFormProps> = ({
   data,
   isLoading,
 }) => {
-  if (isLoading)
+  if (isLoading) {
     return <div className="mt-8 flex justify-center">Loading...</div>;
+  }
 
   return (
     <div className="ml-auto">
@@ -154,11 +155,12 @@ const ShiftFormDesktop: React.FC<ShiftFormProps> = ({
   data,
   isLoading,
 }) => {
-  if (isLoading)
+  if (isLoading) {
     return <div className="mt-8 flex justify-center">Loading...</div>;
+  }
 
   return (
-    <div className="ml-auto">
+    <div>
       <Formik<ShiftLookupForm>
         initialValues={{
           date: "",
@@ -304,7 +306,7 @@ const QueryResults: React.FC<QueryResultsProps> = ({ values }) => {
     <>
       {volunteerList?.length > 0 ? (
         <div className="card">
-          <div className="card-body">
+          <div className="card-body pt-0">
             <div>
               <div className="">
                 <div className="card-title">Volunteers</div>
