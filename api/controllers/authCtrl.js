@@ -1,5 +1,7 @@
 ﻿import { User, Church } from "../dbscripts/model.js";
 import bcrypt from "bcryptjs";
+import axios from "axios";
+import process from "process";
 
 export default {
   // Do I want to use Auth0 so that users can reset passwords if needed?
@@ -58,6 +60,7 @@ export default {
       res.status(500).json(err);
     }
   },
+
   user: async (req, res) => {
     try {
       if (req.session.user) {
@@ -70,6 +73,7 @@ export default {
       res.status(500).json(err);
     }
   },
+
   updateUser: async (req, res) => {
     try {
       const { userId } = req.session.user;
@@ -114,10 +118,31 @@ export default {
       res.status(500).json(err);
     }
   },
+
   logout: async (req, res) => {
     try {
       req.session.destroy();
       res.status(200).json("Logged out");
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
+
+  changePassword: async (req, res) => {
+    try {
+      const { email } = req.body;
+      const clientId = process.env.AUTH0_CLIENT_ID;
+      const connection = "Username-Password-Authentication";
+      await axios.post(
+        `https://${process.env.AUTH0_DOMAIN}/dbconnections/change_password`,
+        {
+          client_id: clientId,
+          email: email,
+          connection: connection,
+        }
+      );
+      res.status(200).json("changePassword");
     } catch (err) {
       console.log(err);
       res.status(500).json(err);

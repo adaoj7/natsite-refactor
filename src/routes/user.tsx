@@ -4,9 +4,13 @@ import { NavLink, Outlet, useLocation } from "react-router-dom";
 import Flex from "../components/Flex";
 import clsx from "clsx";
 import Spacer from "../components/Spacer";
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 
 export default function User() {
   const location = useLocation();
+  const { user } = useAuth0();
+
   const userOptions = userRoutes.map((route) => {
     return (
       <div key={route[0]}>
@@ -34,7 +38,43 @@ export default function User() {
         </nav>
         <div className="mx-auto block w-full">
           <Outlet />
-          {location.pathname.toLowerCase() === "/user" && <Profile />}
+          {location.pathname.toLowerCase() === "/user" && (
+            <>
+              <Profile />
+              <div className="card-body w-full pt-0">
+                <button
+                  onClick={() => {
+                    const dialog = document.getElementById(
+                      "change-password-dialog"
+                    ) as HTMLDialogElement;
+                    dialog?.showModal();
+                  }}
+                  className="btn mx-auto w-40"
+                >
+                  Change Password
+                </button>
+              </div>
+              <dialog id="change-password-dialog" className="modal">
+                <div className="modal-box">
+                  <button
+                    onClick={async () => {
+                      await axios.post("/api/changePassword", {
+                        email: user?.email,
+                      });
+                    }}
+                    className="btn flex justify-center"
+                  >
+                    Change Password
+                  </button>
+                  <div className="modal-action">
+                    <form method="dialog">
+                      <button>Close</button>
+                    </form>
+                  </div>
+                </div>
+              </dialog>
+            </>
+          )}
         </div>
       </Flex>
     </>

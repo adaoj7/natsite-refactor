@@ -43,7 +43,7 @@ const {
   links,
   updateFormLinks,
 } = siteCtrl;
-const { login, user, updateUser, logout } = authCtrl;
+const { login, user, updateUser, logout, changePassword } = authCtrl;
 const {
   allShifts,
   getShiftsForAdmin,
@@ -76,6 +76,7 @@ app.post("/api/login", login);
 app.get("/api/user", user);
 app.post("/api/updateUser", updateUser);
 app.delete("/api/logout", logout);
+app.post("/api/changePassword", changePassword);
 
 app.post("/api/volunteer", volunteer);
 app.get("/api/userShifts", userShifts);
