@@ -38,6 +38,7 @@ const DateAndTimeGraphMobile: React.FC = () => {
     const dates = Object.keys(shiftTypeData).map((date) => {
       return {
         date: shiftTypeData[date].date,
+        dayOfWeek: shiftTypeData[date].dayOfWeek,
         shifts: shiftTypeData[date].shifts,
       };
     });
@@ -82,7 +83,7 @@ const DateAndTimeGraphMobile: React.FC = () => {
         <li key={date.date}>
           <details className="pointer-events-auto w-full">
             <summary className="text-lg font-semibold">
-              Date: {date.date}
+              Date: {date.dayOfWeek} - {date.date}
             </summary>
             <ul className="flex flex-col">{shiftTimes}</ul>
           </details>
@@ -114,7 +115,7 @@ const DateAndTimeGraphDesktop: React.FC = () => {
     queryKey: ["shiftAvailabilities"],
     queryFn: () => axios.get("/api/shiftAvailabilities"),
   });
-  // const isLoading = true;
+  console.log("data", data);
   if (isLoading)
     return (
       <div className="card">
@@ -130,6 +131,7 @@ const DateAndTimeGraphDesktop: React.FC = () => {
     const dates = Object.keys(shiftTypeData).map((date) => {
       return {
         date: shiftTypeData[date].date,
+        dayOfWeek: shiftTypeData[date].dayOfWeek,
         shifts: shiftTypeData[date].shifts,
       };
     });
@@ -167,7 +169,9 @@ const DateAndTimeGraphDesktop: React.FC = () => {
       return (
         <div className="card" key={date.date}>
           <div className="card-body">
-            <div className="mb-2 font-semibold">Date: {date.date}</div>
+            <div className="mb-2 font-semibold">
+              Date: {date.dayOfWeek} - {date.date}
+            </div>
             <div className="flex flex-row gap-6">{shiftTimes}</div>
           </div>
         </div>

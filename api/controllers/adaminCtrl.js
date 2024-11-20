@@ -78,7 +78,7 @@ export default {
           },
           {
             model: Day,
-            attributes: ["date"],
+            attributes: ["date", "dayOfWeek"],
           },
           {
             model: ShiftType,
@@ -92,8 +92,10 @@ export default {
       const shiftTypesMap = {};
 
       shiftAvailabilities.forEach((shift) => {
+        console.log("shift", shift);
         const shiftType = shift.shift_type.shiftType;
         const date = shift.day.date;
+        const dayOfWeek = shift.day.dayOfWeek;
         let availabilities;
         if (shiftType === "host") {
           availabilities = 15 - shift.availabilities.length;
@@ -119,6 +121,7 @@ export default {
         } else {
           shiftTypesMap[shiftType].push({
             date,
+            dayOfWeek,
             shifts: [
               {
                 shiftId: shift.shiftId,
