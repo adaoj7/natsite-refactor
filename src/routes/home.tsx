@@ -1,23 +1,9 @@
 ﻿import HeroImage from "../components/Hero";
-import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
 import { NavLink } from "react-router-dom";
 import Gallery from "../components/Gallery";
 import { testimonials } from "../data/testimonials";
 
 export default function Home() {
-  const { isAuthenticated, user } = useAuth0();
-  async function handleLogin() {
-    try {
-      await axios.post("/api/login", user);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  if (isAuthenticated) {
-    handleLogin();
-  }
-
   return (
     <>
       <HeroImage />
@@ -39,7 +25,6 @@ function MobileHome() {
         <section className="flex flex-col justify-between gap-4">
           <div className="card rounded-3xl bg-secondary shadow-sm">
             <div className="card-body flex justify-around">
-              {/* <!-- Interactive event scheduler/calendar --> */}
               <h2 className="card-title justify-center font-Dancing text-5xl">
                 All is Bright
               </h2>
@@ -181,7 +166,6 @@ function DesktopHome() {
           <div className="card basis-1/2 rounded-3xl bg-secondary shadow-sm">
             <div className="card-body">
               <h1 className="card-title justify-center">About</h1>
-              {/* <!-- Brief about the festival with a 'Read more' link to the about page --> */}
               <div className="mt-8">
                 The Peoria Area Community Festival of Nativities was started in
                 2016 by members of the Church of Jesus Christ of Latter-day

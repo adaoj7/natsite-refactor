@@ -9,13 +9,20 @@ export default {
   // I think I need to add admin linking to the db from auth0
   // I need to see if there is a less round about way of doing what I am doing for auth right now
   login: async (req, res) => {
-    console.log("body", req.body);
     try {
       const { name, email, "https://pc-fn.org/roles": roles } = req.body;
       const isAdmin = roles.includes("Admin");
-      let [user, created] = await User.findOrCreate({
+      let user = await User.findOne({
         where: { email: email },
       });
+
+      if (!user) {
+        user = await User.create({
+          name: name,
+          email: email,
+          isAdmin: isAdmin,
+        });
+      }
 
       if (user.isAdmin !== isAdmin) {
         await user.update({ isAdmin: isAdmin });
@@ -54,6 +61,7 @@ export default {
           churchName: church.churchName,
         };
       }
+      console.log(req.session.user);
       res.status(200).json(req.session.user);
     } catch (err) {
       console.log(err);
