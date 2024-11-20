@@ -83,7 +83,7 @@ const DateAndTimeGraphMobile: React.FC = () => {
         <li key={date.date}>
           <details className="pointer-events-auto w-full">
             <summary className="text-lg font-semibold">
-              Date: {date.dayOfWeek} - {date.date}
+              {date.dayOfWeek} - {date.date}
             </summary>
             <ul className="flex flex-col">{shiftTimes}</ul>
           </details>
@@ -170,7 +170,7 @@ const DateAndTimeGraphDesktop: React.FC = () => {
         <div className="card" key={date.date}>
           <div className="card-body">
             <div className="mb-2 font-semibold">
-              Date: {date.dayOfWeek} - {date.date}
+              {date.dayOfWeek} - {date.date}
             </div>
             <div className="flex flex-row gap-6">{shiftTimes}</div>
           </div>
