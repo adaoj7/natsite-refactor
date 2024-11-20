@@ -49,26 +49,30 @@ export default function User() {
                     ) as HTMLDialogElement;
                     dialog?.showModal();
                   }}
-                  className="btn mx-auto w-40"
+                  className="btn mx-auto w-60"
                 >
                   Change Password
                 </button>
               </div>
               <dialog id="change-password-dialog" className="modal">
                 <div className="modal-box">
+                  <div className="mb-4 text-center text-lg">
+                    To send a password reset email please click the change
+                    password button below
+                  </div>
                   <button
                     onClick={async () => {
                       await axios.post("/api/changePassword", {
                         email: user?.email,
                       });
                     }}
-                    className="btn flex justify-center"
+                    className="btn mx-auto flex w-60 justify-center"
                   >
                     Change Password
                   </button>
                   <div className="modal-action">
                     <form method="dialog">
-                      <button>Close</button>
+                      <button className="btn">Close</button>
                     </form>
                   </div>
                 </div>
