@@ -10,7 +10,6 @@ export default function Home() {
       <div className="phone:flex desktop:hidden">
         <MobileHome />
       </div>
-      {/* Maybe change the breakpoint */}
       <div className="hidden desktop:flex">
         <DesktopHome />
       </div>
@@ -282,7 +281,6 @@ function DesktopHome() {
               <h1 className="flex justify-center font-semibold">
                 Get Involved
               </h1>
-
               <div className="flex flex-wrap gap-1">
                 <span>
                   We are always looking for those who are interested in getting
@@ -310,7 +308,6 @@ function DesktopHome() {
         </section>
 
         <section className="mb-16 w-screen">
-          {/* Change to testimonials */}
           <Gallery type="testimonials" testimonials={testimonials} />
         </section>
       </div>
