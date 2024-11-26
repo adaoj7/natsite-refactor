@@ -348,12 +348,11 @@ export default {
 
   updateFormLinks: async (req, res) => {
     try {
-      const links = await SiteLinks.findAll();
-      links
-        .sort((a, b) => a.linkType.length - b.linkType.length)
-        .forEach((link) => {
-          link.update({ link: req.body[link.linkType] });
-        });
+      const updatedLink = req.body[0];
+      const linkInDB = await SiteLinks.findOne({
+        where: { linkId: updatedLink.linkId },
+      });
+      linkInDB.update({ link: updatedLink.link });
       res.sendStatus(200);
     } catch (err) {
       console.log(err);
