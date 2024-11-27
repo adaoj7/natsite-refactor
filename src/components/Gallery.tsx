@@ -6,6 +6,7 @@ import "swiper/css/a11y";
 import "swiper/css/autoplay";
 import "./Gallery.css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { useEffect, useState } from "react";
 
 interface GalleryProps {
   images?: { id: number; src: string; alt: string }[];
@@ -19,7 +20,41 @@ interface GalleryProps {
       };
 }
 
+function preloadImage(src: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve();
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+function useImagePreloader(images: string[]) {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    try {
+      Promise.all(images.map(preloadImage)).then(() => setLoaded(true));
+    } catch (error) {
+      console.error("Error preloading images", error);
+    }
+  }, [images]);
+
+  return loaded;
+}
+
 export default function Gallery({ images, testimonials, type }: GalleryProps) {
+  const imagesLoaded = useImagePreloader(
+    images?.map((image) => image.src) ?? []
+  );
+
+  if (!imagesLoaded)
+    return (
+      <div className="flex justify-center">
+        <div className="loading loading-spinner loading-lg h-full text-secondary phone:mt-20 desktop:mt-32"></div>
+      </div>
+    );
+
   const autoplayConfig =
     type === "testimonials"
       ? {

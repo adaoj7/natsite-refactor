@@ -10,7 +10,7 @@ const DateAndTimeGraph: React.FC = () => {
       <div className="flex w-full desktop:hidden">
         <DateAndTimeGraphMobile />
       </div>
-      <div className="hidden desktop:flex">
+      <div className="hidden w-full desktop:flex">
         <DateAndTimeGraphDesktop />
       </div>
     </>
@@ -22,13 +22,15 @@ const DateAndTimeGraphMobile: React.FC = () => {
     queryKey: ["shiftAvailabilities"],
     queryFn: () => axios.get("/api/shiftAvailabilities"),
   });
-  // const isLoading = true;
+
   if (isLoading)
     return (
-      <div className="card">
+      <div className="card w-full">
         <div className="card-body">
           <h1 className="card-title text-3xl">Shift Availabilities</h1>
-          <div>Loading...</div>
+          <div className="my-auto flex justify-center">
+            <div className="loading loading-spinner loading-lg text-secondary"></div>
+          </div>
         </div>
       </div>
     );
@@ -115,13 +117,15 @@ const DateAndTimeGraphDesktop: React.FC = () => {
     queryKey: ["shiftAvailabilities"],
     queryFn: () => axios.get("/api/shiftAvailabilities"),
   });
-  console.log("data", data);
+
   if (isLoading)
     return (
-      <div className="card">
-        <div className="card-body">
+      <div className="card w-full">
+        <div className="card-body w-full">
           <h1 className="card-title text-3xl">Shift Availabilities</h1>
-          <div>Loading...</div>
+          <div className="my-auto flex justify-center">
+            <div className="loading loading-spinner loading-lg text-secondary"></div>
+          </div>
         </div>
       </div>
     );

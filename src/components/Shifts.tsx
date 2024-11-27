@@ -71,6 +71,7 @@ export default function Shifts({ shiftType }: ShiftOptions) {
   const { capitalizeFirstLetter } = helperFunctions;
 
   const capShiftType = capitalizeFirstLetter(shiftType);
+
   const {
     isPending: isPendingShifts,
     error: errorShifts,
@@ -110,7 +111,12 @@ export default function Shifts({ shiftType }: ShiftOptions) {
     },
   });
 
-  if (isPendingShifts || isPendingUserShifts) return <p>Loading...</p>;
+  if (isPendingShifts || isPendingUserShifts)
+    return (
+      <div className="flex justify-center">
+        <div className="loading loading-spinner loading-lg text-secondary"></div>
+      </div>
+    );
   if (errorShifts || errorUserShifts) return <p>Error</p>;
 
   return (
@@ -223,7 +229,11 @@ const PhoneShifts = ({
         >
           {({ handleSubmit, values, errors }) => (
             <Form onSubmit={handleSubmit} className="pt-0">
-              {isLoadingUserShifts ?? <p>Loading...</p>}
+              {isLoadingUserShifts ?? (
+                <div className="flex justify-center">
+                  <div></div>
+                </div>
+              )}
               <ul
                 role="group"
                 aria-labelledby="checkbox-group"
@@ -417,7 +427,11 @@ const DesktopShifts = ({
         >
           {({ handleSubmit, values, errors }) => (
             <Form onSubmit={handleSubmit} className="pt-0">
-              {isLoadingUserShifts ?? <p>Loading...</p>}
+              {isLoadingUserShifts ?? (
+                <div className="flex justify-center">
+                  <div></div>
+                </div>
+              )}
               <ul
                 role="group"
                 aria-labelledby="checkbox-group"
