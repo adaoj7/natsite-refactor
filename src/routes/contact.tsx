@@ -1,6 +1,6 @@
 ﻿// import React from "react";
 import Spacer from "../components/Spacer";
-import MapPicture from "../assets/site-images/Screenshot 2024-03-19 212513.png";
+import MapPicture from "../assets/site-images/GoogleMapScreenshot.png";
 
 export default function Contact() {
   return (

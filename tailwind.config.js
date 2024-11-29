@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import daisyui from "daisyui";
 import forms from "@tailwindcss/forms";
+import scrollbar from "tailwind-scrollbar";
 
 export default {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}", "./index.html"],
@@ -37,7 +38,7 @@ export default {
       },
     },
   },
-  plugins: [daisyui, forms],
+  plugins: [daisyui, forms, scrollbar],
   daisyui: {
     themes: [
       {
@@ -62,5 +63,6 @@ export default {
         },
       },
     ],
+    styled: true,
   },
 };

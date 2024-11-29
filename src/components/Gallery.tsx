@@ -76,7 +76,7 @@ export default function Gallery({ images, testimonials, type }: GalleryProps) {
           autoplayConfig={autoplayConfig}
         />
       </div>
-      <div className="phone:hidden desktop:block">
+      <div className="max-w-screen phone:hidden desktop:block">
         <GalleryDesktop
           images={images}
           testimonials={testimonials}

@@ -1,5 +1,5 @@
 ﻿import Spacer from "../components/Spacer";
-import Flyer from "../assets/site-images/this-year/2024/Pictures/2024 Festival Handout 5.5 x 8.jpg";
+import Flyer from "../assets/site-images/this-year/2024/Pictures/2024 Festival Handout 5.5 x 8 (2).jpg";
 import Img4x6 from "../assets/site-images/this-year/2024/Pictures/2024 Festival Invitation horizontal.jpg";
 import ImgHalfSheetPDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Handout 5.5 x 8.pdf";
 import ImgPosterPDF from "../assets/site-images/this-year/2024/PDF/2024 Festival Poster 8.5 x 11.pdf";

@@ -15,7 +15,7 @@ export default defineConfig({
     exclude: ["lightningcss"],
   },
   build: {
-    chunkSizeWarningLimit: 900,
+    chunkSizeWarningLimit: 1000,
     // rollupOptions: {
     //   external: ["lightningcss"]
     // }

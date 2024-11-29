@@ -307,7 +307,7 @@ function DesktopHome() {
           </div>
         </section>
 
-        <section className="mb-16 w-screen">
+        <section className="mx-auto mb-16 w-[calc(100vw-2rem)]">
           <Gallery type="testimonials" testimonials={testimonials} />
         </section>
       </div>
