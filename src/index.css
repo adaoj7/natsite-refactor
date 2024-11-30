@@ -7,8 +7,13 @@
     width: 12px;
   }
   .scrollbar::-webkit-scrollbar-track {
-    background: transparent;
+    background: #23272f;
   }
+
+  .scrollbar::-webkit-scrollbar-track:hover {
+    background: #23272f;
+  }
+
   .scrollbar::-webkit-scrollbar-thumb {
     background: #a5a58d;
   }
