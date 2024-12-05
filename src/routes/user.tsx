@@ -6,10 +6,12 @@ import clsx from "clsx";
 import Spacer from "../components/Spacer";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 export default function User() {
   const location = useLocation();
   const { user } = useAuth0();
+  const isAdmin = useSelector((state: any) => state.isAdmin);
 
   const userOptions = userRoutes.map((route) => {
     return (
@@ -28,6 +30,23 @@ export default function User() {
       </div>
     );
   });
+
+  if (isAdmin) {
+    userOptions.push(
+      <NavLink
+        key="admin"
+        to="/betaPsi"
+        className={({ isActive }) =>
+          clsx(
+            "flex whitespace-nowrap p-4 align-middle text-black",
+            isActive ? "underline" : "hover:underline"
+          )
+        }
+      >
+        Admin
+      </NavLink>
+    );
+  }
 
   return (
     <>

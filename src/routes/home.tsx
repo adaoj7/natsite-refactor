@@ -2,6 +2,8 @@
 import { NavLink } from "react-router-dom";
 import Gallery from "../components/Gallery";
 import { testimonials } from "../data/testimonials";
+import Schedule from "../components/Schedule";
+import { schedule } from "../data/schedule";
 
 export default function Home() {
   return (
@@ -21,6 +23,9 @@ function MobileHome() {
   return (
     <>
       <div className="flex w-full flex-col p-4 text-xl">
+        <section>
+          <Schedule schedule={schedule} />
+        </section>
         <section className="flex flex-col justify-between gap-4">
           <div className="card rounded-3xl bg-secondary shadow-sm">
             <div className="card-body flex justify-around">
@@ -60,8 +65,7 @@ function MobileHome() {
           <div className="card rounded-3xl bg-secondary shadow-sm">
             <div className="card-body">
               <h1 className="card-title justify-center text-2xl">About</h1>
-              {/* <!-- Brief about the festival with a 'Read more' link to the about page --> */}
-              <div className="">
+              <div>
                 The Peoria Area Community Festival of Nativities was started in
                 2016 by members of the Church of Jesus Christ of Latter-day
                 Saints, the Sisters of St. Francis of the Immaculate Conception,
@@ -160,7 +164,18 @@ function MobileHome() {
 function DesktopHome() {
   return (
     <>
-      <div className="mt-16 flex flex-wrap gap-8 text-xl">
+      <div className="mt-4 flex flex-wrap gap-8 text-xl">
+        <section id="schedule" className="mx-8 w-full">
+          <div className="card">
+            <div className="card-body">
+              <h1 className="card-title justify-center text-2xl">
+                Performance Schedule
+              </h1>
+              <Schedule schedule={schedule} />
+            </div>
+          </div>
+        </section>
+
         <section className="mx-8 flex justify-between gap-8">
           <div className="card basis-1/2 rounded-3xl bg-secondary shadow-sm">
             <div className="card-body">
@@ -187,7 +202,6 @@ function DesktopHome() {
 
           <div className="card basis-1/4 rounded-3xl bg-secondary shadow-sm">
             <div className="card-body flex justify-between">
-              {/* <!-- Interactive event scheduler/calendar --> */}
               <div>
                 <h2 className="card-title mb-4 justify-center font-Dancing text-5xl">
                   All is Bright
