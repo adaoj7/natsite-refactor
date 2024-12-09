@@ -3,8 +3,10 @@
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
+  Outlet,
+  ScrollRestoration,
 } from "react-router-dom";
-import Root from "./root";
+import Navbar from "./components/Navbar";
 import Home from "./routes/home";
 import About from "./routes/about";
 import Setup from "./routes/get-involved-routes/setup";
@@ -30,8 +32,10 @@ import Profile from "./components/Profile";
 import Music from "./routes/get-involved-routes/music";
 import Nativities from "./routes/user-routes/nativities";
 import SuperUser from "./routes/superuser";
+import { routes } from "./data/routes";
+import Footer from "./components/Footer";
 
-function App() {
+export default function App() {
   // const isAdmin = false;
   const { data } = useQuery({
     queryKey: ["user"],
@@ -98,4 +102,16 @@ function App() {
   );
 }
 
-export default App;
+
+function Root() {
+  return (
+    <>
+      <Navbar routes={routes} />
+      <Outlet />
+      <Footer />
+      <ScrollRestoration />
+    </>
+  );
+}
+
+

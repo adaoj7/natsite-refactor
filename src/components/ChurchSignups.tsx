@@ -36,7 +36,6 @@ const ChurchSignupsMobile: React.FC<ChurchSignupsProps> = ({
   churchVolunteers,
   isLoading,
 }) => {
-  console.log("churchVolunteers", churchVolunteers);
 
   if (isLoading) {
     return (
@@ -74,8 +73,6 @@ const ChurchSignupsDesktop: React.FC<ChurchSignupsProps> = ({
   churchVolunteers,
   isLoading,
 }) => {
-  console.log("churchVolunteers", churchVolunteers);
-
   if (isLoading) {
     return (
       <div className="card">
