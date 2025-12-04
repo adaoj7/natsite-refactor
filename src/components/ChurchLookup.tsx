@@ -29,8 +29,6 @@ export default function ChurchLookup() {
     },
   });
 
-  console.log("churches", churches);
-
   return (
     <>
       <div className="mx-auto desktop:hidden">
@@ -76,7 +74,6 @@ export function ChurchLookupMobile({
           churchId: "",
         }}
         onSubmit={async (values) => {
-          console.log(values);
           const sendQuery = async () => {
             const bodyObj = {
               churchId: values.churchId,
@@ -131,7 +128,6 @@ export function ChurchLookupDesktop({
           churchId: "",
         }}
         onSubmit={async (values) => {
-          console.log(values);
           const sendQuery = async () => {
             const bodyObj = {
               churchId: values.churchId,
@@ -184,7 +180,6 @@ function ChurchOptions({ churches }: { churches: Church[] }) {
 }
 
 function QueryResults({ users }: { users: any[] }) {
-  console.log("users", users);
   if (!users || users.length === 0) {
     return <div className="mb-8 flex justify-center">No users found</div>;
   }

@@ -117,7 +117,10 @@ const DateAndTimeGraphDesktop: React.FC = () => {
     queryKey: ["shiftAvailabilities"],
     queryFn: () => axios.get("/api/shiftAvailabilities"),
   });
+<<<<<<< HEAD
 
+=======
+>>>>>>> a7a624bb30226c54314b75e659a7cdd7b3a38905
   if (isLoading)
     return (
       <div className="card w-full">
