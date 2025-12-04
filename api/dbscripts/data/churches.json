@@ -1,0 +1,90 @@
+﻿[
+  {
+    "churchId": 1,
+    "churchName": "St. Vincent de Paul Catholic Church"
+  },
+  {
+    "churchId": 2,
+    "churchName": "All Saints Greek Orthodox Church"
+  },
+  {
+    "churchId": 3,
+    "churchName": "Holy Family Catholic Church"
+  },
+  {
+    "churchId": 4,
+    "churchName": "Peoria Heights Christian Church"
+  },
+  {
+    "churchId": 5,
+    "churchName": "Blessed Sacrament Catholic Church"
+  },
+  {
+    "churchId": 6,
+    "churchName": "St. Jude Catholic Church"
+  },
+  {
+    "churchId": 7,
+    "churchName": "St. Mark's Catholic Church"
+  },
+  {
+    "churchId": 8,
+    "churchName": "Catholic"
+  },
+  {
+    "churchId": 9,
+    "churchName": "Additional Church Distinction or Other"
+  },
+  {
+    "churchId": 10,
+    "churchName": "None"
+  },
+  {
+    "churchId": 11,
+    "churchName": "Bloomington Ward"
+  },
+  {
+    "churchId": 12,
+    "churchName": "Bloomington-Normal Branch (Spanish)"
+  },
+  {
+    "churchId": 13,
+    "churchName": "Canton Branch"
+  },
+  {
+    "churchId": 14,
+    "churchName": "Galesburg Ward"
+  },
+  {
+    "churchId": 15,
+    "churchName": "Havana Branch"
+  },
+  {
+    "churchId": 16,
+    "churchName": "Kewanee Branch"
+  },
+  {
+    "churchId": 17,
+    "churchName": "Morton Ward"
+  },
+  {
+    "churchId": 18,
+    "churchName": "Normal Ward"
+  },
+  {
+    "churchId": 19,
+    "churchName": "Pekin Ward"
+  },
+  {
+    "churchId": 20,
+    "churchName": "Peoria Ward"
+  },
+  {
+    "churchId": 21,
+    "churchName": "Pontiac Branch"
+  },
+  {
+    "churchId": 22,
+    "churchName": "Mt Hawley Community Church"
+  }
+]

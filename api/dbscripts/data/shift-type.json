@@ -1,0 +1,10 @@
+﻿[
+  {
+    "typeId": "1",
+    "shiftType": "setup"
+  },
+  {
+    "typeId": "2",
+    "shiftType": "host"
+  }
+]

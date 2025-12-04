@@ -41,6 +41,7 @@ function App() {
     },
   });
   const isAdmin = data?.isAdmin;
+  const x = 0;
 
   const router2 = createBrowserRouter(
     createRoutesFromElements(
